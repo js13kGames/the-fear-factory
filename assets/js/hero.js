@@ -17,6 +17,7 @@ function Hero(w, h, x, y, angle, type) {
   this.jumpHeight = 0; // Current height of the jump
   this.particles = []; // Array to hold dust particles
   this.dustTimer = 0; // Timer to control dust particle creation
+  this.lvl = 0; // Which level of block is the hero; at 0 is ground
 
   this.update = function(delta) {
     if (space() && !this.isJumping) {
@@ -24,9 +25,18 @@ function Hero(w, h, x, y, angle, type) {
       this.jumpSpeed = this.iJumpSpd;
     }
 
+    if (this.lvl==0 && this.jumpHeight>0){
+      this.isJumping = true;
+    }
+
     if (this.isJumping) {
       this.jumpHeight += this.jumpSpeed * delta * 90; // Update jump height
       this.jumpSpeed += this.gravity * delta; // Apply gravity
+
+      if (this.lvl==1 && Math.ceil(this.e.z)==-34){
+        this.isJumping = false;
+        this.e.z=32;
+      }
 
       // If the character has landed
       if (this.jumpHeight <= 0) {
@@ -82,8 +92,9 @@ function Hero(w, h, x, y, angle, type) {
 
       // Hands
       this.lHand.setV(this.e.x+70, this.e.y+64+bounce);
-      this.rHand.setV(this.e.x+15, this.e.y+64+bounce);
-      this.shadow.setV(this.e.x+22, this.e.y+80);
+      this.rHand.setV(this.e.x+20, this.e.y+64+bounce);
+      this.shadow.setV(this.e.x+(this.e.flip?34:22), this.e.y+80);
+      this.shadow.z=this.lvl==0?0:-32;
 
     } else if(this.hp==0){
       if(this.die<1.5){
@@ -99,7 +110,7 @@ function Hero(w, h, x, y, angle, type) {
 
     // Check at centre X
     // y+30 to make sure feet are on tile
-    this.currentTile=getTile(this.e.x-64, this.e.y+30)
+    this.currentTile=getTile(this.e.x-64, this.e.y+32, this.lvl)
     // Update and draw dust particles
     this.particles = this.particles.filter(p => p.isAlive());
     this.particles.forEach(p => {

@@ -34,6 +34,15 @@ function Entity(w, h, x, y, angle, type, id=0) {
     let newX=this.x;
     let newY=this.y;
 
+    let ct = getTile(this.x-64, this.y+32, 1);
+    if(this.z < -40){
+      if(ct.type == types.TILE2){
+        cart.hero.lvl=1;
+      }
+    } else if(cart.hero.lvl==1&&ct.type == types.AIR) {
+      cart.hero.lvl=0;
+    }
+
     if(left()){
       newX-=spd;
       this.dir=1;
@@ -162,6 +171,9 @@ function Entity(w, h, x, y, angle, type, id=0) {
       case types.TILE:
         this.sx=16;
         break;
+      case types.TILE2:
+        this.sx=49;
+        break;
       case types.HAND:
         this.sy=17;
         break;
@@ -169,6 +181,11 @@ function Entity(w, h, x, y, angle, type, id=0) {
         this.sx=5;
         this.sy=17;
         break;
+      case types.AIR: // Select blank
+        this.sx=89;
+        this.sy=50;
+        break;
+
     }
 
     this.hWidth = this.width / 2;

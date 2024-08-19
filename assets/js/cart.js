@@ -19,19 +19,31 @@ function Cart() {
   this.blocks=[];
 
   let id =0;
-  for (r = 0; r < rows; r++) {
-    for (c = 0; c < cols; c++) {
-      id++;
-      xx = (c - r) * 64;
-      yy = (c + r) * 32;
-      var tile = new Entity(32, 16, xx, yy, 0, types.TILE);
-      this.tiles.push(tile);
+  let tt=[];
+
+  for(l = 0; l < 2; l++){
+    for (r = 0; r < rows; r++) {
+      for (c = 0; c < cols; c++) {
+        id++;
+        xx = (c - r) * 64;
+        yy = (c + r) * 32;
+        let type = types.TILE;
+        if(l==1 && id == 115){
+          type = types.TILE2;
+        } else if(l==1) {
+          type = types.AIR;
+        }
+        var tile = new Entity(32, 16, xx, yy-(l*32), 0, type);
+        tt.push(tile);
+      }
     }
+    this.tiles.push(tt);
+    tt=[];
   }
 
   //block Test
-  var block = new Entity(32, 16, 0, 192, 0, types.BLOCK);
-  this.blocks.push(block);
+  //var block = new Entity(32, 16, 0, 192, 0, types.BLOCK);
+  //this.blocks.push(block);
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -61,14 +73,17 @@ function Cart() {
       drawIsometricRoom();
 
       this.time+=delta;
-      this.tiles.forEach(e => e.sx=16);
+      this.tiles[0].forEach(e => e.sx=16);
 
       if(this.hero.currentTile != null){
         this.hero.currentTile.sx=49;
       }
 
-      this.tiles.forEach(e => e.update(delta));
-      this.blocks.forEach(e => e.update(delta));
+      this.tiles.forEach((t) => {
+        t.forEach(e => e.update(delta));
+      });
+
+      //this.blocks.forEach(e => e.update(delta));
       this.hero.update(delta);
 
       this.hero.checkGun();

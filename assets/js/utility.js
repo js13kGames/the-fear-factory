@@ -76,7 +76,8 @@ function writeStroke(ctx,a,font,colour,txt,x,y, strokeW) {
    mg.context.fillText("FPS: " + fps.toFixed(2), nativeWidth-100, 20);
    mg.context.fillText("HERO: x:" + cart.hero.e.x + " y:" + cart.hero.e.y, nativeWidth-200, 40);
    mg.context.fillText("HERO: R:" + cart.hero.e.row + " C:" + cart.hero.e.col, nativeWidth-200, 60);
-   mg.context.fillText("JUMP: " + cart.hero.jumpHeight, nativeWidth-200, 80);
+   mg.context.fillText("JUMP: " + Math.ceil(cart.hero.jumpHeight), nativeWidth-200, 80);
+   mg.context.fillText("Z: " + Math.ceil(cart.hero.e.z) + " LVL: " + cart.hero.lvl, nativeWidth-200, 100);
  }
 
  function drawHeroBox(borderRadius) {
@@ -114,15 +115,16 @@ function ranColor() {
   return c;
 }
 
-function getTile(xHero, yHero) {
-    let c = Math.round((yHero / 64) + (xHero / 128));
-    let r = Math.round((yHero / 64) - (xHero / 128));
+function getTile(xHero, yHero, level) {
+  let tiles = cart.tiles[level];
+  let c = Math.round((yHero / 64) + (xHero / 128));
+  let r = Math.round((yHero / 64) - (xHero / 128));
 
-    if(cart.tiles[c + (10 * r)]!=null){
-      cart.tiles[c + (10 * r)].sx=49;
-    }
+  if(tiles[c + (10 * r)]!=null){
+    tiles[c + (10 * r)].sx=49;
+  }
 
-    return cart.tiles[c + (10 * r)];
+  return tiles[c + (10 * r)];
 }
 
 function drawIsometricRoom() {
