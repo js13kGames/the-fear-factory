@@ -41,8 +41,8 @@ function Hero(w, h, x, y, angle, type) {
         const angleIncrement = (Math.PI) / (numParticles + 1); // Adjusted angle increment
         for (let i = 0; i < numParticles; i++) {
             const angle = startAngle + i * angleIncrement;
-            const offsetX = Math.cos(angle) * radius;
-            const offsetY = Math.sin(angle) * radius;
+            const offsetX = Math.cos(angle) * radius + rndNo(-5, 5);
+            const offsetY = Math.sin(angle) * radius + rndNo(-5, 5);
             this.particles.push(new Dusty(this.e.x + 55 + offsetX, this.e.y + 95 + offsetY));
         }
       }
@@ -63,12 +63,15 @@ function Hero(w, h, x, y, angle, type) {
     this.lHand.z = -this.jumpHeight;
     this.rHand.z = -this.jumpHeight;
     this.e.move(delta);
-    this.e.flip=mg.keys && (mg.keys[LEFT] || mg.keys[A]);
-    this.e.update(delta);
-    this.lHand.update(delta);
-    this.rHand.update(delta);
-    this.shadow.update(delta);
-    this.e.gun.drawBullets(delta);
+
+    // Facing left or right
+    if(mg.keys && (mg.keys[LEFT] || mg.keys[A])){
+      this.e.flip=true;
+      this.e.dir=1;
+    } else if (mg.keys && (mg.keys[RIGHT] || mg.keys[D])){
+      this.e.flip=false;
+      this.e.dir=0;
+    }
 
     if(this.hp>0){
       // Update the phase, increase by delta time
@@ -94,12 +97,20 @@ function Hero(w, h, x, y, angle, type) {
       }
     }
 
-    this.currentTile=getTile(this.e.x-80, this.e.y+30)
+    // Check at centre X
+    // y+30 to make sure feet are on tile
+    this.currentTile=getTile(this.e.x-64, this.e.y+30)
     // Update and draw dust particles
     this.particles = this.particles.filter(p => p.isAlive());
     this.particles.forEach(p => {
       p.update(delta);
     });
+
+    this.e.update(delta);
+    this.lHand.update(delta);
+    this.rHand.update(delta);
+    this.shadow.update(delta);
+    this.e.gun.drawBullets(delta);
   }
 
   holdClickT = 0;

@@ -19,7 +19,7 @@ function Entity(w, h, x, y, angle, type, id=0) {
   this.open=false;
   this.chasePhase = 'none';
   this.attack=false;
-  
+
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
@@ -54,6 +54,14 @@ function Entity(w, h, x, y, angle, type, id=0) {
 
     this.col = Math.round((newY / 64) + (newX / 128));
     this.row = Math.round((newY / 64) - (newX / 128));
+
+    // Test hit boxes
+    cart.blocks.forEach((e) => {
+      //console.log("BLOCK: x:" + e.x + " y:" + e.y + " w:" + e.width + " h:" + e.height);
+      //console.log("HERO:  x:" + this.x + " y:" + this.y + " w:" + this.width + " h:" + this.height);
+      //console.log(e.isCollidingWith(this, true));
+    });
+
     if((this.col >=0 && this.col < 10)&&(this.row >=-1 &&   this.row < 9)){
       this.y=newY;
       this.x=newX;
@@ -116,11 +124,7 @@ function Entity(w, h, x, y, angle, type, id=0) {
     // Camera Tracking
     ctx.translate(cart.cam.x,cart.cam.y);
     if (this.flip){
-      if(this.type==types.HAIR2){
-        ctx.translate(8.3*w,0);
-      } else {
-        ctx.translate(-w*-7,0);
-      }
+      ctx.translate(-w*-w/2,0);
       ctx.scale(-zoom,zoom);
     } else {
       ctx.scale(zoom,zoom);
@@ -130,11 +134,17 @@ function Entity(w, h, x, y, angle, type, id=0) {
     ctx.restore();
   }
 
-  this.isCollidingWith = function(other) {
-  return !(this.x + this.width < other.x - other.width ||
-           this.x - this.width > other.x + other.width ||
-           this.y + this.height < other.y - other.height ||
-           this.y - this.height > other.y + other.height);
+  this.isCollidingWith = function(other, isHero) {
+    x=other.x;
+    y=other.y;
+    w=other.width*2;
+    h=other.height*2;
+
+    if(isHero){ x-=64 }
+  return !(this.x + (this.width*2) < x - w ||
+           this.x - (this.width*2) > x + w ||
+           this.y + (this.height*2) < y - h ||
+           this.y - (this.height*2) > y + h);
 };
 
   this.setType = function(){

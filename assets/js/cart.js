@@ -31,7 +31,7 @@ function Cart() {
 
   //block Test
   var block = new Entity(32, 16, 0, 192, 0, types.BLOCK);
-  //this.blocks.push(block);
+  this.blocks.push(block);
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -47,9 +47,9 @@ function Cart() {
       if(this.shakeTime>0) this.shakeTime-=delta;
 
       // Camera follow hero
-      this.cam.x = Math.ceil(lerp(-this.hero.e.x+350,this.cam.x,.7));
+      this.cam.x = Math.ceil(lerp(-this.hero.e.x+350,this.cam.x,.8));
       var xadd = check? 120 : 180;
-      this.cam.y = Math.ceil(lerp(-this.hero.e.y+xadd,this.cam.y,.7));
+      this.cam.y = Math.ceil(lerp(-this.hero.e.y+xadd,this.cam.y,.8));
 
       TIME += delta;
       mg.clear();
