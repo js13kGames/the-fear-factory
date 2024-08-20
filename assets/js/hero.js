@@ -15,6 +15,7 @@ function Hero(w, h, x, y, angle, type) {
   this.gravity = -9; // Gravity to apply during the fall
   this.iJumpSpd = 3; // Initial speed of the jump
   this.jumpHeight = 0; // Current height of the jump
+  this.fallHeight = 0;
   this.particles = []; // Array to hold dust particles
   this.dustTimer = 0; // Timer to control dust particle creation
   this.lvl = 0; // Which level of block is the hero; at 0 is ground
@@ -25,17 +26,25 @@ function Hero(w, h, x, y, angle, type) {
       this.jumpSpeed = this.iJumpSpd;
     }
 
+    // Falling off platform
     if (this.lvl==0 && this.jumpHeight>0){
       this.isJumping = true;
     }
 
-    if (this.isJumping) {
-      this.jumpHeight += this.jumpSpeed * delta * 90; // Update jump height
-      this.jumpSpeed += this.gravity * delta; // Apply gravity
+    if (this.lvl==1 && Math.ceil(this.jumpHeight)<32) {
+      this.jumpHeight=34.4;
+    }
 
+    if (this.isJumping) {
+      if(this.lvl==0 || (this.lvl == 1 && this.jumpHeight > 32 )){
+        this.jumpHeight += this.jumpSpeed * delta * 90; // Update jump height
+        this.jumpSpeed += this.gravity * delta; // Apply gravity
+      }
       if (this.lvl==1 && Math.ceil(this.e.z)==-34){
         this.isJumping = false;
-        this.e.z=32;
+      } else if (this.lvl==1 && Math.ceil(this.jumpHeight)<32) {
+        this.isJumping = false;
+        this.jumpHeight=34.4;
       }
 
       // If the character has landed
@@ -57,6 +66,10 @@ function Hero(w, h, x, y, angle, type) {
         }
       }
     }
+
+    // if (this.lvl==1 && this.e.z < 32){
+    //   this.e.z=32.4;
+    // }
 
     // Create dust particles if the hero is moving
     if (mg.keys && (mg.keys[LEFT] || mg.keys[RIGHT] || mg.keys[A] || mg.keys[D])) {

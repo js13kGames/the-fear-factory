@@ -42,8 +42,8 @@ function Cart() {
   }
 
   //block Test
-  //var block = new Entity(32, 16, 0, 192, 0, types.BLOCK);
-  //this.blocks.push(block);
+  var block = new Entity(32, 16, 192, 164, 0, types.BLOCK);
+  this.blocks.push(block);
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -83,7 +83,7 @@ function Cart() {
         t.forEach(e => e.update(delta));
       });
 
-      //this.blocks.forEach(e => e.update(delta));
+      this.blocks.forEach(e => e.update(delta));
       this.hero.update(delta);
 
       this.hero.checkGun();

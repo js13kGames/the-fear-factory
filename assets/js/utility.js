@@ -78,6 +78,8 @@ function writeStroke(ctx,a,font,colour,txt,x,y, strokeW) {
    mg.context.fillText("HERO: R:" + cart.hero.e.row + " C:" + cart.hero.e.col, nativeWidth-200, 60);
    mg.context.fillText("JUMP: " + Math.ceil(cart.hero.jumpHeight), nativeWidth-200, 80);
    mg.context.fillText("Z: " + Math.ceil(cart.hero.e.z) + " LVL: " + cart.hero.lvl, nativeWidth-200, 100);
+   mg.context.fillText("Jumping: " + cart.hero.isJumping, nativeWidth-200, 120);
+  mg.context.fillText("Jump H: " + cart.hero.jumpHeight, nativeWidth-200, 140);
  }
 
  function drawHeroBox(borderRadius) {
