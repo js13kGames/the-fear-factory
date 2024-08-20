@@ -79,7 +79,9 @@ function writeStroke(ctx,a,font,colour,txt,x,y, strokeW) {
    mg.context.fillText("JUMP: " + Math.ceil(cart.hero.jumpHeight), nativeWidth-200, 80);
    mg.context.fillText("Z: " + Math.ceil(cart.hero.e.z) + " LVL: " + cart.hero.lvl, nativeWidth-200, 100);
    mg.context.fillText("Jumping: " + cart.hero.isJumping, nativeWidth-200, 120);
-  mg.context.fillText("Jump H: " + cart.hero.jumpHeight, nativeWidth-200, 140);
+   mg.context.fillText("Jump H: " + cart.hero.jumpHeight, nativeWidth-200, 140);
+   mg.context.fillText("Jump Speed: " + cart.hero.jumpSpeed, nativeWidth-200, 160);
+   mg.context.fillText("Falling: " + cart.hero.isFalling, nativeWidth-200, 180);
  }
 
  function drawHeroBox(borderRadius) {
@@ -163,4 +165,18 @@ function drawTile(x, y, width, height, color) {
   ctx.fillStyle = color;
   ctx.fill();
   ctx.restore();
+}
+
+function hitDust(x, y, arr) {
+  // Determine the number of particles to create (excluding the top 2)
+  const numParticles = 4; // Adjusted for the remaining 4 positions (left, right, bottom-left, bottom-right)
+  const radius = 16; // You can adjust the radius as needed
+  const startAngle = Math.PI / 5; // Start slightly above the bottom-left
+  const angleIncrement = (Math.PI) / (numParticles + 1); // Adjusted angle increment
+  for (let i = 0; i < numParticles; i++) {
+      const angle = startAngle + i * angleIncrement;
+      const offsetX = Math.cos(angle) * radius + rndNo(-5, 5);
+      const offsetY = Math.sin(angle) * radius + rndNo(-5, 5);
+      arr.push(new Dusty(x + 55 + offsetX, y + 95 + offsetY));
+  }
 }

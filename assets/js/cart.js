@@ -21,18 +21,25 @@ function Cart() {
   let id =0;
   let tt=[];
 
-  for(l = 0; l < 2; l++){
+  for(l = 0; l < 3; l++){
     for (r = 0; r < rows; r++) {
       for (c = 0; c < cols; c++) {
         id++;
         xx = (c - r) * 64;
         yy = (c + r) * 32;
         let type = types.TILE;
-        if(l==1 && id == 115){
+        if(l==1 && id == 115 || l==1 && id == 113){
           type = types.TILE2;
         } else if(l==1) {
           type = types.AIR;
         }
+
+        if(l==2 && id == 217){
+          type = types.TILE2;
+        } else if(l==2) {
+          type = types.AIR;
+        }
+
         var tile = new Entity(32, 16, xx, yy-(l*32), 0, type);
         tt.push(tile);
       }
@@ -43,7 +50,13 @@ function Cart() {
 
   //block Test
   var block = new Entity(32, 16, 192, 164, 0, types.BLOCK);
+  block = new Entity(32, 16, 192, 164, 0, types.BLOCK);
   this.blocks.push(block);
+  block = new Entity(32, 16, 320, 196, 0, types.BLOCK);
+  this.blocks.push(block);
+  block = new Entity(32, 16, 320, 224, 0, types.BLOCK);
+  this.blocks.push(block);
+  //
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {

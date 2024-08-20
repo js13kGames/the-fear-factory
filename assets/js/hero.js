@@ -11,6 +11,7 @@ function Hero(w, h, x, y, angle, type) {
   this.e.gun = new Gun();
   this.currentTile=null;
   this.isJumping = false;
+  this.isFalling = false;
   this.jumpSpeed = 0;
   this.gravity = -9; // Gravity to apply during the fall
   this.iJumpSpd = 3; // Initial speed of the jump
@@ -19,53 +20,78 @@ function Hero(w, h, x, y, angle, type) {
   this.particles = []; // Array to hold dust particles
   this.dustTimer = 0; // Timer to control dust particle creation
   this.lvl = 0; // Which level of block is the hero; at 0 is ground
+  this.prevlvl = 0;
 
   this.update = function(delta) {
     if (space() && !this.isJumping) {
+      this.startJumping();
+    }
+
+    // Falling off platform
+    if (this.lvl == 0 && this.jumpHeight > 0) {
+      this.isJumping = true;
+    }
+
+    // Landed on platform 1
+    if (this.lvl > 0 && this.landed()) {
+      this.landOnPlatform();
+    }
+
+    if (this.isJumping) {
+      this.updateJump(delta);
+    }
+
+    // Function to start jumping
+    this.startJumping = function() {
       this.isJumping = true;
       this.jumpSpeed = this.iJumpSpd;
     }
 
-    // Falling off platform
-    if (this.lvl==0 && this.jumpHeight>0){
-      this.isJumping = true;
+    // Function to check if the character has landed on platform 1
+    this.landed = function() {
+      //return Math.ceil(this.jumpHeight) < 32;
+      return Math.ceil(this.jumpHeight) < this.getPlatH(this.lvl);
     }
 
-    if (this.lvl==1 && Math.ceil(this.jumpHeight)<32) {
-      this.jumpHeight=34.4;
+    // Function to handle landing on platform 1
+    this.landOnPlatform = function() {
+      this.jumpHeight = this.getPlatH(this.lvl);
+      this.isFalling = false;
     }
 
-    if (this.isJumping) {
-      if(this.lvl==0 || (this.lvl == 1 && this.jumpHeight > 32 )){
+    // Function to update the jumping state
+    this.updateJump = function(delta) {
+      if (this.lvl == 0 || (this.lvl > 0 && this.jumpHeight > 32)) {
         this.jumpHeight += this.jumpSpeed * delta * 90; // Update jump height
         this.jumpSpeed += this.gravity * delta; // Apply gravity
+        this.isFalling = this.jumpSpeed < 0;
       }
-      if (this.lvl==1 && Math.ceil(this.e.z)==-34){
+
+      if (this.lvl > 0 && Math.ceil(this.e.z) == this.getPlatH(this.lvl)) {
         this.isJumping = false;
-      } else if (this.lvl==1 && Math.ceil(this.jumpHeight)<32) {
+      } else if (this.lvl > 0 && this.landed()) {
         this.isJumping = false;
-        this.jumpHeight=34.4;
+        this.landOnPlatform();
       }
 
       // If the character has landed
       if (this.jumpHeight <= 0) {
-        this.jumpHeight = 0;
-        this.isJumping = false;
-        cart.shakeTime=.08;
-
-        // Move to function
-        // Determine the number of particles to create (excluding the top 2)
-        const numParticles = 4; // Adjusted for the remaining 4 positions (left, right, bottom-left, bottom-right)
-        const radius = 16; // You can adjust the radius as needed
-        const startAngle = Math.PI / 5; // Start slightly above the bottom-left
-        const angleIncrement = (Math.PI) / (numParticles + 1); // Adjusted angle increment
-        for (let i = 0; i < numParticles; i++) {
-            const angle = startAngle + i * angleIncrement;
-            const offsetX = Math.cos(angle) * radius + rndNo(-5, 5);
-            const offsetY = Math.sin(angle) * radius + rndNo(-5, 5);
-            this.particles.push(new Dusty(this.e.x + 55 + offsetX, this.e.y + 95 + offsetY));
-        }
+        this.resetJump();
       }
+    }
+
+    // Function to reset jump after landing
+    this.resetJump = function() {
+      this.jumpHeight = 0;
+      this.isJumping = false;
+      this.isFalling = false;
+      cart.shakeTime = .08;
+      hitDust(this.e.x, this.e.y, this.particles);
+    }
+
+    this.getPlatH = function(level) {
+      const heights = [0, 34.4, 68.8, 103.2];
+      return heights[level] || 0;
     }
 
     // Create dust particles if the hero is moving
@@ -104,7 +130,8 @@ function Hero(w, h, x, y, angle, type) {
       this.lHand.setV(this.e.x+70, this.e.y+64+bounce);
       this.rHand.setV(this.e.x+20, this.e.y+64+bounce);
       this.shadow.setV(this.e.x+(this.e.flip?34:22), this.e.y+80);
-      this.shadow.z=this.lvl==0?0:-32;
+      this.shadow.z = this.lvl === 0 ? 0 : -32 * this.lvl;
+
 
     } else if(this.hp==0){
       if(this.die<1.5){
