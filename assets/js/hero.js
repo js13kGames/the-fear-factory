@@ -53,6 +53,7 @@ function Hero(w, h, x, y, angle, type) {
         this.isJumping = false;
         cart.shakeTime=.08;
 
+        // Move to function
         // Determine the number of particles to create (excluding the top 2)
         const numParticles = 4; // Adjusted for the remaining 4 positions (left, right, bottom-left, bottom-right)
         const radius = 16; // You can adjust the radius as needed
@@ -66,10 +67,6 @@ function Hero(w, h, x, y, angle, type) {
         }
       }
     }
-
-    // if (this.lvl==1 && this.e.z < 32){
-    //   this.e.z=32.4;
-    // }
 
     // Create dust particles if the hero is moving
     if (mg.keys && (mg.keys[LEFT] || mg.keys[RIGHT] || mg.keys[A] || mg.keys[D])) {
