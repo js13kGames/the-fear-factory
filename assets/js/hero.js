@@ -32,7 +32,7 @@ function Hero(w, h, x, y, angle, type) {
       this.isJumping = true;
     }
 
-    // Landed on platform 1
+    // Landed on platform 1+
     if (this.lvl > 0 && this.landed()) {
       this.landOnPlatform();
     }
@@ -49,7 +49,6 @@ function Hero(w, h, x, y, angle, type) {
 
     // Function to check if the character has landed on platform 1
     this.landed = function() {
-      //return Math.ceil(this.jumpHeight) < 32;
       return Math.ceil(this.jumpHeight) < this.getPlatH(this.lvl);
     }
 

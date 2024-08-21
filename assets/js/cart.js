@@ -28,7 +28,7 @@ function Cart() {
         xx = (c - r) * 64;
         yy = (c + r) * 32;
         let type = types.TILE;
-        if(l==1 && id == 115 || l==1 && id == 113){
+        if(l==1 && id == 115){
           type = types.TILE2;
         } else if(l==1) {
           type = types.AIR;
