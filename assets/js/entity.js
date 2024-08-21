@@ -37,11 +37,14 @@ function Entity(w, h, x, y, angle, type, id=0) {
     // 2 Platform levels
     let ct = getTile(this.x - 64, this.y + 32, 1);
     let ct2 = getTile(this.x - 64, this.y + 32, 2);
+    let ct3 = getTile(this.x - 64, this.y + 32, 3);
 
-    if (this.z < -80 && ct2.type === types.TILE2) cart.hero.lvl = 2;
-    else if (this.z < -40 && ct.type === types.TILE2) cart.hero.lvl = 1;
-    else if (cart.hero.lvl === 2 && ct2.type === types.AIR) cart.hero.lvl = 1;
-    else if (cart.hero.lvl === 1 && ct.type === types.AIR) cart.hero.lvl = 0;
+    if (this.z < -115 && ct3.type == types.TILE2) cart.hero.lvl = 3;
+    else if(this.z < -80 && ct2.type == types.TILE2) cart.hero.lvl = 2;
+    else if (this.z < -40 && ct.type == types.TILE2) cart.hero.lvl = 1;
+    else if (cart.hero.lvl == 3 && ct3.type == types.AIR) cart.hero.lvl = 2;
+    else if (cart.hero.lvl == 2 && ct2.type == types.AIR) cart.hero.lvl = 1;
+    else if (cart.hero.lvl == 1 && ct.type == types.AIR) cart.hero.lvl = 0;
 
     if(left()){
       newX-=spd;

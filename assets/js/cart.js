@@ -21,7 +21,7 @@ function Cart() {
   let id =0;
   let tt=[];
 
-  for(l = 0; l < 3; l++){
+  for(l = 0; l < 4; l++){
     for (r = 0; r < rows; r++) {
       for (c = 0; c < cols; c++) {
         id++;
@@ -37,6 +37,12 @@ function Cart() {
         if(l==2 && id == 217){
           type = types.TILE2;
         } else if(l==2) {
+          type = types.AIR;
+        }
+
+        if(l==3 && id == 319){
+          type = types.TILE2;
+        } else if(l==3) {
           type = types.AIR;
         }
 
