@@ -46,6 +46,24 @@ function Entity(w, h, x, y, angle, type, id=0) {
     else if (cart.hero.lvl == 2 && ct2.type == types.AIR) cart.hero.lvl = 1;
     else if (cart.hero.lvl == 1 && ct.type == types.AIR) cart.hero.lvl = 0;
 
+//     const levels = [115, 80, 40]; // Heights corresponding to levels 3, 2, 1 (you can adjust or extend this array as needed)
+//     const tiles = [getTile(this.x - 64, this.y + 32, 3),
+//                    getTile(this.x - 64, this.y + 32, 2),
+//                    getTile(this.x - 64, this.y + 32, 1)];
+//
+//     for (let i = 0; i < levels.length; i++) {
+//       const level = levels.length - i; // This gives you the level starting from the highest
+//       const tile = tiles[i];
+//
+//       if (this.z < -levels[i] && tile.type == types.TILE2) {
+//         cart.hero.lvl = level;
+//         break;
+//       } else if (cart.hero.lvl == level && tile.type == types.AIR) {
+//         cart.hero.lvl = level - 1;
+//         break;
+//     }
+// }
+
     if(left()){
       newX-=spd;
       this.dir=1;
