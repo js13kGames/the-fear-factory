@@ -90,12 +90,12 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     }
 
     this.col = Math.round((newY / 64) + (newX / 128));
-    this.row = Math.round((newY / 64) - (newX / 128));
+    this.row = Math.round((newY / 64) - (newX / 128)+1);
 
     let blocked=false;
     let tile = getTile(newX-64, newY+32, cart.hero.lvl);
 
-    inbounds = (this.col >=0 && this.col < 10)&&(this.row >=-1 &&  this.row < 9);
+    inbounds = (this.col >=0 && this.col < 10)&&(this.row >=0 &&  this.row < 10);
 
     // ABOVE
     if(cart.hero.lvl<3){
@@ -112,7 +112,7 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     }
 
     // sides
-    if (this.row == -2) {
+    if (this.row == -1) {
       if (right()) {
         this.y += spd;
       } else if (up()) {
@@ -128,7 +128,7 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
       }
     }
 
-    if (this.row == 9) {
+    if (this.row == 10) {
       if (left()) {
         this.y -= 1;
       } else if (down()) {
