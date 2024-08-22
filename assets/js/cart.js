@@ -43,12 +43,16 @@ function Cart() {
 
         // STEP 2
         if(l==1 && id == 117){
-          type = types.BLOCK;
+          type = types.STOP;
         }
         if(l==2 && id == 217){
           type = types.TILE2;
         } else if(l==2) {
           type = types.AIR;
+        }
+
+        if(l==0 && id == 17){
+          type = types.STOP;
         }
 
         //if(l==3 && id == 319){

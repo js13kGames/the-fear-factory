@@ -68,47 +68,25 @@ function Entity(w, h, x, y, angle, type, id=0) {
     this.col = Math.round((newY / 64) + (newX / 128));
     this.row = Math.round((newY / 64) - (newX / 128));
 
-    // Test hit boxes
-    //cart.blocks.forEach((e) => {
-      //console.log("BLOCK: x:" + e.x + " y:" + e.y + " w:" + e.width + " h:" + e.height);
-      //console.log("HERO:  x:" + this.x + " y:" + this.y + " w:" + this.width + " h:" + this.height);
-      //console.log(e.isCollidingWith(this, true));
-    //});
+    if(cart.hero.jumpHeight > cart.hero.getPlatH(cart.hero.lvl)){
 
-    // Check bounds
-    // this.currentTile=getTile(this.e.x-64, this.e.y+32, this.lvl)
-    let blockOver=false;
-    let blockUnder=false;
-    let blockIn=false;
-    let ta = null;
-    let tu = null;
-    let ti = getTile(newX-64, newY+32, cart.hero.lvl);
+    }
 
-    inbounds = (this.col >=0 && this.col < 10)&&(this.row >=-1 &&   this.row < 9);
+    let blocked=false;
+    let tile = getTile(newX-64, newY+32, cart.hero.lvl);
+
+    inbounds = (this.col >=0 && this.col < 10)&&(this.row >=-1 &&  this.row < 9);
 
     // ABOVE
     if(cart.hero.lvl<3){
-      ta = getTile(newX-64, newY+32, cart.hero.lvl);
-      blockOver = ta != null && ta.type != types.AIR && ta.type != types.TILE && cart.hero.jumpHeight < cart.hero.lvl+1*32;
+      blocked = tile != null && tile.type != types.TILE && cart.hero.jumpHeight < cart.hero.lvl+1*32;
+      if(!blocked){
+        tile = getTile(newX-64, newY+32, cart.hero.lvl+1);
+        blocked = tile != null && tile.type == types.STOP  && cart.hero.jumpHeight < cart.hero.lvl+2*32;
+      }
     }
 
-    // UNDER
-    if(cart.hero.lvl>0){
-      //tu = getTile(newX-64, newY+32, cart.hero.lvl-1);
-      //blockUnder = tu != null && tu.type != types.AIR && ta.type != types.TILE && cart.hero.jumpHeight < cart.hero.lvl+1*32;
-    }
-
-    // FALLING
-    // if(cart.hero.isFalling){
-    //blockIn = ti!=null && ti.type==types.STOP && cart.hero.isJumping && cart.hero.jumpHeight < cart.hero.getPlatH(cart.hero.lvl+1);
-    //if(!blockIn) blockIn = ta!=null && ta.type==types.STOP&&cart.hero.isJumping&& cart.hero.jumpHeight < cart.hero.getPlatH(cart.hero.lvl+1);
-    //if(!blockIn) blockIn = tu!=null && tu.type==types.STOP&&(cart.hero.isJumping || cart.hero.isJumping) && cart.hero.jumpHeight < cart.hero.getPlatH(cart.hero.lvl+1);
-
-    //if(!blockIn) blockIn = ta!=null && ta.type == types.TILE2 && cart.hero.jumpHeight < cart.hero.getPlatH(cart.hero.lvl+1) ;
-    //if(!blockIn) blockIn = tu!=null && tu.type == types.TILE2 && cart.hero.jumpHeight < cart.hero.getPlatH(cart.hero.lvl-1) ;
-    // }
-
-    if(inbounds && !blockOver && !blockUnder && !blockIn){
+    if(!blocked){
       this.y=newY;
       this.x=newX;
     }
