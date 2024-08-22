@@ -1,5 +1,5 @@
 function Hero(w, h, x, y, angle, type) {
-  this.e = new Entity(16, 16, 0, 0, 0, types.HERO);
+  this.e = new Entity(16, 16, 0, 0, 0, types.HERO,this);
   this.lHand = new Entity(4, 4, 0, 0, 0, types.HAND);
   this.rHand = new Entity(4, 4, 0, 0, 0, types.HAND);
   this.shadow = new Entity(9, 4, 0, 0, 0, types.SHADOW);
@@ -158,6 +158,11 @@ function Hero(w, h, x, y, angle, type) {
     this.rHand.update(delta);
     this.shadow.update(delta);
     this.e.gun.drawBullets(delta);
+
+    // Render tiles in front of hero
+    this.e.closeTiles.forEach((e) => {
+      e.update();
+    });
   }
 
   holdClickT = 0;

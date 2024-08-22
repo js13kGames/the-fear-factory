@@ -1,4 +1,4 @@
-function Entity(w, h, x, y, angle, type, id=0) {
+function Entity(w, h, x, y, angle, type, id=0, p=null) {
   this.type = type;
   this.width = w;
   this.height = h;
@@ -19,6 +19,8 @@ function Entity(w, h, x, y, angle, type, id=0) {
   this.open=false;
   this.chasePhase = 'none';
   this.attack=false;
+  this.parent=p;
+  this.closeTiles=[];
 
   // ATLAS Positions
   this.sx=0;
@@ -27,13 +29,35 @@ function Entity(w, h, x, y, angle, type, id=0) {
   this.row=0;
   this.col=0;
 
-  // ONLY FOR THE HERO
+  // ONLY FOR THE HERO]
+  // Move out of entity
   this.move = function(){
     let spd = this.speed;
     this.prevX=this.x;
     this.prevY=this.y;
     let newX=this.x;
     let newY=this.y;
+
+    // Get the surrounding tiles
+    this.closeTiles=[];
+    this.col = Math.round((this.y / 64) + (this.x / 128));
+    this.row = Math.round((this.y / 64) - (this.x / 128))+1;
+    let offsets = [1,10,11];//[-11, -10, -9, -1, 1, 9, 10, 11];
+    if(cart.hero.currentTile) tIndex=cart.hero.currentTile.id;
+
+    let currentTileIndex = (this.row * 10) + this.col;
+
+    for (let l = 1; l < 3; l++) {
+      offsets.forEach(offset => {
+        let tileIndex = currentTileIndex + offset;
+
+        // Ensure the tile index is within bounds
+        if (tileIndex >= 0 && tileIndex < cart.tiles[l].length) {
+          let tile = cart.tiles[l][tileIndex];
+          if (tile && tile.type==types.TILE2) this.closeTiles.push(tile);
+        }
+      });
+    }
 
     // 2 Platform levels
     let ct = getTile(this.x - 64, this.y + 32, 1);
@@ -68,10 +92,6 @@ function Entity(w, h, x, y, angle, type, id=0) {
     this.col = Math.round((newY / 64) + (newX / 128));
     this.row = Math.round((newY / 64) - (newX / 128));
 
-    if(cart.hero.jumpHeight > cart.hero.getPlatH(cart.hero.lvl)){
-
-    }
-
     let blocked=false;
     let tile = getTile(newX-64, newY+32, cart.hero.lvl);
 
@@ -86,43 +106,44 @@ function Entity(w, h, x, y, angle, type, id=0) {
       }
     }
 
-    if(!blocked){
+    if(!blocked && inbounds){
       this.y=newY;
       this.x=newX;
     }
 
     // sides
     if (this.row == -2) {
-          if (right()) {
-              this.y += spd;
-          } else if (up()) {
-              this.x -= spd;
-          }
+      if (right()) {
+        this.y += spd;
+      } else if (up()) {
+        this.x -= spd;
       }
+    }
 
-      if (this.col == -1) {
-          if (left()) {
-              this.y += 1;
-          } else if (up()) {
-              this.x += 1;
-          }
+    if (this.col == -1) {
+      if (left()) {
+        this.y += 1;
+      } else if (up()) {
+        this.x += 1;
       }
+    }
 
-      if (this.row == 9) {
-          if (left()) {
-              this.y -= 1;
-          } else if (down()) {
-              this.x += 1;
-          }
+    if (this.row == 9) {
+      if (left()) {
+        this.y -= 1;
+      } else if (down()) {
+        this.x += 1;
       }
+    }
 
-      if (this.col == 10) {
-          if (right()) {
-              this.y -= 1;
-          } else if (down()) {
-              this.x -= 1;
-          }
+    if (this.col == 10) {
+      if (right()) {
+        this.y -= 1;
+      } else if (down()) {
+        this.x -= 1;
       }
+    }
+
   }
 
   this.setV = function(x,y) {
@@ -201,7 +222,6 @@ function Entity(w, h, x, y, angle, type, id=0) {
         this.sx=89;
         this.sy=50;
         break;
-
     }
 
     this.hWidth = this.width / 2;

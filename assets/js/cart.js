@@ -62,6 +62,7 @@ function Cart() {
         }
 
         var tile = new Entity(32, 16, xx, yy-(l*32), 0, type);
+        tile.id=id;
         tt.push(tile);
       }
     }
