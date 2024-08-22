@@ -6,7 +6,8 @@ const types = {
   BLOCK:4,
   TEXT:5,
   HAND:6,
-  TILE2:7
+  TILE2:7,
+  STOP:8
 }
 
 const guntype = {

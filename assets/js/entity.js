@@ -27,6 +27,7 @@ function Entity(w, h, x, y, angle, type, id=0) {
   this.row=0;
   this.col=0;
 
+  // ONLY FOR THE HERO
   this.move = function(){
     let spd = this.speed;
     this.prevX=this.x;
@@ -45,24 +46,6 @@ function Entity(w, h, x, y, angle, type, id=0) {
     else if (cart.hero.lvl == 3 && ct3.type == types.AIR) cart.hero.lvl = 2;
     else if (cart.hero.lvl == 2 && ct2.type == types.AIR) cart.hero.lvl = 1;
     else if (cart.hero.lvl == 1 && ct.type == types.AIR) cart.hero.lvl = 0;
-
-//     const levels = [115, 80, 40]; // Heights corresponding to levels 3, 2, 1 (you can adjust or extend this array as needed)
-//     const tiles = [getTile(this.x - 64, this.y + 32, 3),
-//                    getTile(this.x - 64, this.y + 32, 2),
-//                    getTile(this.x - 64, this.y + 32, 1)];
-//
-//     for (let i = 0; i < levels.length; i++) {
-//       const level = levels.length - i; // This gives you the level starting from the highest
-//       const tile = tiles[i];
-//
-//       if (this.z < -levels[i] && tile.type == types.TILE2) {
-//         cart.hero.lvl = level;
-//         break;
-//       } else if (cart.hero.lvl == level && tile.type == types.AIR) {
-//         cart.hero.lvl = level - 1;
-//         break;
-//     }
-// }
 
     if(left()){
       newX-=spd;
@@ -86,17 +69,51 @@ function Entity(w, h, x, y, angle, type, id=0) {
     this.row = Math.round((newY / 64) - (newX / 128));
 
     // Test hit boxes
-    cart.blocks.forEach((e) => {
+    //cart.blocks.forEach((e) => {
       //console.log("BLOCK: x:" + e.x + " y:" + e.y + " w:" + e.width + " h:" + e.height);
       //console.log("HERO:  x:" + this.x + " y:" + this.y + " w:" + this.width + " h:" + this.height);
       //console.log(e.isCollidingWith(this, true));
-    });
+    //});
 
-    if((this.col >=0 && this.col < 10)&&(this.row >=-1 &&   this.row < 9)){
+    // Check bounds
+    // this.currentTile=getTile(this.e.x-64, this.e.y+32, this.lvl)
+    let blockOver=false;
+    let blockUnder=false;
+    let blockIn=false;
+    let ta = null;
+    let tu = null;
+    let ti = getTile(newX-64, newY+32, cart.hero.lvl);
+
+    inbounds = (this.col >=0 && this.col < 10)&&(this.row >=-1 &&   this.row < 9);
+
+    // ABOVE
+    if(cart.hero.lvl<3){
+      ta = getTile(newX-64, newY+32, cart.hero.lvl);
+      blockOver = ta != null && ta.type != types.AIR && ta.type != types.TILE && cart.hero.jumpHeight < cart.hero.lvl+1*32;
+    }
+
+    // UNDER
+    if(cart.hero.lvl>0){
+      //tu = getTile(newX-64, newY+32, cart.hero.lvl-1);
+      //blockUnder = tu != null && tu.type != types.AIR && ta.type != types.TILE && cart.hero.jumpHeight < cart.hero.lvl+1*32;
+    }
+
+    // FALLING
+    // if(cart.hero.isFalling){
+    //blockIn = ti!=null && ti.type==types.STOP && cart.hero.isJumping && cart.hero.jumpHeight < cart.hero.getPlatH(cart.hero.lvl+1);
+    //if(!blockIn) blockIn = ta!=null && ta.type==types.STOP&&cart.hero.isJumping&& cart.hero.jumpHeight < cart.hero.getPlatH(cart.hero.lvl+1);
+    //if(!blockIn) blockIn = tu!=null && tu.type==types.STOP&&(cart.hero.isJumping || cart.hero.isJumping) && cart.hero.jumpHeight < cart.hero.getPlatH(cart.hero.lvl+1);
+
+    //if(!blockIn) blockIn = ta!=null && ta.type == types.TILE2 && cart.hero.jumpHeight < cart.hero.getPlatH(cart.hero.lvl+1) ;
+    //if(!blockIn) blockIn = tu!=null && tu.type == types.TILE2 && cart.hero.jumpHeight < cart.hero.getPlatH(cart.hero.lvl-1) ;
+    // }
+
+    if(inbounds && !blockOver && !blockUnder && !blockIn){
       this.y=newY;
       this.x=newX;
     }
 
+    // sides
     if (this.row == -2) {
           if (right()) {
               this.y += spd;

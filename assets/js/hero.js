@@ -129,7 +129,7 @@ function Hero(w, h, x, y, angle, type) {
       this.lHand.setV(this.e.x+70, this.e.y+64+bounce);
       this.rHand.setV(this.e.x+20, this.e.y+64+bounce);
       this.shadow.setV(this.e.x+(this.e.flip?34:22), this.e.y+80);
-      this.shadow.z = this.lvl === 0 ? 0 : -32 * this.lvl;
+      this.shadow.z = this.lvl == 0 ? 0 : -32 * this.lvl; // TODO, fix position based on level
 
 
     } else if(this.hp==0){

@@ -28,21 +28,32 @@ function Cart() {
         xx = (c - r) * 64;
         yy = (c + r) * 32;
         let type = types.TILE;
+
+        // under the first step is a blocker
+        if(l==0 && id == 15){
+          type = types.STOP;
+        }
+
+        // Level 1 step
         if(l==1 && id == 115){
           type = types.TILE2;
         } else if(l==1) {
           type = types.AIR;
         }
 
+        // STEP 2
+        if(l==1 && id == 117){
+          type = types.BLOCK;
+        }
         if(l==2 && id == 217){
           type = types.TILE2;
         } else if(l==2) {
           type = types.AIR;
         }
 
-        if(l==3 && id == 319){
-          type = types.TILE2;
-        } else if(l==3) {
+        //if(l==3 && id == 319){
+          //type = types.TILE2;
+        if(l==3) {
           type = types.AIR;
         }
 
@@ -60,9 +71,6 @@ function Cart() {
   this.blocks.push(block);
   block = new Entity(32, 16, 320, 196, 0, types.BLOCK);
   this.blocks.push(block);
-  block = new Entity(32, 16, 320, 224, 0, types.BLOCK);
-  this.blocks.push(block);
-  //
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -99,7 +107,9 @@ function Cart() {
       }
 
       this.tiles.forEach((t) => {
-        t.forEach(e => e.update(delta));
+        t.forEach((e) => {
+            if(e.type != types.STOP && e.type != types.AIR){e.update(delta)};
+          });
       });
 
       this.blocks.forEach(e => e.update(delta));
