@@ -81,7 +81,9 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
       }
     }
 
-    if(!blocked && inbounds){
+    let stuck = cart.hero.currentTile == null ? false : cart.hero.currentTile.type == types.STOP;
+
+    if((!blocked && inbounds) || stuck){
       this.y=newY;
       this.x=newX;
     }
