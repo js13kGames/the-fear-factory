@@ -40,24 +40,11 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
 
     // Get the surrounding tiles
     this.closeTiles=[];
-    this.col = Math.round((this.y / 64) + (this.x / 128));
-    this.row = Math.round((this.y / 64) - (this.x / 128))+1;
-    let offsets = [1,10,11];//[-11, -10, -9, -1, 1, 9, 10, 11];
-    if(cart.hero.currentTile) tIndex=cart.hero.currentTile.id;
-
-    let currentTileIndex = (this.row * 10) + this.col;
-
-    for (let l = 1; l < 3; l++) {
-      offsets.forEach(offset => {
-        let tileIndex = currentTileIndex + offset;
-
-        // Ensure the tile index is within bounds
-        if (tileIndex >= 0 && tileIndex < cart.tiles[l].length) {
-          let tile = cart.tiles[l][tileIndex];
-          if (tile && tile.type==types.TILE2) this.closeTiles.push(tile);
-        }
-      });
-    }
+    this.col=Math.round((this.y/64)+(this.x/128));
+    this.row=Math.round((this.y/64)-(this.x/128))+1;
+    let o=[1,10,11],t=cart.hero.currentTile?.id;
+    let i=(this.row*10)+this.col;
+    for(let l=1;l<3;l++)o.forEach(d=>{let n=i+d;if(n>=0&&n<cart.tiles[l].length){let a=cart.tiles[l][n];a?.type==types.TILE2&&this.closeTiles.push(a)}});
 
     // 2 Platform levels
     let ct = getTile(this.x - 64, this.y + 32, 1);
@@ -71,23 +58,11 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     else if (cart.hero.lvl == 2 && ct2.type == types.AIR) cart.hero.lvl = 1;
     else if (cart.hero.lvl == 1 && ct.type == types.AIR) cart.hero.lvl = 0;
 
-    if(left()){
-      newX-=spd;
-      this.dir=1;
-    }
-
-    if(right()){
-      newX+=spd;
-      this.dir=0;
-    }
-
-    if(up()){
-      newY-=spd/2;
-    }
-
-    if(down()){
-      newY+=spd/2;
-    }
+    // Movement
+    left()&&(newX-=spd,this.dir=1);
+    right()&&(newX+=spd,this.dir=0);
+    up()&&(newY-=spd/2);
+    down()&&(newY+=spd/2);
 
     this.col = Math.round((newY / 64) + (newX / 128));
     this.row = Math.round((newY / 64) - (newX / 128)+1);
@@ -112,38 +87,10 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     }
 
     // sides
-    if (this.row == -1) {
-      if (right()) {
-        this.y += spd;
-      } else if (up()) {
-        this.x -= spd;
-      }
-    }
-
-    if (this.col == -1) {
-      if (left()) {
-        this.y += 1;
-      } else if (up()) {
-        this.x += 1;
-      }
-    }
-
-    if (this.row == 10) {
-      if (left()) {
-        this.y -= 1;
-      } else if (down()) {
-        this.x += 1;
-      }
-    }
-
-    if (this.col == 10) {
-      if (right()) {
-        this.y -= 1;
-      } else if (down()) {
-        this.x -= 1;
-      }
-    }
-
+    if(this.row==-1){right()?this.y+=spd:up()&&(this.x-=spd);}
+    if(this.col==-1){left()?this.y+=1:up()&&(this.x+=1);}
+    if(this.row==10){left()?this.y-=1:down()&&(this.x+=1);}
+    if(this.col==10){right()?this.y-=1:down()&&(this.x-=1);}
   }
 
   this.setV = function(x,y) {

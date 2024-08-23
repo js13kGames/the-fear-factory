@@ -76,6 +76,8 @@ function Cart() {
   this.blocks.push(block);
   block = new Entity(32, 16, 320, 196, 0, types.BLOCK);
   this.blocks.push(block);
+  block = new Entity(32, 16, 320, 222, 0, types.BLOCK);
+  this.blocks.push(block);
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
