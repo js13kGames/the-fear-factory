@@ -17,6 +17,7 @@ function Cart() {
   let cols = 10
   this.tiles=[];
   this.blocks=[];
+  this.spikes=[];
 
   let id =0;
   let tt=[];
@@ -70,6 +71,9 @@ function Cart() {
     tt=[];
   }
 
+  var spike = new Spike(88, 5);
+  this.spikes.push(spike);
+
   //block Test
   var block = new Entity(32, 16, 192, 164, 0, types.BLOCK);
   block = new Entity(32, 16, 192, 164, 0, types.BLOCK);
@@ -119,7 +123,9 @@ function Cart() {
           });
       });
 
+
       this.blocks.forEach(e => e.update(delta));
+      this.spikes.forEach(e => e.update(delta));
       this.hero.update(delta);
 
       this.hero.checkGun();

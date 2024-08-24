@@ -171,6 +171,9 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
         this.sx=89;
         this.sy=50;
         break;
+      case types.SPIKE:
+        this.sy=22;
+        break;
     }
 
     this.hWidth = this.width / 2;
