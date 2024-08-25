@@ -48,8 +48,26 @@ function Spike(x, y) {
     } else if(this.time>4.7){
       this.e.height=14;
       this.e.y=this.y-20;
-
     }
+  }
+}
+
+function Ghost(x, y) {
+  this.active=true;
+  this.time=0;
+  this.y=y;
+  this.x=x;
+  this.e = new Entity(15, 17, x, y, 0, types.GHOST);
+  this.shadow = new Entity(9, 4, 0, 0, 0, types.SHADOW);
+  this.shadow.alpha=.4;
+
+  this.update = function(delta) {
+    this.time+=delta;
+    let bounce =.3 * Math.sin(this.time * 2 * Math.PI * 0.4)
+    this.e.z += bounce;
+    this.shadow.setV(this.e.x+(this.e.flip?34:22), this.e.y+110);
+    this.e.update(delta);
+    this.shadow.update(delta);
   }
 }
 
@@ -63,7 +81,6 @@ function Fire(x, y) {
   this.update = function(delta) {
     this.time+=delta;
     this.e.update(delta);
-    //console.log(this.time);
 
     if(this.time>.6){
       this.time=0;
@@ -73,6 +90,5 @@ function Fire(x, y) {
     } else if(this.time>.2){
       this.e.sx=61;
     }
-
-    }
   }
+}

@@ -56,6 +56,7 @@ function Hero(w, h, x, y, angle, type) {
     this.landOnPlatform = function() {
       this.jumpHeight = this.getPlatH(this.lvl);
       this.isFalling = false;
+      this.jumpSpeed=0;
     }
 
     // Function to update the jumping state

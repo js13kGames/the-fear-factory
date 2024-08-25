@@ -77,6 +77,9 @@ function Cart() {
   var spike = new Fire(84, 110);
   this.spikes.push(spike);
 
+  var ghost = new Ghost(84, 200);
+  this.spikes.push(ghost);
+
   //block Test
   var block = new Entity(32, 16, 192, 164, 0, types.BLOCK);
   block = new Entity(32, 16, 192, 164, 0, types.BLOCK);
