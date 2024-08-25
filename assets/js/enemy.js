@@ -52,3 +52,27 @@ function Spike(x, y) {
     }
   }
 }
+
+function Fire(x, y) {
+  this.active=true;
+  this.time=0;
+  this.y=y;
+  this.x=x;
+  this.e = new Entity(11, 13, x, y, 0, types.FIRE);
+
+  this.update = function(delta) {
+    this.time+=delta;
+    this.e.update(delta);
+    //console.log(this.time);
+
+    if(this.time>.6){
+      this.time=0;
+      this.e.sx=49;
+    } else if(this.time>.4){
+      this.e.sx=72;
+    } else if(this.time>.2){
+      this.e.sx=61;
+    }
+
+    }
+  }

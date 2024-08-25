@@ -172,7 +172,11 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
         this.sy=50;
         break;
       case types.SPIKE:
-        this.sy=22;
+        this.sy=23;
+        break;
+      case types.FIRE:
+        this.sx=49;
+        this.sy=35;
         break;
     }
 
