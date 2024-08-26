@@ -11,76 +11,13 @@ function Cart() {
   this.shake=0;
   this.shakeTime=0;
   this.shop=false;
-
-  // setup tiles
-  let rows = 10;
-  let cols = 10
-  this.tiles=[];
-  this.spikes=[];
-
-  let id =0;
-  let tt=[];
-
-  for(l = 0; l < 4; l++){
-    for (r = 0; r < rows; r++) {
-      for (c = 0; c < cols; c++) {
-        id++;
-        xx = (c - r) * 64;
-        yy = (c + r) * 32;
-        let type = types.TILE;
-
-        // under the first step is a blocker
-        if(l==0 && id == 15){
-          type = types.STOP;
-        }
-
-        // Level 1 step
-        if(l==1 && id == 115){
-          type = types.TILE2;
-        } else if(l==1) {
-          type = types.AIR;
-        }
-
-        // STEP 2
-        if(l==1 && id == 117){
-          type = types.STOP;
-        }
-        if(l==2 && id == 217){
-          type = types.TILE2;
-        } else if(l==2) {
-          type = types.AIR;
-        }
-
-        if(l==0 && id == 17){
-          type = types.STOP;
-        }
-
-        //if(l==3 && id == 319){
-          //type = types.TILE2;
-        if(l==3) {
-          type = types.AIR;
-        }
-
-        var tile = new Entity(32, 16, xx, yy-(l*32), 0, type);
-        tile.id=id;
-        tt.push(tile);
-      }
-    }
-    this.tiles.push(tt);
-    tt=[];
-  }
-
-  var spike = new Spike(88, 5);
-  this.spikes.push(spike);
-
-  var spike = new Fire(84, 110);
-  this.spikes.push(spike);
-
-  var ghost = new Ghost(84, 200);
-  this.spikes.push(ghost);
+  this.levels=[];
+  this.levels.push(new Level(0));
+  this.cLevel=0;
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
+    let lvl = this.levels[this.cLevel];
     if(runOnce){
       var gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
       gradient.addColorStop(1, '#17202a'); // Dark
@@ -105,20 +42,7 @@ function Cart() {
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
       this.time+=delta;
-      this.tiles[0].forEach(e => e.sx=16);
-
-      // if(this.hero.currentTile != null){
-      //   this.hero.currentTile.sx=49;
-      // }
-
-      drawIsometricRoom();
-
-
-      this.tiles.forEach((t) => {
-        t.forEach((e) => {
-          if(e.type != types.STOP && e.type != types.AIR){e.update(delta)};
-        });
-      });
+      lvl.update(delta);
 
       // TODO move these to the tiles, make them platforms and always draw pillars
       drawblock(192, 194, 128, 64, "#57065e"); // test platforms
@@ -127,36 +51,11 @@ function Cart() {
 
       //drawblock(192, 350, 128, 64, "#7a09fa"); // Test water
 
-      this.spikes.forEach(e => e.update(delta));
+      lvl.spikes.forEach(e => e.update(delta));
       this.hero.update(delta);
-
       this.hero.checkGun();
 
-      // HP Bar
-      // USE this.hero.maxHP
-      ctx.save();
-      ctx.beginPath();
-      ctx.fillStyle = "#17202a";
-      ctx.roundRect(10, 10, 50, 300, 30);
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.fillStyle = "#5b2c6f";
-      ctx.roundRect(15, 200, 40, 100, 30);
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.globalAlpha = .3;
-      ctx.fillStyle = "white";
-      ctx.roundRect(12, 35, 8, 250, 30);
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.globalAlpha = .1;
-      ctx.fillStyle = "white";
-      ctx.roundRect(24, 35, 4, 250, 30);
-      ctx.fill();
-      ctx.restore();
+      drawUI();
     } else {
       // Intro Screen
       this.intro.update(delta);

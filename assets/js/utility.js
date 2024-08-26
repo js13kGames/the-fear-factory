@@ -121,18 +121,19 @@ function ranColor() {
 }
 
 function getTile(xHero, yHero, level) {
-  let tiles = cart.tiles[level];
+  let tiles = cart.levels[cart.cLevel].tiles[level];
   let c = Math.round((yHero / 64) + (xHero / 128));
   let r = Math.round((yHero / 64) - (xHero / 128));
 
-  if(tiles[c + (10 * r)]!=null){
-    tiles[c + (10 * r)].sx=49;
-  }
+  // Draw the path of the hero (Testing!)
+  //if(tiles[c + (10 * r)]!=null){
+    //tiles[c + (10 * r)].sx=49;
+  //}
 
   return tiles[c + (10 * r)];
 }
 
-function drawIsometricRoom() {
+function drawIsometricRoom(col1, col2) {
     const tileWidth = 128;
     const tileHeight = 64;
     const roomWidth = 10; // Number of tiles
@@ -142,7 +143,7 @@ function drawIsometricRoom() {
     // Draw floor with checkered pattern
     for (let y = 0; y < roomDepth; y++) {
         for (let x = 0; x < roomWidth; x++) {
-            const color = (x + y) % 2 === 0 ? '#273746' : '#566573';
+            const color = (x + y) % 2 === 0 ? col1 : col2;
             drawTile(
                 startX + (x - y) * (tileWidth / 2),
                 startY + (x + y) * (tileHeight / 2),
@@ -164,6 +165,32 @@ function drawTile(x, y, width, height, color) {
   ctx.lineTo(x - width / 2, y + height / 2);
   ctx.closePath();
   ctx.fillStyle = color;
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawUI(){
+  ctx.save();
+  ctx.beginPath();
+  ctx.fillStyle = "#17202a";
+  ctx.roundRect(10, 10, 50, 300, 30);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.fillStyle = "#5b2c6f";
+  ctx.roundRect(15, 200, 40, 100, 30);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.globalAlpha = .3;
+  ctx.fillStyle = "white";
+  ctx.roundRect(12, 35, 8, 250, 30);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.globalAlpha = .1;
+  ctx.fillStyle = "white";
+  ctx.roundRect(24, 35, 4, 250, 30);
   ctx.fill();
   ctx.restore();
 }
