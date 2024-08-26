@@ -117,9 +117,9 @@ function Cart() {
       this.time+=delta;
       this.tiles[0].forEach(e => e.sx=16);
 
-      if(this.hero.currentTile != null){
-        this.hero.currentTile.sx=49;
-      }
+      // if(this.hero.currentTile != null){
+      //   this.hero.currentTile.sx=49;
+      // }
 
       drawIsometricRoom();
 
@@ -136,7 +136,7 @@ function Cart() {
 
       //drawblock(192, 350, 128, 64, "#7a09fa"); // Test water
 
-      this.blocks.forEach(e => e.update(delta));
+      //this.blocks.forEach(e => e.update(delta));
       this.spikes.forEach(e => e.update(delta));
       this.hero.update(delta);
 

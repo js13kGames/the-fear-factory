@@ -163,6 +163,7 @@ function Hero(w, h, x, y, angle, type) {
     // Render tiles in front of hero
     this.e.closeTiles.forEach((e) => {
       e.update();
+      drawblock(e.x, e.y+66, 128, 64, "#57065e"); // test platforms
     });
   }
 

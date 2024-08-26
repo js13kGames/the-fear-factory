@@ -170,6 +170,7 @@ function drawTile(x, y, width, height, color) {
 
 function drawblock(x, y, width, height, color) {
   ctx.save();
+  ctx.strokeStyle = "#161324";
   ctx.translate(cart.cam.x,cart.cam.y);
   ctx.translate(width,height/2)
   ctx.beginPath();
@@ -179,10 +180,13 @@ function drawblock(x, y, width, height, color) {
   ctx.lineTo(x, (y + height/2));          // DOWN TO MID
   ctx.lineTo(x - width / 2, y);  // UP TO LEFT
   ctx.lineTo(x - width / 2, y - height/2);  // LEFT SIDE
-  ctx.lineTo(x, y);                         // BACK TO MID
-  //ctx.closePath();
+  ctx.lineTo(x, y);
+  ctx.lineWidth = 5;                       // BACK TO MID
+  ctx.stroke();
   ctx.fillStyle = color;
   ctx.fill();
+  ctx.lineTo(x, y+height/2);
+  ctx.stroke();
   ctx.restore();
 }
 
