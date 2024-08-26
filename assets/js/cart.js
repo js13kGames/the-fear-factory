@@ -114,8 +114,6 @@ function Cart() {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-      drawIsometricRoom();
-
       this.time+=delta;
       this.tiles[0].forEach(e => e.sx=16);
 
@@ -123,19 +121,26 @@ function Cart() {
         this.hero.currentTile.sx=49;
       }
 
+      drawIsometricRoom();
+
+
       this.tiles.forEach((t) => {
         t.forEach((e) => {
-            if(e.type != types.STOP && e.type != types.AIR){e.update(delta)};
-          });
+          if(e.type != types.STOP && e.type != types.AIR){e.update(delta)};
+        });
       });
 
+      drawblock(192, 194, 128, 64, "#57065e"); // test platforms
+      drawblock(320, 256, 128, 64, "#57065e");
+      drawblock(320, 228, 128, 64, "#57065e");
+
+      //drawblock(192, 350, 128, 64, "#7a09fa"); // Test water
 
       this.blocks.forEach(e => e.update(delta));
       this.spikes.forEach(e => e.update(delta));
       this.hero.update(delta);
 
       this.hero.checkGun();
-      displayFPS(fps);
 
       // HP Bar
       // USE this.hero.maxHP

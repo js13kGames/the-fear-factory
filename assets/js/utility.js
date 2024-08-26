@@ -168,6 +168,24 @@ function drawTile(x, y, width, height, color) {
   ctx.restore();
 }
 
+function drawblock(x, y, width, height, color) {
+  ctx.save();
+  ctx.translate(cart.cam.x,cart.cam.y);
+  ctx.translate(width,height/2)
+  ctx.beginPath();
+  ctx.moveTo(x, y);                         // MID
+  ctx.lineTo(x + width / 2, y - height/2);  // TOP R
+  ctx.lineTo(x + width / 2, y);  // RIGHT SIDE
+  ctx.lineTo(x, (y + height/2));          // DOWN TO MID
+  ctx.lineTo(x - width / 2, y);  // UP TO LEFT
+  ctx.lineTo(x - width / 2, y - height/2);  // LEFT SIDE
+  ctx.lineTo(x, y);                         // BACK TO MID
+  //ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.restore();
+}
+
 function hitDust(x, y, arr) {
   // Determine the number of particles to create (excluding the top 2)
   const numParticles = 4; // Adjusted for the remaining 4 positions (left, right, bottom-left, bottom-right)

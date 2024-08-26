@@ -43,6 +43,7 @@ var deviceHeight = window.innerHeight;
 var scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
 let shaky = true;
 let loading = .2;
+let debug=false;
 
 // Load the music player
 // genAudio();
@@ -206,7 +207,7 @@ function updateGameLoop(timestamp) {
   updateGameArea(deltaTime);
 
   // Display FPS
-  displayFPS(fps);
+  if(debug) displayFPS(fps);
 
   // Request the next frame
   mg.frameId = requestAnimationFrame(updateGameLoop);
