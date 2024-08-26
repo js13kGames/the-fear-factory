@@ -181,13 +181,13 @@ function drawblock(x, y, width, height, color) {
   ctx.lineTo(x - width / 2, y);  // UP TO LEFT
   ctx.lineTo(x - width / 2, y - height/2);  // LEFT SIDE
   ctx.lineTo(x, y);
-  ctx.lineWidth = 5;                       // BACK TO MID
-  ctx.stroke();
   ctx.fillStyle = color;
   ctx.fill();
-  ctx.lineTo(x, y+height/2);
-  ctx.stroke();
   ctx.restore();
+  // Drawn the pixel outline
+  block.x=x;
+  block.y=y-32;
+  block.update(0);
 }
 
 function hitDust(x, y, arr) {

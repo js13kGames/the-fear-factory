@@ -16,7 +16,6 @@ function Cart() {
   let rows = 10;
   let cols = 10
   this.tiles=[];
-  this.blocks=[];
   this.spikes=[];
 
   let id =0;
@@ -80,15 +79,6 @@ function Cart() {
   var ghost = new Ghost(84, 200);
   this.spikes.push(ghost);
 
-  //block Test
-  var block = new Entity(32, 16, 192, 164, 0, types.BLOCK);
-  block = new Entity(32, 16, 192, 164, 0, types.BLOCK);
-  this.blocks.push(block);
-  block = new Entity(32, 16, 320, 196, 0, types.BLOCK);
-  this.blocks.push(block);
-  block = new Entity(32, 16, 320, 222, 0, types.BLOCK);
-  this.blocks.push(block);
-
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
     if(runOnce){
@@ -130,13 +120,13 @@ function Cart() {
         });
       });
 
+      // TODO move these to the tiles, make them platforms and always draw pillars
       drawblock(192, 194, 128, 64, "#57065e"); // test platforms
       drawblock(320, 256, 128, 64, "#57065e");
       drawblock(320, 228, 128, 64, "#57065e");
 
       //drawblock(192, 350, 128, 64, "#7a09fa"); // Test water
 
-      //this.blocks.forEach(e => e.update(delta));
       this.spikes.forEach(e => e.update(delta));
       this.hero.update(delta);
 
