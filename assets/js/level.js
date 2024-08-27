@@ -34,6 +34,7 @@ function Level(no=0) {
     addPlat(2,15, this.tiles);
     addPlat(3,17, this.tiles);
     addPlat(4,19, this.tiles);
+    addPlat(4,49, this.tiles);
   } else {
     this.tileCol1= "#273746";
     this.tileCol2= "#566573";

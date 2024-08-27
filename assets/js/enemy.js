@@ -29,9 +29,9 @@ function Spike(x, y) {
       this.e.height=14;
       this.e.y=this.y-18;
       cart.shakeTime = .06;
-      cart.hero.particles.push(new Dusty(this.e.x+15, this.e.y+75));
-      cart.hero.particles.push(new Dusty(this.e.x+40, this.e.y+85));
-      cart.hero.particles.push(new Dusty(this.e.x+65, this.e.y+75));
+      cart.hero.particles.push(new Dusty(this.e.x+15, this.e.y+75+this.e.z));
+      cart.hero.particles.push(new Dusty(this.e.x+40, this.e.y+85+this.e.z));
+      cart.hero.particles.push(new Dusty(this.e.x+65, this.e.y+75+this.e.z));
     }
 
     if(this.time>5){

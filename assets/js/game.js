@@ -43,7 +43,7 @@ var deviceHeight = window.innerHeight;
 var scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
 let shaky = true;
 let loading = .2;
-let debug=true;
+let debug=false;
 let block = new Entity(32, 16, 0, 0, 0, types.BLOCK);
 
 // Load the music player

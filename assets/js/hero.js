@@ -100,7 +100,7 @@ function Hero(w, h, x, y, angle, type) {
 
       if (this.dustTimer > 0.2 && !this.isJumping) {
         this.dustTimer = 0;
-        this.particles.push(new Dusty(this.e.x+55, this.e.y+95));
+        this.particles.push(new Dusty(this.e.x+55, this.e.y+95+this.e.z));
       }
     }
 
