@@ -43,7 +43,7 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     this.closeTiles=[];
     this.col=Math.round((this.y/64)+(this.x/128));
     this.row=Math.round((this.y/64)-(this.x/128))+1;
-    let o=[1,10,11],t=cart.hero.currentTile?.id;
+    let o=[1,10,11,12],t=cart.hero.currentTile?.id;
     let i=(this.row*10)+this.col;
     for(let l=1;l<4;l++)o.forEach(d=>{let n=i+d;if(n>=0&&n<cart.levels[cart.cLevel].tiles[l].length){let a=cart.levels[cart.cLevel].tiles[l][n];a?.type==types.TILE2&&this.closeTiles.push(a)}});
 
