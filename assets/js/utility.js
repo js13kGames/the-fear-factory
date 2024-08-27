@@ -195,8 +195,9 @@ function drawUI(){
   ctx.restore();
 }
 
-function drawblock(x, y, width, height, color) {
+function drawblock(x, y, width, height, color, behind) {
   ctx.save();
+  if(behind)ctx.globalAlpha=.85;
   ctx.strokeStyle = "#161324";
   ctx.translate(cart.cam.x,cart.cam.y);
   ctx.translate(width,height/2)

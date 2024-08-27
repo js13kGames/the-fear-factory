@@ -44,14 +44,7 @@ function Cart() {
       this.time+=delta;
       lvl.update(delta);
 
-      // TODO move these to the tiles, make them platforms and always draw pillars
-      drawblock(192, 194, 128, 64, "#57065e"); // test platforms
-      drawblock(320, 256, 128, 64, "#57065e");
-      drawblock(320, 228, 128, 64, "#57065e");
-
       //drawblock(192, 350, 128, 64, "#7a09fa"); // Test water
-
-      lvl.spikes.forEach(e => e.update(delta));
       this.hero.update(delta);
       this.hero.checkGun();
 

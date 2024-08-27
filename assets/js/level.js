@@ -3,7 +3,7 @@ function Level(no=0) {
   let rows = 10;
   let cols = 10
   this.tiles=[];
-  this.spikes=[];
+  this.mobs=[];
 
   if(no==0){
     this.tileCol1= "#273746";
@@ -25,9 +25,7 @@ function Level(no=0) {
         let type = types.TILE;
 
         // under the first step is a blocker
-        if(l==0 && id == 15){
-          type = types.STOP;
-        }
+        if(l==0 && id == 15) type = types.STOP;
 
         // Level 1 step
         if(l==1 && id == 115){
@@ -37,27 +35,27 @@ function Level(no=0) {
         }
 
         // STEP 2
-        if(l==1 && id == 117){
-          type = types.STOP;
-        }
+        if(l==1 && id == 117)type = types.STOP;
         if(l==2 && id == 217){
           type = types.TILE2;
         } else if(l==2) {
           type = types.AIR;
         }
 
-        if(l==0 && id == 17){
-          type = types.STOP;
-        }
+        if(l==0 && id == 17) type = types.STOP;
 
-        //if(l==3 && id == 319){
-          //type = types.TILE2;
-        if(l==3) {
+        if(l==3 && id == 319){
+          type = types.TILE2;
+        } else if(l==3) {
           type = types.AIR;
         }
 
+        if(l==1 && id == 119) type = types.STOP;
+        if(l==2 && id ==219) type = types.STOP;
+
         var tile = new Entity(32, 16, xx, yy-(l*32), 0, type);
         tile.id=id;
+        tile.lvl=l;
         tt.push(tile);
       }
     }
@@ -65,14 +63,10 @@ function Level(no=0) {
     tt=[];
   }
 
-  var spike = new Spike(88, 5);
-  this.spikes.push(spike);
-
-  var spike = new Fire(84, 110);
-  this.spikes.push(spike);
-
-  var ghost = new Ghost(84, 200);
-  this.spikes.push(ghost);
+  // Add Fire, Spike and Ghost
+  this.mobs.push(new Spike(88, 5));
+  this.mobs.push(new Fire(84, 110));
+  this.mobs.push(new Ghost(84, 200));
 
   this.update = function(delta){
     this.tiles.forEach(e => e.sx=16);
@@ -85,8 +79,17 @@ function Level(no=0) {
 
     this.tiles.forEach((t) => {
       t.forEach((e) => {
-        if(e.type != types.STOP && e.type != types.AIR){e.update(delta)};
+        if(e.type != types.STOP && e.type != types.AIR){
+          if(e.type==types.TILE2){
+            for(l = e.lvl; l > 0; l--){
+              drawblock(e.x, e.y+33+(l*33), 128, 64, "#57065e", false);
+            }
+          }
+          e.update(delta)
+        };
       });
     });
+
+    this.mobs.forEach(e => e.update(delta));
   }
 }
