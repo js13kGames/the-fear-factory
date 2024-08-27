@@ -31,8 +31,8 @@ function Cart() {
 
       // Camera follow hero
       this.cam.x = Math.ceil(lerp(-this.hero.e.x+350,this.cam.x,.8));
-      var xadd = check? 120 : 180;
-      this.cam.y = Math.ceil(lerp(-this.hero.e.y+xadd,this.cam.y,.8));
+      var xadd = check? 120 : 160;
+      this.cam.y = Math.ceil(lerp(-this.hero.e.y+xadd-this.hero.e.z,this.cam.y,.8));
 
       TIME += delta;
       mg.clear();

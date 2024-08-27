@@ -47,20 +47,21 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     let i=(this.row*10)+this.col;
     for(let l=1;l<5;l++)o.forEach(d=>{let n=i+d;if(n>=0&&n<cart.levels[cart.cLevel].tiles[l].length){let a=cart.levels[cart.cLevel].tiles[l][n];a?.type==types.TILE2&&this.closeTiles.push(a)}});
 
-    // 2 Platform levels
-    let ct = getTile(this.x - 64, this.y + 32, 1);
-    let ct2 = getTile(this.x - 64, this.y + 32, 2);
-    let ct3 = getTile(this.x - 64, this.y + 32, 3);
-    let ct4 = getTile(this.x - 64, this.y + 32, 4);
+    // Check the hero platform level, 1-4
+    let pos = [this.x - 64, this.y + 32];
+    let [ct, ct2, ct3, ct4] = [1, 2, 3, 4].map(lvl => getTile(...pos, lvl));
 
-    if      (this.z < -135 && ct4.type == types.TILE2) cart.hero.lvl = 4;
-    else if (this.z < -115 && ct3.type == types.TILE2) cart.hero.lvl = 3;
-    else if (this.z < -80  && ct2.type == types.TILE2) cart.hero.lvl = 2;
-    else if (this.z < -40  && ct.type  == types.TILE2) cart.hero.lvl = 1;
-    else if (cart.hero.lvl == 4 && ct4.type == types.AIR) cart.hero.lvl = 3;
-    else if (cart.hero.lvl == 3 && ct3.type == types.AIR) cart.hero.lvl = 2;
-    else if (cart.hero.lvl == 2 && ct2.type == types.AIR) cart.hero.lvl = 1;
-    else if (cart.hero.lvl == 1 && ct.type == types.AIR) cart.hero.lvl = 0;
+    let conditions = [
+      { z: -135, lvl: 4, ct: ct4 },
+      { z: -115, lvl: 3, ct: ct3 },
+      { z: -80,  lvl: 2, ct: ct2 },
+      { z: -40,  lvl: 1, ct: ct }
+    ];
+
+    for (let c of conditions) {
+      if (this.z < c.z && c.ct.type == types.TILE2) cart.hero.lvl = c.lvl;
+      else if (cart.hero.lvl == c.lvl && c.ct.type == types.AIR) cart.hero.lvl--;
+    }
 
     // Movement
     left()&&(newX-=spd,this.dir=1);
@@ -87,12 +88,18 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
 
     let stuck = cart.hero.currentTile == null ? false : cart.hero.currentTile.type == types.STOP;
 
+    // TODO - check if the player is hitting a STOP with no chance of landing on top of platform
+    // let nxtTile=getTile(newX-64, newY+32, this.lvl)
+    // let stuck = nxtTile == null ? false : nxtTile.type == types.STOP;
+    // console.log(34.4*cart.hero.lvl + " " + cart.hero.e.z + " " + this.lvl);
+    // if(stuck) stuck = cart.hero.e.z > -34.4*cart.hero.lvl;
+
     if((!blocked && inbounds) || stuck){
       this.y=newY;
       this.x=newX;
     }
 
-    // sides
+    // Edge of Map collisions
     if(this.row==-1){right()?this.y+=spd:up()&&(this.x-=spd);}
     if(this.col==-1){left()?this.y+=1:up()&&(this.x+=1);}
     if(this.row==10){left()?this.y-=1:down()&&(this.x+=1);}
@@ -184,6 +191,10 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
         break;
       case types.GHOST:
         this.sx=83;
+        break;
+      case types.KEY:
+        this.sx=31;
+        this.sy=35;
         break;
     }
 

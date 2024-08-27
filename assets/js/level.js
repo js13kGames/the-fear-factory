@@ -4,6 +4,7 @@ function Level(no=0) {
   let cols = 10
   this.tiles=[];
   this.mobs=[];
+  this.key = new Key(-50, 300);
 
   let id =0;
   let tt=[];
@@ -68,6 +69,7 @@ function Level(no=0) {
     });
 
     this.mobs.forEach(e => e.update(delta));
+    this.key.update(delta);
   }
 }
 
