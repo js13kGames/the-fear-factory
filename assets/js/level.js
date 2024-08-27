@@ -5,54 +5,18 @@ function Level(no=0) {
   this.tiles=[];
   this.mobs=[];
 
-  if(no==0){
-    this.tileCol1= "#273746";
-    this.tileCol2= "#566573";
-  } else {
-    this.tileCol1= "#273746";
-    this.tileCol2= "#566573";
-  }
-
   let id =0;
   let tt=[];
 
   for(l = 0; l < 4; l++){
+    id=0;
     for (r = 0; r < rows; r++) {
       for (c = 0; c < cols; c++) {
         id++;
         xx = (c - r) * 64;
         yy = (c + r) * 32;
         let type = types.TILE;
-
-        // under the first step is a blocker
-        if(l==0 && id == 15) type = types.STOP;
-
-        // Level 1 step
-        if(l==1 && id == 115){
-          type = types.TILE2;
-        } else if(l==1) {
-          type = types.AIR;
-        }
-
-        // STEP 2
-        if(l==1 && id == 117)type = types.STOP;
-        if(l==2 && id == 217){
-          type = types.TILE2;
-        } else if(l==2) {
-          type = types.AIR;
-        }
-
-        if(l==0 && id == 17) type = types.STOP;
-
-        if(l==3 && id == 319){
-          type = types.TILE2;
-        } else if(l==3) {
-          type = types.AIR;
-        }
-
-        if(l==1 && id == 119) type = types.STOP;
-        if(l==2 && id ==219) type = types.STOP;
-
+        if(l>0)type = types.AIR;
         var tile = new Entity(32, 16, xx, yy-(l*32), 0, type);
         tile.id=id;
         tile.lvl=l;
@@ -61,6 +25,17 @@ function Level(no=0) {
     }
     this.tiles.push(tt);
     tt=[];
+  }
+
+  if(no==0){
+    this.tileCol1= "#273746";
+    this.tileCol2= "#566573";
+    addPlat(1,15, this.tiles);
+    addPlat(2,17, this.tiles);
+    addPlat(3,19, this.tiles);
+  } else {
+    this.tileCol1= "#273746";
+    this.tileCol2= "#566573";
   }
 
   // Add Fire, Spike and Ghost
@@ -91,5 +66,17 @@ function Level(no=0) {
     });
 
     this.mobs.forEach(e => e.update(delta));
+  }
+}
+
+function addPlat(lvl, id, tiles){
+  for(l = lvl; l >= 0; l--){
+    t=tiles[l][id-1];
+    if(l==lvl){
+       t.type=types.TILE2;
+     } else {
+       t.type=types.STOP;
+     }
+     t.setType();
   }
 }
