@@ -43,18 +43,21 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     this.closeTiles=[];
     this.col=Math.round((this.y/64)+(this.x/128));
     this.row=Math.round((this.y/64)-(this.x/128))+1;
-    let o=[1,10,11,12],t=cart.hero.currentTile?.id;
+    let o=[1,10,11],t=cart.hero.currentTile?.id;
     let i=(this.row*10)+this.col;
-    for(let l=1;l<4;l++)o.forEach(d=>{let n=i+d;if(n>=0&&n<cart.levels[cart.cLevel].tiles[l].length){let a=cart.levels[cart.cLevel].tiles[l][n];a?.type==types.TILE2&&this.closeTiles.push(a)}});
+    for(let l=1;l<5;l++)o.forEach(d=>{let n=i+d;if(n>=0&&n<cart.levels[cart.cLevel].tiles[l].length){let a=cart.levels[cart.cLevel].tiles[l][n];a?.type==types.TILE2&&this.closeTiles.push(a)}});
 
     // 2 Platform levels
     let ct = getTile(this.x - 64, this.y + 32, 1);
     let ct2 = getTile(this.x - 64, this.y + 32, 2);
     let ct3 = getTile(this.x - 64, this.y + 32, 3);
+    let ct4 = getTile(this.x - 64, this.y + 32, 4);
 
-    if (this.z < -115 && ct3.type == types.TILE2) cart.hero.lvl = 3;
-    else if(this.z < -80 && ct2.type == types.TILE2) cart.hero.lvl = 2;
-    else if (this.z < -40 && ct.type == types.TILE2) cart.hero.lvl = 1;
+    if      (this.z < -135 && ct4.type == types.TILE2) cart.hero.lvl = 4;
+    else if (this.z < -115 && ct3.type == types.TILE2) cart.hero.lvl = 3;
+    else if (this.z < -80  && ct2.type == types.TILE2) cart.hero.lvl = 2;
+    else if (this.z < -40  && ct.type  == types.TILE2) cart.hero.lvl = 1;
+    else if (cart.hero.lvl == 4 && ct4.type == types.AIR) cart.hero.lvl = 3;
     else if (cart.hero.lvl == 3 && ct3.type == types.AIR) cart.hero.lvl = 2;
     else if (cart.hero.lvl == 2 && ct2.type == types.AIR) cart.hero.lvl = 1;
     else if (cart.hero.lvl == 1 && ct.type == types.AIR) cart.hero.lvl = 0;

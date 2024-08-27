@@ -8,7 +8,7 @@ function Level(no=0) {
   let id =0;
   let tt=[];
 
-  for(l = 0; l < 4; l++){
+  for(l = 0; l < 5; l++){
     id=0;
     for (r = 0; r < rows; r++) {
       for (c = 0; c < cols; c++) {
@@ -30,9 +30,10 @@ function Level(no=0) {
   if(no==0){
     this.tileCol1= "#273746";
     this.tileCol2= "#566573";
-    addPlat(1,15, this.tiles);
-    addPlat(2,17, this.tiles);
-    addPlat(3,19, this.tiles);
+    addPlat(1,13, this.tiles);
+    addPlat(2,15, this.tiles);
+    addPlat(3,17, this.tiles);
+    addPlat(4,19, this.tiles);
   } else {
     this.tileCol1= "#273746";
     this.tileCol2= "#566573";
