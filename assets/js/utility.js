@@ -130,19 +130,16 @@ function getTile(xHero, yHero, level) {
     //tiles[c + (10 * r)].sx=49;
   //}
 
-  return tiles[c + (10 * r)];
+  return tiles[c + (cart.levels[cart.cLevel].cols * r)]; // TODO move to function
 }
 
-function drawIsometricRoom(col1, col2) {
+function drawIsometricRoom(col1, col2, rows, cols) {
     const tileWidth = 128;
     const tileHeight = 64;
-    const roomWidth = 10; // Number of tiles
-    const roomDepth = 10; // Number of tiles
-    const roomHeight = 4; // Number of tiles
 
     // Draw floor with checkered pattern
-    for (let y = 0; y < roomDepth; y++) {
-        for (let x = 0; x < roomWidth; x++) {
+    for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
             const color = (x + y) % 2 === 0 ? col1 : col2;
             drawTile(
                 startX + (x - y) * (tileWidth / 2),

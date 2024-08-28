@@ -43,10 +43,14 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     this.closeTiles=[];
     this.col=Math.round((this.y/64)+(this.x/128));
     this.row=Math.round((this.y/64)-(this.x/128))+1;
-    let o=[1,2,10,11,12,20,22,21],t=cart.hero.currentTile?.id; // close tiles check
-    let i=(this.row*10)+this.col;
+
+    let rz = cart.levels[cart.cLevel].rows;
+    let cz = cart.levels[cart.cLevel].cols;
+    let o=[1,2,cz,cz+1,cz+2,cz*2,(cz*2)+2,(cz*2+1)],t=cart.hero.currentTile?.id; // close tiles check TODO change to use the grid size
+    let i=(this.row*cz)+this.col;
     for(let l=1;l<5;l++)o.forEach(d=>{let n=i+d;if(n>=0&&n<cart.levels[cart.cLevel].tiles[l].length){let a=cart.levels[cart.cLevel].tiles[l][n];a?.type==types.TILE2&&this.closeTiles.push(a)}});
 
+    console.log(this.closeTiles);
     // Check the hero platform level, 1-4
     let pos = [this.x - 64, this.y + 32];
     let [ct, ct2, ct3, ct4] = [1, 2, 3, 4].map(lvl => getTile(...pos, lvl));
@@ -60,7 +64,7 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
 
     for (let c of conditions) {
       if (this.z < c.z && c.ct.type == types.TILE2) cart.hero.lvl = c.lvl;
-      else if (cart.hero.lvl == c.lvl && c.ct.type == types.AIR) cart.hero.lvl--;
+      else if (cart.hero.lvl == c.lvl && c.ct != null && c.ct.type == types.AIR) cart.hero.lvl--;
     }
 
     // Movement
@@ -71,11 +75,10 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
 
     this.col = Math.round((newY / 64) + (newX / 128));
     this.row = Math.round((newY / 64) - (newX / 128)+1);
-
     let blocked=false;
     let tile = getTile(newX-64, newY+32, cart.hero.lvl);
 
-    inbounds = (this.col >=0 && this.col < 10)&&(this.row >=0 &&  this.row < 10);
+    inbounds = (this.col >=0 && this.col < cz)&&(this.row >=0 &&  this.row < rz);
 
     // ABOVE
     if(cart.hero.lvl<3){
