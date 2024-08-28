@@ -46,12 +46,14 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
 
     let rz = cart.levels[cart.cLevel].rows;
     let cz = cart.levels[cart.cLevel].cols;
-    let o=[1,2,cz,cz+1,cz+2,cz*2,(cz*2)+2,(cz*2+1)],t=cart.hero.currentTile?.id; // close tiles check TODO change to use the grid size
+
+    // TODO fix this code.
+
+    let o=[1,cz,cz+1],t=cart.hero.currentTile?.id; // close tiles check TODO change to use the grid size
     let i=(this.row*cz)+this.col;
     for(let l=1;l<5;l++)o.forEach(d=>{let n=i+d;if(n>=0&&n<cart.levels[cart.cLevel].tiles[l].length){let a=cart.levels[cart.cLevel].tiles[l][n];a?.type==types.TILE2&&this.closeTiles.push(a)}});
 
-    console.log(this.closeTiles);
-    // Check the hero platform level, 1-4
+    // Check the hero platform level, 1-4a
     let pos = [this.x - 64, this.y + 32];
     let [ct, ct2, ct3, ct4] = [1, 2, 3, 4].map(lvl => getTile(...pos, lvl));
 

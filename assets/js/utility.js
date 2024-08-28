@@ -126,9 +126,9 @@ function getTile(xHero, yHero, level) {
   let r = Math.round((yHero / 64) - (xHero / 128));
 
   // Draw the path of the hero (Testing!)
-  //if(tiles[c + (10 * r)]!=null){
-    //tiles[c + (10 * r)].sx=49;
-  //}
+  // if(tiles[c + (cart.levels[cart.cLevel].cols * r)]!=null){
+  //   tiles[c + (cart.levels[cart.cLevel].cols * r)].sx=49;
+  // }
 
   return tiles[c + (cart.levels[cart.cLevel].cols * r)]; // TODO move to function
 }
