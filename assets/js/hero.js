@@ -158,12 +158,6 @@ function Hero(w, h, x, y, angle, type) {
     this.rHand.update(delta);
     this.shadow.update(delta);
     this.e.gun.drawBullets(delta);
-
-    // Render tiles in front of hero
-    this.e.closeTiles.forEach((e) => {
-      e.update();
-      //for(l = e.lvl; l > 0; l--) drawblock(e.x, e.y+33+(l*33), 128, 64, "#57065e", true);
-    });
   }
 
   holdClickT = 0;

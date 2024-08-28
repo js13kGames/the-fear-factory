@@ -27,6 +27,8 @@ function Level(no=0) {
         var tile = new Entity(32, 16, xx, yy-(l*32), 0, type);
         tile.id=id;
         tile.lvl=l;
+        tile.row=r;
+        tile.col=c;
         tt.push(tile);
       }
     }
@@ -47,7 +49,6 @@ function Level(no=0) {
     addPlat(1,20, this.tiles);
     addPlat(2,18, this.tiles);
     addPlat(2,17, this.tiles);
-    //addPlat(1,4, this.tiles);
     //addPlat(2,6, this.tiles);
     //addPlat(3,7, this.tiles);
   } else {
