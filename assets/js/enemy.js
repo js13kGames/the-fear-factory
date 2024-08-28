@@ -71,14 +71,17 @@ function Ghost(x, y) {
   }
 }
 
-function Key(x, y) {
+function Key(x, y, level) {
   this.active=true;
   this.time=0;
   this.y=y;
   this.x=x;
+  this.level=level;
   this.e = new Entity(16, 9, x, y, 0, types.KEY);
   this.shadow = new Entity(9, 4, 0, 0, 0, types.SHADOW);
   this.shadow.alpha=.4;
+  this.e.z=-level*33;
+  this.shadow.z=this.e.z;
 
   this.update = function(delta) {
     this.time+=delta;

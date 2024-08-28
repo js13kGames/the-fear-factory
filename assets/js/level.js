@@ -4,7 +4,7 @@ function Level(no=0) {
   this.cols = 10
   this.tiles=[];
   this.mobs=[];
-  this.key = new Key(-50, 300);
+  this.key = new Key(-135, 130, 3);
 
   let id =0;
   let tt=[];
@@ -36,19 +36,20 @@ function Level(no=0) {
     tt=[];
   }
 
+  // this.tileCol1= "#273746";
+  // this.tileCol2= "#566573";
+
   if(no==0){
-    this.tileCol1= "#273746";
-    this.tileCol2= "#566573";
+    this.tileCol1= "#0D7C66";
+    this.tileCol2= "#41B3A2";
     //addPlat(1,3, this.tiles);
     addPlat(1,7, this.tiles);
     addPlat(1,8, this.tiles);
     addPlat(1,6, this.tiles);
     addPlat(1,2, this.tiles);
     addPlat(1,12, this.tiles);
-    addPlat(1,16, this.tiles);
-    addPlat(1,20, this.tiles);
-    addPlat(2,18, this.tiles);
-    addPlat(2,17, this.tiles);
+    addPlat(2,20, this.tiles);
+    addPlat(3,18, this.tiles);
     //addPlat(2,6, this.tiles);
     //addPlat(3,7, this.tiles);
   } else {
@@ -57,7 +58,7 @@ function Level(no=0) {
   }
 
   // Add Fire, Spike and Ghost
-  //this.mobs.push(new Spike(88, 5));
+  this.mobs.push(new Spike(20, 100));
   //this.mobs.push(new Fire(84, 110));
   //this.mobs.push(new Ghost(84, 200));
 
@@ -75,7 +76,7 @@ function Level(no=0) {
           if(e.type != types.STOP && e.type != types.AIR){
             if(e.type==types.TILE2){
               for(l = e.lvl; l > 0; l--){
-                drawblock(e.x, e.y+33+(l*33), 128, 64, "#57065e", false);
+                drawblock(e.x, e.y+33+(l*33), 128, 64, "#006769", false);
               }
             }
             e.update(delta)

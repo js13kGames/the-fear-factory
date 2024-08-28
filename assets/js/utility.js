@@ -192,7 +192,7 @@ function drawUI(){
   ctx.restore();
 }
 
-function drawblock(x, y, width, height, color, behind) {
+function drawblock(x, y, width, height, colour, behind) {
   ctx.save();
   if(behind)ctx.globalAlpha=.85;
   ctx.strokeStyle = "#161324";
@@ -206,7 +206,7 @@ function drawblock(x, y, width, height, color, behind) {
   ctx.lineTo(x - width / 2, y);  // UP TO LEFT
   ctx.lineTo(x - width / 2, y - height/2);  // LEFT SIDE
   ctx.lineTo(x, y);
-  ctx.fillStyle = color;
+  ctx.fillStyle = colour;
   ctx.fill();
   ctx.restore();
   // Drawn the pixel outline

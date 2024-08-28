@@ -157,7 +157,6 @@ function Hero(w, h, x, y, angle, type) {
     this.lHand.update(delta);
     this.rHand.update(delta);
     this.shadow.update(delta);
-    this.e.gun.drawBullets(delta);
   }
 
   holdClickT = 0;

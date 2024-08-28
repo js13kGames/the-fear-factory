@@ -53,16 +53,15 @@ function Cart() {
         t.forEach((e) => {
           if(e.type == types.TILE2 && ht!=null){
             if ((e.row > ht.row) || (e.row <= ht.row && e.col > ht.col)){
-              e.update(delta)
               for(l = e.lvl; l > 0; l--){
-                drawblock(e.x, e.y+33+(l*33), 128, 64, "#57065e", false);
+                drawblock(e.x, e.y+33+(l*33), 128, 64, "#006769", false);
               }
+              e.update(delta)
             }
           }
         });
       });
-
-
+      cart.hero.e.gun.drawBullets(delta);
       drawUI();
     } else {
       // Intro Screen
