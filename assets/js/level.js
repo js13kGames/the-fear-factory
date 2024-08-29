@@ -51,7 +51,7 @@ function Level(no=0) {
     addPlat(2,20, this.tiles);
     addPlat(3,18, this.tiles);
     addSpike(0, 10, this.tiles);
-    addKey(4, 18, this.tiles);
+    addKey(3, 18, this.tiles);
   } else {
     this.tileCol1= "#273746";
     this.tileCol2= "#566573";

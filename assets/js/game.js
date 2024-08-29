@@ -47,7 +47,7 @@ let debug=true;
 let block = new Entity(32, 16, 0, 0, 0, types.BLOCK);
 
 // Load the music player
-// genAudio();
+genAudio();
 
 // Called by body onload on index page
 function startGame() {
@@ -82,24 +82,24 @@ let mg = {
 
     //Mobile
     window.addEventListener('touchstart', function(e) {
-      // if(!music){
-      //   music=true
-      //   audio.loop=true;
-      //   audio.play();
-      //   if(audioCtx == null) audioCtx = new AudioContext();
-      // }
+      if(!music){
+        music=true
+        audio.loop=true;
+        audio.play();
+        if(audioCtx == null) audioCtx = new AudioContext();
+      }
       if(startDelay<=0&&charSet==3)start=true;
       e.preventDefault();
     })
 
     // Keyboard
     window.addEventListener('keydown', function(e) {
-      // if(!music){
-      //   music=true
-      //   audio.loop=true;
-      //   audio.play();
-      //   if(audioCtx == null) audioCtx = new AudioContext();
-      // }
+      if(!music){
+        music=true
+        audio.loop=true;
+        audio.play();
+        if(audioCtx == null) audioCtx = new AudioContext();
+      }
       if(startDelay<=0&&charSet==3)start=true;
       e.preventDefault();
       mg.keys = (mg.keys || []);

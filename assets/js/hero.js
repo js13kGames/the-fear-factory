@@ -10,6 +10,7 @@ function Hero(w, h, x, y, angle, type) {
   this.die=0;
   this.e.gun = new Gun();
   this.currentTile=null;
+  this.objTile=null;
   this.isJumping = false;
   this.isFalling = false;
   this.jumpSpeed = 0;
@@ -158,6 +159,17 @@ function Hero(w, h, x, y, angle, type) {
     this.lHand.update(delta);
     this.rHand.update(delta);
     this.shadow.update(delta);
+
+    // Check current Tile for Keys, Spikes etc;
+    // TODO: Clean up messy code
+    this.objTile=cart.levels[cart.cLevel].tiles[cart.hero.lvl][this.currentTile.id-1];
+    if(this.objTile != null && this.objTile.obj != null){
+      if(this.objTile.obj.e.type==types.KEY){
+        this.objTile.obj=null;
+        // TODO Play sound; add FX
+        playSound(COINFX,1);
+      }
+    }
   }
 
   holdClickT = 0;
