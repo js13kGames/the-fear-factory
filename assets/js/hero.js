@@ -57,6 +57,7 @@ function Hero(w, h, x, y, angle, type) {
       this.jumpHeight = this.getPlatH(this.lvl);
       this.isFalling = false;
       this.jumpSpeed=0;
+      hitDust(this.e.x, this.e.y+this.e.z, this.particles);
     }
 
     // Function to update the jumping state

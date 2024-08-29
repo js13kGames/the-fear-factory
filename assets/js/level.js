@@ -4,7 +4,7 @@ function Level(no=0) {
   this.cols = 10
   this.tiles=[];
   this.mobs=[];
-  this.key = new Key(-135, 130, 3);
+  this.redraw=[];
 
   let id =0;
   let tt=[];
@@ -50,15 +50,15 @@ function Level(no=0) {
     addPlat(1,12, this.tiles);
     addPlat(2,20, this.tiles);
     addPlat(3,18, this.tiles);
-    //addPlat(2,6, this.tiles);
-    //addPlat(3,7, this.tiles);
+    addSpike(0, 10, this.tiles);
+    addKey(4, 18, this.tiles);
   } else {
     this.tileCol1= "#273746";
-    this.tileCol2= "#566573"; sd
+    this.tileCol2= "#566573";
   }
 
   // Add Fire, Spike and Ghost
-  this.mobs.push(new Spike(20, 100));
+  //this.mobs.push(new Spike(-128, 192));
   //this.mobs.push(new Fire(84, 110));
   //this.mobs.push(new Ghost(84, 200));
 
@@ -81,11 +81,14 @@ function Level(no=0) {
             }
             e.update(delta)
           };
+          // Draw traps
+          if(e.obj!=null){
+            e.obj.update(delta);
+          }
         });
       });
 
     this.mobs.forEach(e => e.update(delta));
-    this.key.update(delta);
   }
 }
 
@@ -99,4 +102,14 @@ function addPlat(lvl, id, tiles){
      }
      t.setType();
   }
+}
+
+function addSpike(l, id, tiles){
+  t=tiles[l][id-1];
+  t.obj=new Spike(t.x+90, t.y+4, id);
+}
+
+function addKey(l, id, tiles){
+  t=tiles[l][id-1];
+  t.obj=new Key(t.x+70, t.y+20, l, id);
 }

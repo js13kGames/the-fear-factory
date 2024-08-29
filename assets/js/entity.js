@@ -23,6 +23,7 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
   this.lvl=0;
   this.row=0;
   this.col=0;
+  this.obj=null;
 
   // ATLAS Positions
   this.sx=0;

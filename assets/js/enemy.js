@@ -6,7 +6,8 @@ function Enemy(x, y, w, h, type, index, totalEnemies, dmg) {
   }
 }
 
-function Spike(x, y) {
+function Spike(x, y, tileID) {
+  this.id=tileID;
   this.active=true;
   this.time=0;
   this.y=y;
@@ -71,7 +72,8 @@ function Ghost(x, y) {
   }
 }
 
-function Key(x, y, level) {
+function Key(x, y, level, tileID) {
+  this.id=tileID;
   this.active=true;
   this.time=0;
   this.y=y;
@@ -80,14 +82,14 @@ function Key(x, y, level) {
   this.e = new Entity(16, 9, x, y, 0, types.KEY);
   this.shadow = new Entity(9, 4, 0, 0, 0, types.SHADOW);
   this.shadow.alpha=.4;
-  this.e.z=-level*33;
+  this.e.z=level*2;
   this.shadow.z=this.e.z;
 
   this.update = function(delta) {
     this.time+=delta;
     let bounce =.3 * Math.sin(this.time * 2 * Math.PI * 0.6)
     this.e.z += bounce;
-    this.shadow.setV(this.e.x+(this.e.flip?34:22), this.e.y+45);
+    this.shadow.setV(this.e.x+22, this.e.y+45);
     this.shadow.update(delta);
     this.e.update(delta);
   }
