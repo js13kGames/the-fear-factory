@@ -38,16 +38,13 @@ let a = navigator.userAgent;
 let check = a.match(/Android/i)!=null||a.match(/iPhone/i)!=null||a.match(/iPad/i)!=null;
 var nativeWidth = 812;  // The resolution the game is designed to look best in
 var nativeHeight = check?375:470;
-var deviceWidth = window.innerWidth;  // Check for browser compatibility
-var deviceHeight = window.innerHeight;
-var scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
+var scaleFillNative = Math.max(canvasW / nativeWidth, canvasH / nativeHeight);
 let shaky = true;
 let loading = .2;
 let debug=true;
 let block = new Entity(32, 16, 0, 0, 0, types.BLOCK);
-let maxRadius = Math.sqrt(canvasW * canvasW + canvasH * canvasH); // Diagonal of the screen
-let radius = maxRadius;
-let shrinking = true;
+let swipeWidth = 0;
+let shrinking = false;
 
 // Load the music player
 genAudio();
@@ -254,12 +251,10 @@ function setclicks(){
 }
 
 function resizeCanvas() {
-  deviceWidth = window.innerWidth;  // Check for browser compatibility
-  deviceHeight = window.innerHeight;
   canvasW = window.innerWidth;
   canvasH = window.innerHeight;
-  scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
-  scaleFitNative = Math.min(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
+  scaleFillNative = Math.max(canvasW / nativeWidth, canvasH / nativeHeight);
+  scaleFitNative = Math.min(canvasW / nativeWidth, canvasH / nativeHeight);
   ctx.canvas.width = nativeWidth * scaleFillNative;
   ctx.canvas.height = nativeHeight * scaleFillNative;
   this.context = ctx.canvas.getContext("2d");

@@ -81,7 +81,6 @@ function Cart() {
 
       // Check if level completed
       if(this.hero.hasKey && this.hero.curTile.id==1){
-        console.log("Next Level");
         draw();
         if(this.changeLvl){
          console.log("Load the next Level");

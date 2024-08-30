@@ -1,24 +1,26 @@
 function draw() {
-    ctx.save();
-    ctx.fillStyle = 'black';
-    ctx.beginPath();
-    ctx.arc(canvasW / 2, canvasH / 2, radius, 0, Math.PI * 2);
-    ctx.rect(canvasW, 0, -canvasW, canvasH); // A rectangle to cover the rest of the screen outside the circle
-    ctx.fill();
-    ctx.restore();
+  let w = canvasW;
+  let h = canvasH;
 
-    if (shrinking) {
-        radius -= 10; // Shrink speed
-        if (radius <= 0) {
-            shrinking = false;
-            radius = 0;
-            cart.changeLvl=true;
-        }
-    } else {
-        radius += 10; // Expand speed
-        if (radius >= maxRadius) {
-          shrinking=true;
-          return; // Stop the animation after the circle has fully expanded
-        }
+  // Clear the canvas before drawing
+  ctx.save();
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, swipeWidth, h);
+  ctx.restore();
+
+  if (!shrinking) {
+    console.log(swipeWidth + " /  " + w);
+    swipeWidth += 20;
+    if (swipeWidth >= nativeWidth+100) {
+      shrinking = true;
+      cart.changeLvl=true;
     }
+  } else {
+    swipeWidth -= 20;
+    if (swipeWidth <= 0) {
+      swipeWidth = 0;
+      shrinking = false;
+      cart.hero.hasKey=false;
+    }
+  }
 }
