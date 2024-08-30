@@ -85,7 +85,7 @@ let mg = {
       if(!music){
         music=true
         audio.loop=true;
-        audio.play();
+        //audio.play();
         if(audioCtx == null) audioCtx = new AudioContext();
       }
       if(startDelay<=0&&charSet==3)start=true;
@@ -97,7 +97,7 @@ let mg = {
       if(!music){
         music=true
         audio.loop=true;
-        audio.play();
+        //audio.play();
         if(audioCtx == null) audioCtx = new AudioContext();
       }
       if(startDelay<=0&&charSet==3)start=true;

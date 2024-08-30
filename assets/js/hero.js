@@ -10,7 +10,7 @@ function Hero(w, h, x, y, angle, type) {
   this.die=0;
   this.e.gun = new Gun();
   this.currentTile=null;
-  this.objTile=null;
+  this.ot=null;
   this.isJumping = false;
   this.isFalling = false;
   this.jumpSpeed = 0;
@@ -162,15 +162,23 @@ function Hero(w, h, x, y, angle, type) {
 
     // Check current Tile for Keys, Spikes etc;
     // TODO: Clean up messy code
+
     if(this.currentTile!=null){
-      this.objTile=cart.levels[cart.cLevel].tiles[cart.hero.lvl][this.currentTile.id-1];
-      if(this.objTile != null && this.objTile.obj != null){
-        if(this.objTile.obj.e.type==types.KEY){
-          this.objTile.obj=null;
-          // TODO Play sound; add FX
-          playSound(COINFX,1);
-        } else if(this.objTile.obj.e.type==types.SPIKE && !this.isJumping && this.objTile.obj.hit){
-          this.startJumping();
+      this.ot=cart.levels[cart.cLevel].tiles[cart.hero.lvl][this.currentTile.id-1];
+      if(this.ot != null && this.ot.obj != null){
+
+        switch(this.ot.obj.e.type){
+          case types.KEY:
+            this.ot.obj=null;
+            playSound(COINFX,1);
+            break;
+          case types.SPIKE:
+            this.checkHit();
+            break;
+          case types.FIRE:
+            console.log("fire");
+            this.checkHit();
+            break;
         }
       }
     }
@@ -187,6 +195,13 @@ function Hero(w, h, x, y, angle, type) {
       dy = mousePos.y;
       this.e.gun.addBullets(ox,oy,dx,dy, this.e);
       cart.shakeTime=.05;
+    }
+  }
+
+  this.checkHit = function(){
+    if(!this.isJumping && this.ot.obj.hit){
+      this.startJumping();
+      playSound(DIEFX,.8);
     }
   }
 }

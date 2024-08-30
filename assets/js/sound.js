@@ -1,4 +1,7 @@
 // Sound
+
+// Check https://killedbyapixel.github.io/ZzFX/
+// https://github.com/KilledByAPixel/ZzFX/blob/master/ZzFXMicro.min.js
 var audioCtx;
 var oscArr = [];
 var COINFX=1;

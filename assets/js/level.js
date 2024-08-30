@@ -42,7 +42,6 @@ function Level(no=0) {
   if(no==0){
     this.tileCol1= "#0D7C66";
     this.tileCol2= "#41B3A2";
-    //addPlat(1,3, this.tiles);
     addPlat(1,7, this.tiles);
     addPlat(1,8, this.tiles);
     addPlat(1,6, this.tiles);
@@ -52,6 +51,7 @@ function Level(no=0) {
     addPlat(3,18, this.tiles);
     addSpike(0, 10, this.tiles);
     addKey(3, 18, this.tiles);
+    addFire(0,4, this.tiles);
   } else {
     this.tileCol1= "#273746";
     this.tileCol2= "#566573";
@@ -112,4 +112,9 @@ function addSpike(l, id, tiles){
 function addKey(l, id, tiles){
   t=tiles[l][id-1];
   t.obj=new Key(t.x+70, t.y+20, l, id);
+}
+
+function addFire(l, id, tiles){
+  t=tiles[l][id-1];
+  t.obj=new Fire(t.x+80, t.y-10, l, id);
 }

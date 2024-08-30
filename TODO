@@ -6,18 +6,20 @@ Loop stuff
 this.objs.forEach((e) => {
 });
 
-grunt and use https://lifthrasiir.github.io/roadroller/
+https://lifthrasiir.github.io/roadroller/
 For images after image optim (Need to zip file and leave PNGs intact with no compression)
 https://www.imagerecycle.com/?atid=79
 https://tinypng.com/
 https://compressor.io/
 
+https://github.com/KilledByAPixel/ZzFX/blob/master/ZzFXMicro.min.js
+https://killedbyapixel.github.io/ZzFX/
+
 Hero
   - HP
   Cast Spells
     - Hands move to cast
-    - Level up spells
-    - Add special Spell on RMB
+    
 Map
   13 Rooms
     - New fears
