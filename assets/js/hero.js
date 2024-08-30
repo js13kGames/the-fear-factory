@@ -22,7 +22,7 @@ function Hero(w, h, x, y, angle, type) {
   this.dustTimer = 0; // Timer to control dust particle creation
   this.lvl = 0; // Which level of block is the hero; at 0 is ground
   this.prevlvl = 0;
-
+  this.hasKey=false;
   this.update = function(delta) {
     if (space() && !this.isJumping) {
       this.startJumping();
@@ -171,6 +171,8 @@ function Hero(w, h, x, y, angle, type) {
           case types.KEY:
             this.ot.obj=null;
             playSound(COINFX,1);
+            this.hasKey=true;
+            this.clearLevel();
             break;
           case types.SPIKE:
             this.checkHit();
@@ -203,5 +205,20 @@ function Hero(w, h, x, y, angle, type) {
       this.startJumping();
       playSound(DIEFX,.8);
     }
+  }
+
+  this.clearLevel = function(){
+    cart.levels[cart.cLevel].tiles.forEach((t) => {
+      t.forEach((e) => {
+        if(e.lvl==0){
+          e.type=types.TILE;
+          e.obj=null;
+          e.setType();
+        } else {
+          e.type=types.AIR;
+          e.setType();
+        }
+      });
+    });
   }
 }

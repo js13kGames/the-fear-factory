@@ -45,6 +45,13 @@ function Cart() {
       lvl.update(delta);
 
       //drawblock(192, 350, 128, 64, "#7a09fa"); // Test water
+      if(this.hero.hasKey){
+        // If you have the key
+        drawPortal(129+this.cam.x, this.cam.y);
+        drawStars();
+        updateStars();
+        addStar(129+this.cam.x, this.cam.y);
+      }
       this.hero.update(delta);
       this.hero.checkGun();
 
