@@ -49,7 +49,7 @@ let portal = {
            ctx.stroke();
        }
        ctx.restore();
-       portal.rotation += 0.03; // rotate the portal
+       portal.rotation += 0.01; // rotate the portal
    }
 
    function drawStars() {

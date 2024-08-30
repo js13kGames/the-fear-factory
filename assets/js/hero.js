@@ -9,7 +9,7 @@ function Hero(w, h, x, y, angle, type) {
   this.maxHP=100;
   this.die=0;
   this.e.gun = new Gun();
-  this.currentTile=null;
+  this.curTile=null;
   this.ot=null;
   this.isJumping = false;
   this.isFalling = false;
@@ -148,7 +148,7 @@ function Hero(w, h, x, y, angle, type) {
 
     // Check at centre X
     // y+30 to make sure feet are on tile
-    this.currentTile=getTile(this.e.x-64, this.e.y+32, this.lvl)
+    this.curTile=getTile(this.e.x-64, this.e.y+32, this.lvl)
     // Update and draw dust particles
     this.particles = this.particles.filter(p => p.isAlive());
     this.particles.forEach(p => {
@@ -163,8 +163,8 @@ function Hero(w, h, x, y, angle, type) {
     // Check current Tile for Keys, Spikes etc;
     // TODO: Clean up messy code
 
-    if(this.currentTile!=null){
-      this.ot=cart.levels[cart.cLevel].tiles[cart.hero.lvl][this.currentTile.id-1];
+    if(this.curTile!=null){
+      this.ot=cart.levels[cart.cLevel].tiles[cart.hero.lvl][this.curTile.id-1];
       if(this.ot != null && this.ot.obj != null){
 
         switch(this.ot.obj.e.type){

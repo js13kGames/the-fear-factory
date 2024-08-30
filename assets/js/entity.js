@@ -86,7 +86,7 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
       }
     }
 
-    let stuck = cart.hero.currentTile == null ? false : cart.hero.currentTile.type == types.STOP;
+    let stuck = cart.hero.curTile == null ? false : cart.hero.curTile.type == types.STOP;
 
     // TODO - check if the player is hitting a STOP with no chance of landing on top of platform
     // let nxtTile=getTile(newX-64, newY+32, this.lvl)

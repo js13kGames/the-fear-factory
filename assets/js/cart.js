@@ -55,7 +55,7 @@ function Cart() {
       this.hero.update(delta);
       this.hero.checkGun();
 
-      let ht = this.hero.currentTile;
+      let ht = this.hero.curTile;
       lvl.tiles.forEach((t) => {
         t.forEach((e) => {
           if(e.type == types.TILE2 && ht!=null){
@@ -69,7 +69,7 @@ function Cart() {
           // Draw traps
           if(e.obj!=null){
             e.obj.update(delta);
-            if (this.hero.e.y>e.obj.y-20 && this.hero.currentTile != null && this.hero.currentTile.id>=e.obj.id){
+            if (this.hero.e.y>e.obj.y-20 && this.hero.curTile != null && this.hero.curTile.id>=e.obj.id){
               this.hero.e.update(delta)
             };
           }

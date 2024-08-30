@@ -65,8 +65,8 @@ function Level(no=0) {
   this.update = function(delta){
     this.tiles.forEach(e => e.sx=16);
 
-      // if(this.hero.currentTile != null){
-      //   this.hero.currentTile.sx=49;
+      // if(this.hero.curTile != null){
+      //   this.hero.curTile.sx=49;
       // }
 
       drawIsometricRoom(this.tileCol1,this.tileCol2, this.rows, this.cols);
