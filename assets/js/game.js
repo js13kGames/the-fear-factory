@@ -45,6 +45,9 @@ let shaky = true;
 let loading = .2;
 let debug=true;
 let block = new Entity(32, 16, 0, 0, 0, types.BLOCK);
+let maxRadius = Math.sqrt(canvasW * canvasW + canvasH * canvasH); // Diagonal of the screen
+let radius = maxRadius;
+let shrinking = true;
 
 // Load the music player
 genAudio();

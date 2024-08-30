@@ -14,6 +14,7 @@ function Cart() {
   this.levels=[];
   this.levels.push(new Level(0));
   this.cLevel=0;
+  this.changeLvl=false;
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -77,10 +78,21 @@ function Cart() {
       });
       cart.hero.e.gun.drawBullets(delta);
       drawUI();
+
+      // Check if level completed
+      if(this.hero.hasKey && this.hero.curTile.id==1){
+        console.log("Next Level");
+        draw();
+        if(this.changeLvl){
+         console.log("Load the next Level");
+         cart.changeLvl=false;
+        }
+      }
     } else {
       // Intro Screen
       this.intro.update(delta);
     }
+
   }
 
   this.reset = function(){a
