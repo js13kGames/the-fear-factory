@@ -62,7 +62,7 @@ function Cart() {
           // Draw traps
           if(e.obj!=null){
             e.obj.update(delta);
-            if (this.hero.e.y>e.obj.y-20 && this.hero.currentTile.id>=e.obj.id){
+            if (this.hero.e.y>e.obj.y-20 && this.hero.currentTile != null && this.hero.currentTile.id>=e.obj.id){
               this.hero.e.update(delta)
             };
           }

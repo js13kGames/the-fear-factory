@@ -13,6 +13,7 @@ function Spike(x, y, tileID) {
   this.y=y;
   this.x=x;
   this.e = new Entity(10, 14, x, y, 0, types.SPIKE);
+  this.hit=false;
 
   this.update = function(delta) {
     this.time+=delta;
@@ -20,7 +21,9 @@ function Spike(x, y, tileID) {
     if(this.time<2.5){
       this.e.height=2;
       this.e.y=this.y+20;
+      this.hit=false;
     } else if(this.time<2.55){
+      this.hit=true;
       this.e.height=4;
       this.e.y=this.y+12;
     } else if(this.time<2.6){
@@ -36,6 +39,7 @@ function Spike(x, y, tileID) {
     }
 
     if(this.time>5){
+      this.hit=false;
       this.e.height=2;
       this.e.y=this.y+16;
       this.time=0

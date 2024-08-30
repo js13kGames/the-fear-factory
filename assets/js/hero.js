@@ -162,12 +162,16 @@ function Hero(w, h, x, y, angle, type) {
 
     // Check current Tile for Keys, Spikes etc;
     // TODO: Clean up messy code
-    this.objTile=cart.levels[cart.cLevel].tiles[cart.hero.lvl][this.currentTile.id-1];
-    if(this.objTile != null && this.objTile.obj != null){
-      if(this.objTile.obj.e.type==types.KEY){
-        this.objTile.obj=null;
-        // TODO Play sound; add FX
-        playSound(COINFX,1);
+    if(this.currentTile!=null){
+      this.objTile=cart.levels[cart.cLevel].tiles[cart.hero.lvl][this.currentTile.id-1];
+      if(this.objTile != null && this.objTile.obj != null){
+        if(this.objTile.obj.e.type==types.KEY){
+          this.objTile.obj=null;
+          // TODO Play sound; add FX
+          playSound(COINFX,1);
+        } else if(this.objTile.obj.e.type==types.SPIKE && !this.isJumping && this.objTile.obj.hit){
+          this.startJumping();
+        }
       }
     }
   }
