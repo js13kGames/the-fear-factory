@@ -65,10 +65,12 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     }
 
     // Movement
-    left()&&(newX-=spd,this.dir=1);
-    right()&&(newX+=spd,this.dir=0);
-    up()&&(newY-=spd/2);
-    down()&&(newY+=spd/2);
+    if (!(cart.hero.hasKey && cart.hero.curTile != null && cart.hero.curTile.id == 1)) {
+      left()&&(newX-=spd,this.dir=1);
+      right()&&(newX+=spd,this.dir=0);
+      up()&&(newY-=spd/2);
+      down()&&(newY+=spd/2);
+    }
 
     this.col = Math.round((newY / 64) + (newX / 128));
     this.row = Math.round((newY / 64) - (newX / 128)+1);
