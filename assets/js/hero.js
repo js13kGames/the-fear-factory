@@ -149,6 +149,11 @@ function Hero(w, h, x, y, angle, type) {
     // Check at centre X
     // y+30 to make sure feet are on tile
     this.curTile=getTile(this.e.x-64, this.e.y+32, this.lvl)
+
+    if(this.hasKey&&!shrinking){
+      this.e.z=this.curTile.z;
+      this.shadow.z=this.e.z;
+    }
     // Update and draw dust particles
     this.particles = this.particles.filter(p => p.isAlive());
     this.particles.forEach(p => {
