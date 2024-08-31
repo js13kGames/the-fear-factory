@@ -14,6 +14,7 @@ function draw() {
     if (swipeWidth >= nativeWidth+100) {
       shrinking = true;
       cart.changeLvl=true;
+      cart.cLevel++;
     }
   } else {
     swipeWidth -= 20;

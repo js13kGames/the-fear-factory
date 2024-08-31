@@ -12,6 +12,9 @@ function Level(no=0) {
   if(no==0){
     this.rows = 5;
     this.cols = 4;
+  } else if(no==1){
+    this.rows = 6;
+    this.cols = 6;
   }
 
   // Populate 4 levels of tiles in a block
@@ -52,7 +55,8 @@ function Level(no=0) {
     addSpike(0, 10, this.tiles);
     addKey(3, 18, this.tiles);
     addFire(0,4, this.tiles);
-  } else {
+  } else if(no==1) {
+    addKey(0, 4, this.tiles);
     this.tileCol1= "#273746";
     this.tileCol2= "#566573";
   }
@@ -64,32 +68,31 @@ function Level(no=0) {
 
   this.update = function(delta){
     this.tiles.forEach(e => e.sx=16);
+    // if(this.hero.curTile != null){
+    //   this.hero.curTile.sx=49;
+    // }
 
-      // if(this.hero.curTile != null){
-      //   this.hero.curTile.sx=49;
-      // }
+    drawIsometricRoom(this.tileCol1,this.tileCol2, this.rows, this.cols);
 
-      drawIsometricRoom(this.tileCol1,this.tileCol2, this.rows, this.cols);
-
-      this.tiles.forEach((t) => {
-        t.forEach((e) => {
-          if(e.type != types.STOP && e.type != types.AIR){
-            if(e.type==types.TILE2){
-              for(l = e.lvl; l > 0; l--){
-                drawblock(e.x, e.y+33+(l*33), 128, 64, "#006769", false);
-              }
+    this.tiles.forEach((t) => {
+      t.forEach((e) => {
+        if(e.type != types.STOP && e.type != types.AIR){
+          if(e.type==types.TILE2){
+            for(l = e.lvl; l > 0; l--){
+              drawblock(e.x, e.y+33+(l*33), 128, 64, "#006769", false);
             }
-            e.update(delta)
-          };
-          // Draw traps
-          if(e.obj!=null){
-            e.obj.update(delta);
           }
-        });
+          e.update(delta)
+        };
+        // Draw traps
+        if(e.obj!=null){
+          e.obj.update(delta);
+        }
       });
+    });
 
-    this.mobs.forEach(e => e.update(delta));
-  }
+  this.mobs.forEach(e => e.update(delta));
+}
 }
 
 function addPlat(lvl, id, tiles){
