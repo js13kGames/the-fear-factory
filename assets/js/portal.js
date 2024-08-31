@@ -32,24 +32,27 @@ let portal = {
    }
 
    function drawPortal(x,y) {
-       ctx.save();
-       ctx.translate(x, y);
-       ctx.rotate(portal.rotation);
-       for (let i = 0; i < 10; i++) {
-           ctx.beginPath();
-           ctx.arc(0, 0, portal.radius, (i * Math.PI / 5), ((i + 1) * Math.PI / 5), false);
-           ctx.lineWidth = 20;
-           ctx.strokeStyle = i % 2 === 0 ? '#601848' : '#480048';
-           ctx.stroke();
+     // Function to draw a rotating arc-based portal
+     function draw(x, y, rotation, radius, colors) {
+         ctx.save();
+          ctx.translate(x, y);
+         ctx.rotate(rotation);
+         for (let i = 0; i < 10; i++) {
+             ctx.beginPath();
+             ctx.arc(0, 0, radius, (i * Math.PI / 5), ((i + 1) * Math.PI / 5), false);
+             ctx.lineWidth = 20;
+             ctx.strokeStyle = i % 2 === 0 ? colors[0] : colors[1];
+             ctx.stroke();
+         }
+         ctx.restore();
+     }
 
-           ctx.beginPath();
-           ctx.arc(0, 0, portal.radius/2-4, (i * Math.PI / 5), ((i + 1) * Math.PI / 5), false);
-           ctx.lineWidth = 20;
-           ctx.strokeStyle = i % 2 === 0 ? '#480048' : '#601848';
-           ctx.stroke();
-       }
-       ctx.restore();
-       portal.rotation += 0.01; // rotate the portal
+     // Draw the outer and inner portals with separate rotations
+     draw(x, y, portal.rotation, portal.radius, ['#601848', '#480048']);
+     draw(x, y, -portal.rotation, portal.radius / 2 - 2, ['#480048', '#601848']);
+
+     // Update rotations
+     portal.rotation += 0.03;
    }
 
    function drawStars() {
