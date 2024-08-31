@@ -5,6 +5,7 @@ function Level(no=0) {
   this.tiles=[];
   this.mobs=[];
   this.redraw=[];
+  this.time=0;
 
   let id =0;
   let tt=[];
@@ -53,7 +54,7 @@ function Level(no=0) {
     addPlat(2,20, this.tiles);
     addPlat(3,18, this.tiles);
     addSpike(0, 10, this.tiles);
-    addKey(3, 18, this.tiles);
+    addKey(1, 3, this.tiles);
     addFire(0,4, this.tiles);
   } else if(no==1) {
     addKey(0, 4, this.tiles);
@@ -71,17 +72,21 @@ function Level(no=0) {
     // if(this.hero.curTile != null){
     //   this.hero.curTile.sx=49;
     // }
-
-    drawIsometricRoom(this.tileCol1,this.tileCol2, this.rows, this.cols);
+    this.time+=delta;
+    drawIsometricRoom(this.tileCol1,this.tileCol2, this.rows, this.cols, this.time, cart.hero.hasKey&&!shrinking);
 
     this.tiles.forEach((t) => {
       t.forEach((e) => {
+        if(cart.hero.hasKey && e.lvl > 0) return; // No need to draw other layers
         if(e.type != types.STOP && e.type != types.AIR){
           if(e.type==types.TILE2){
             for(l = e.lvl; l > 0; l--){
               drawblock(e.x, e.y+33+(l*33), 128, 64, "#006769", false);
             }
           }
+          // (x, y, amplitude, wavelength, frequency, time) {
+          e.z=0;
+          if(cart.hero.hasKey&&!shrinking)e.z=calculateZ(e.x, e.y, 5, 20, .3, this.time);
           e.update(delta)
         };
         // Draw traps
@@ -91,8 +96,8 @@ function Level(no=0) {
       });
     });
 
-  this.mobs.forEach(e => e.update(delta));
-}
+    this.mobs.forEach(e => e.update(delta));
+  }
 }
 
 function addPlat(lvl, id, tiles){

@@ -13,7 +13,7 @@ function Cart() {
   this.shop=false;
   this.levels=[];
   this.levels.push(new Level(0));
-    this.levels.push(new Level(1));
+  this.levels.push(new Level(1));
   this.cLevel=0;
   this.changeLvl=false;
 

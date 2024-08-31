@@ -68,7 +68,7 @@ function Ghost(x, y) {
 
   this.update = function(delta) {
     this.time+=delta;
-    let bounce =.3 * Math.sin(this.time * 2 * Math.PI * 0.4)
+    let bounce =.3 * Math.sin(this.time * 2 * Math.PI * 0.4);
     this.e.z += bounce;
     this.shadow.setV(this.e.x+(this.e.flip?34:22), this.e.y+110);
     this.e.update(delta);

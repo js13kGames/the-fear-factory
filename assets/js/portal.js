@@ -61,4 +61,4 @@ function drawStars() {
     ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
     ctx.fillRect(s.x, s.y, s.size, s.size);
   });
-}ddd
+}

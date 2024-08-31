@@ -133,17 +133,21 @@ function getTile(xHero, yHero, level) {
   return tiles[c + (cart.levels[cart.cLevel].cols * r)]; // TODO move to function
 }
 
-function drawIsometricRoom(col1, col2, rows, cols) {
+function drawIsometricRoom(col1, col2, rows, cols, time, wave) {
     const tileWidth = 128;
     const tileHeight = 64;
-
+    let yy=0;
     // Draw floor with checkered pattern
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
             const color = (x + y) % 2 === 0 ? col1 : col2;
+            let xx = startX + (x - y) * (tileWidth / 2)
+            let yy = startY + (x + y) * (tileHeight / 2);
+            if(wave) yy+= calculateZ(xx, yy, 10, 20, .3, time)/1.5;
+
             drawTile(
-                startX + (x - y) * (tileWidth / 2),
-                startY + (x + y) * (tileHeight / 2),
+                xx,
+                yy,
                 tileWidth, tileHeight,
                 color // Alternating black and white
             );
@@ -227,4 +231,15 @@ function hitDust(x, y, arr) {
       const offsetY = Math.sin(angle) * radius + rndNo(-5, 5);
       arr.push(new Dusty(x + 55 + offsetX, y + 95 + offsetY));
   }
+}
+
+function calculateZ(x, y, amplitude, wavelength, frequency, time) {
+    // Calculate wave number and angular frequency
+    const k = 2 * Math.PI / wavelength; // Wave number
+    const omega = 2 * Math.PI * frequency; // Angular frequency
+
+    // Calculate Z value using the wave formula
+    const Z = amplitude * Math.sin(k * (x + y) - omega * time);
+
+    return Z;
 }
