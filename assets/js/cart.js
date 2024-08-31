@@ -50,9 +50,6 @@ function Cart() {
       if(this.hero.hasKey){
         // If you have the key
         drawPortal(129+this.cam.x, this.cam.y);
-        drawStars();
-        updateStars();
-        addStar(129+this.cam.x, this.cam.y);
       }
       this.hero.update(delta);
       this.hero.checkGun();
