@@ -12,6 +12,7 @@ function Cart() {
   this.shakeTime=0;
   this.shop=false;
   this.levels=[];
+  this.trans=false;
 
   for(i=0;i<14;i++){
     this.levels.push(new Level(i));
@@ -50,7 +51,7 @@ function Cart() {
       lvl.update(delta);
 
       //drawblock(192, 350, 128, 64, "#7a09fa"); // Test water
-      if(this.hero.hasKey){
+      if(this.trans){
         // If you have the key
         drawPortal(129+this.cam.x, this.cam.y);
       }
@@ -93,7 +94,7 @@ function Cart() {
       // Intro Screen
       this.intro.update(delta);
     }
-
+    this.trans = cart.hero.hasKey&&!shrinking;
   }
 
   this.reset = function(){a

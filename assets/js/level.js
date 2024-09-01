@@ -44,7 +44,7 @@ function Level(no=0) {
     t=this.tiles[l][id-1];
     t.obj=new Fire(t.x+80, t.y-10, l, id);
   }
-  
+
   // Populate 4 levels of tiles in a block
   for(l = 0; l < 5; l++){
     id=0;
@@ -120,8 +120,8 @@ function Level(no=0) {
           }
           e.z=0;
           // calculateZ (x, y, amplitude, wavelength, frequency, time)
-          if(cart.hero.hasKey&&!shrinking)e.z=calculateZ(e.x, e.y, 5, 20, .3, this.time);
-          if(e.lvl==0) drawIsoTile(this.tileCol1,this.tileCol2, e.row, e.col, this.time, cart.hero.hasKey&&!shrinking);
+          if(cart.trans)e.z=calculateZ(e.x, e.y, 5, 20, .3, this.time);
+          if(e.lvl==0) drawIsoTile(this.tileCol1,this.tileCol2, e.row, e.col, this.time, cart.trans);
           e.update(delta)
         };
         // Draw traps
