@@ -133,26 +133,21 @@ function getTile(xHero, yHero, level) {
   return tiles[c + (cart.levels[cart.cLevel].cols * r)]; // TODO move to function
 }
 
-function drawIsometricRoom(col1, col2, rows, cols, time, wave) {
+function drawIsoTile(col1, col2, y, x, time, wave) {
     const tileWidth = 128;
     const tileHeight = 64;
-    let yy=0;
-    // Draw floor with checkered pattern
-    for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < cols; x++) {
-            const color = (x + y) % 2 === 0 ? col1 : col2;
-            let xx = startX + (x - y) * (tileWidth / 2)
-            let yy = startY + (x + y) * (tileHeight / 2);
-            if(wave) yy+= calculateZ(xx, yy, 10, 20, .3, time)/1.5;
 
-            drawTile(
-                xx,
-                yy,
-                tileWidth, tileHeight,
-                color // Alternating black and white
-            );
-        }
-    }
+    const color = (x + y) % 2 === 0 ? col1 : col2;
+    let xx = startX + (x - y) * (tileWidth / 2)
+    let yy = startY + (x + y) * (tileHeight / 2);
+    if(wave) yy+= calculateZ(xx, yy, 10, 20, .3, time)/1.5;
+
+    drawTile(
+        xx,
+        yy,
+        tileWidth, tileHeight,
+        color // Alternating black and white
+    );
 }
 
 function drawTile(x, y, width, height, color) {
