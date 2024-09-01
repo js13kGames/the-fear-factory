@@ -238,3 +238,77 @@ function calculateZ(x, y, amplitude, wavelength, frequency, time) {
 
     return Z;
 }
+
+function textToScreen(text) {
+  dialogue.active = true;
+  dialogue.text = text;
+  dialogue.currentText = "";
+  dialogue.charIndex = 0;
+  dialogue.active=true
+  dialogue.nextCharTime = performance.now() + dialogue.textSpeed;
+
+  // Set box dimensions based on the canvas size
+  dialogue.boxWidth = nativeWidth * 0.9;  // 90% of canvas width
+  dialogue.startX = (nativeWidth - dialogue.boxWidth) / 2; // Centered horizontally
+  dialogue.startY = nativeHeight*.05; // Near the bottom
+}
+
+function drawDialogueBox(dt) {
+    if (!dialogue.active) return;
+
+    const d = dialogue, ctxProps = (c, f, s) => {
+        c.fillStyle = f;
+        c.strokeStyle = s;
+    };
+
+    // Typewriter effect
+    if (performance.now() >= d.nextCharTime && d.charIndex < d.text.length) {
+        d.currentText += d.text[d.charIndex++];
+        d.nextCharTime = performance.now() + d.textSpeed;
+    }
+
+    // Estimate the number of lines required
+    ctx.font = `${d.fontSize} ${d.fontFamily}`;
+    let words = d.currentText.split(' ');
+    let line = '', lineHeight = 30, lines = 0;
+    let boxPadding = 40, maxWidth = d.boxWidth - 2 * boxPadding;
+
+    for (let i = 0; i < words.length; i++) {
+        let testLine = line + words[i] + ' ';
+        if (ctx.measureText(testLine).width > maxWidth) {
+            line = words[i] + ' ';
+            lines++;
+        } else {
+            line = testLine;
+        }
+    }
+
+    // Adjust the box height based on the number of lines
+    d.boxHeight = lines * lineHeight + 2 * boxPadding;
+
+    // Draw the dialogue box
+    ctx.save();
+    ctxProps(ctx, "rgba(0, 0, 0, 0.8)", "white");
+    ctx.fillRect(d.startX, d.startY, d.boxWidth, d.boxHeight);
+    ctx.lineWidth = 2;
+    ctx.strokeRect(d.startX, d.startY, d.boxWidth, d.boxHeight);
+
+    // Render the wrapped text
+    ctx.font = `${d.fontSize} ${d.fontFamily}`;
+    ctxProps(ctx, "white");
+    wrapText(ctx, d.currentText, d.startX + boxPadding, d.startY + boxPadding, maxWidth, lineHeight);
+    ctx.restore();
+}
+
+function wrapText(ctx, txt, x, y, mw, lh) {
+    let w = txt.split(' '), l = '', ly = y;
+    for (let i = 0; i < w.length; i++) {
+        let tl = l + w[i] + ' ';
+        if (ctx.measureText(tl).width > mw && i > 0) {
+            ctx.fillText(l, x, ly);
+            l = w[i] + ' ';
+            ly += lh;
+        } else l = tl;
+    }
+    ctx.fillText(l, x, ly);
+}

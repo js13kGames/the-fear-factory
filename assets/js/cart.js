@@ -13,7 +13,20 @@ function Cart() {
   this.shop=false;
   this.levels=[];
   this.trans=false;
-
+  let dialogue = {
+      active: false,
+      text: "",
+      currentText: "",
+      charIndex: 0,
+      boxWidth: 0,
+      boxHeight: 0,
+      startX: 0,
+      startY: 0,
+      textSpeed: 50, // milliseconds per character
+      nextCharTime: 0,
+      fontSize: "20px",
+      fontFamily: "Arial"
+  };
   for(i=0;i<14;i++){
     this.levels.push(new Level(i));
   }
@@ -95,6 +108,8 @@ function Cart() {
       this.intro.update(delta);
     }
     this.trans = cart.hero.hasKey&&!shrinking;
+
+    drawDialogueBox(delta);
   }
 
   this.reset = function(){a

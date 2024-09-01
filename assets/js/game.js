@@ -46,6 +46,20 @@ let block = new Entity(32, 16, 0, 0, 0, types.BLOCK);
 let swipeWidth = 0;
 let shrinking = false;
 
+let dialogue = {
+    active: false,
+    text: "",
+    currentText: "",
+    charIndex: 0,
+    boxWidth: 0,
+    startX: 0,
+    startY: 0,
+    textSpeed: 20, // milliseconds per character
+    nextCharTime: 0,
+    fontSize: "30px",
+    fontFamily: "Arial"
+};
+
 // Load the music player
 genAudio();
 
