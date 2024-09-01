@@ -9,7 +9,6 @@ function draw() {
   ctx.restore();
 
   if (!shrinking) {
-    console.log(swipeWidth + " /  " + w);
     swipeWidth += 20;
     if (swipeWidth >= nativeWidth+100) {
       shrinking = true;
