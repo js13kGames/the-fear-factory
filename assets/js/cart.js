@@ -2,6 +2,7 @@ function Cart() {
   this.cam=new Camera();
   this.time=0;
   this.hero = new Hero(16, 16, 0, 0, 0, types.HERO);
+  this.gob = new Entity(22, 15, 100, 100, 0, types.GOB);
   this.heroShadow = new Entity(11, 4, 0, 0, 0, types.SHADOW,1);
   this.shadow = new Entity(7, 3, 0, 0, 0, types.SHADOW,1);
   this.decor = new Decor();
@@ -13,7 +14,7 @@ function Cart() {
   this.shop=false;
   this.levels=[];
   this.trans=false;
-  let dialogue = {
+  this.dialogue = {
       active: false,
       text: "",
       currentText: "",
@@ -79,6 +80,7 @@ function Cart() {
               for(l = e.lvl; l > 0; l--){
                 drawblock(e.x, e.y+33+(l*33), 128, 64, "#006769", false);
               }
+              if(e.type==types.TILE2&&!this.hero.hasKey)drawIsoTile("#990000","#990000", e.row, e.col, this.time, cart.trans,(e.lvl*33));
               e.update(delta)
             }
           }
@@ -109,6 +111,11 @@ function Cart() {
     this.trans = cart.hero.hasKey&&!shrinking;
 
     drawDialogueBox(delta);
+    if (this.dialogue.active){
+      this.gob.x=-this.cam.x;
+      this.gob.y=-this.cam.y;
+      this.gob.update(delta);
+    }
   }
 
   this.reset = function(){a

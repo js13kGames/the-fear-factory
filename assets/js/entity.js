@@ -181,7 +181,7 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
         this.sx=16;
         break;
       case types.TILE2:
-        this.sx=49;
+        this.sx=16;
         break;
       case types.HAND:
         this.sy=17;
@@ -207,6 +207,9 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
       case types.KEY:
         this.sx=31;
         this.sy=35;
+        break;
+      case types.GOB:
+        this.sx=49;
         break;
     }
 

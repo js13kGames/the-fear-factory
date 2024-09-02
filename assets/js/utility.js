@@ -133,7 +133,7 @@ function getTile(xHero, yHero, level) {
   return tiles[c + (cart.levels[cart.cLevel].cols * r)]; // TODO move to function
 }
 
-function drawIsoTile(col1, col2, y, x, time, wave) {
+function drawIsoTile(col1, col2, y, x, time, wave, yOff=0) {
     const tileWidth = 128;
     const tileHeight = 64;
 
@@ -144,7 +144,7 @@ function drawIsoTile(col1, col2, y, x, time, wave) {
 
     drawTile(
         xx,
-        yy,
+        yy-yOff,
         tileWidth, tileHeight,
         color // Alternating black and white
     );
@@ -242,6 +242,7 @@ function calculateZ(x, y, amplitude, wavelength, frequency, time) {
 function textToScreen(text) {
   let perf = performance.now();
   let d=dialogue;
+  cart.dialogue.active=true;
   d.active = true;
   d.text = text;
   d.currentText = "";
@@ -300,10 +301,13 @@ function drawDialogueBox(dt) {
     // Render the wrapped text
     ctx.font = `${d.fontSize} ${d.fontFamily}`;
     ctxProps(ctx, "white");
-    wrapText(ctx, d.currentText, d.startX + boxPadding, d.startY + boxPadding, maxWidth, lineHeight);
+    wrapText(ctx, d.currentText, d.startX + boxPadding*2.4, d.startY + boxPadding, maxWidth, lineHeight);
     ctx.restore();
     if(d.currentText==d.text)d.wait+=dt;
-    if(d.done && leftMB) dialogue.active=false;
+    if(d.done && leftMB){
+      d.active=false;
+      cart.dialogue.active=false;
+    }
     if(d.wait>.3 && !d.done){
       d.currentText += "  - click to continue";
       d.done=true;

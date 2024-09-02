@@ -124,6 +124,7 @@ function Level(no=0) {
             for(l = e.lvl; l > 0; l--){
               drawblock(e.x, e.y+33+(l*33), 128, 64, "#006769", false);
             }
+            if(e.type==types.TILE2&&!cart.hero.hasKey)drawIsoTile("#990000","#990000", e.row, e.col, this.time, cart.trans,(e.lvl*33)-e.z); // DRAW TILE2
           }
           e.z=0;
           // calculateZ (x, y, amplitude, wavelength, frequency, time)

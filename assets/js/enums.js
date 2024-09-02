@@ -10,7 +10,8 @@ const types = {
   STOP:8,
   SPIKE:9,
   GHOST:10,
-  KEY:11
+  KEY:11,
+  GOB:12
 }
 
 const guntype = {
