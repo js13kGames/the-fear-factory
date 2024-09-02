@@ -100,7 +100,6 @@ function Cart() {
         if(this.changeLvl){
          console.log("Load the next Level");
          cart.changeLvl=false;
-
         }
       }
     } else {

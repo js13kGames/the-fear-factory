@@ -24,6 +24,7 @@ function Hero(w, h, x, y, angle, type) {
   this.prevlvl = 0;
   this.hasKey=false;
   this.update = function(delta) {
+
     if (space() && !this.isJumping) {
       this.startJumping();
     }
@@ -132,7 +133,7 @@ function Hero(w, h, x, y, angle, type) {
       this.lHand.setV(this.e.x+70, this.e.y+64+bounce);
       this.rHand.setV(this.e.x+20, this.e.y+64+bounce);
       this.shadow.setV(this.e.x+(this.e.flip?34:22), this.e.y+80);
-      this.shadow.z = this.lvl == 0 ? 0 : -34 * this.lvl; // TODO, fix position based on level
+      this.shadow.z=this.lvl == 0 ? 0 : -34 * this.lvl; // TODO, fix position based on level
 
     } else if(this.hp==0){
       if(this.die<1.5){
@@ -151,7 +152,10 @@ function Hero(w, h, x, y, angle, type) {
     this.curTile=getTile(this.e.x-64, this.e.y+32, this.lvl)
 
     if(this.hasKey&&!shrinking){
+      this.lvl=0;
       this.e.z=this.curTile.z;
+      this.lHand.z=this.e.z-this.jumpHeight/2;
+      this.rHand.z=this.e.z-this.jumpHeight/2;
       this.shadow.z=this.e.z;
     }
     // Update and draw dust particles
@@ -211,16 +215,12 @@ function Hero(w, h, x, y, angle, type) {
       playSound(DIEFX,.8);
     }
   }
-
   this.clearLevel = function(){
     cart.levels[cart.cLevel].tiles.forEach((t) => {
       t.forEach((e) => {
         if(e.lvl==0){
           e.type=types.TILE;
           e.obj=null;
-          e.setType();
-        } else {
-          e.type=types.AIR;
           e.setType();
         }
       });

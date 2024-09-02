@@ -41,7 +41,7 @@ var nativeHeight = check?375:470;
 var scaleFillNative = Math.max(canvasW / nativeWidth, canvasH / nativeHeight);
 let shaky = true;
 let loading = .2;
-let debug=false;
+let debug=true;
 let block = new Entity(32, 16, 0, 0, 0, types.BLOCK);
 let swipeWidth = 0;
 let shrinking = false;
@@ -57,7 +57,9 @@ let dialogue = {
     textSpeed: 20, // milliseconds per character
     nextCharTime: 0,
     fontSize: "30px",
-    fontFamily: "Arial"
+    fontFamily: "Verdana",
+    wait:0,
+    done:false
 };
 
 // Load the music player

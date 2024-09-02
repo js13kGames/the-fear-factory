@@ -103,7 +103,7 @@ function Level(no=0) {
   //this.mobs.push(new Ghost(84, 200));
 
   this.update = function(delta){
-    this.tiles.forEach(e => e.sx=16);
+    //this.tiles.forEach(e => e.sx=16);
     // if(this.hero.curTile != null){
     //   this.hero.curTile.sx=49;
     // }
@@ -111,7 +111,14 @@ function Level(no=0) {
 
     this.tiles.forEach((t) => {
       t.forEach((e) => {
-        if(cart.hero.hasKey && e.lvl > 0) return; // No need to draw other layers
+        if(cart.hero.hasKey && e.lvl > 0){
+          if(e.type==types.TILE2){
+            e.fly=true;
+          } else {
+            e.type=types.AIR;
+            e.setType();
+          }
+        }
         if(e.type != types.STOP && e.type != types.AIR){
           if(e.type==types.TILE2){
             for(l = e.lvl; l > 0; l--){

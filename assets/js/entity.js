@@ -24,6 +24,7 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
   this.row=0;
   this.col=0;
   this.obj=null;
+  this.fly=false;
 
   // ATLAS Positions
   this.sx=0;
@@ -128,6 +129,15 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     hh  = this.hHeight;
     w   = this.width;
     h   = this.height;
+
+    // Beat level fly away
+    if(this.fly && this.y > -300){
+      this.y-=300*delta
+      this.alpha-=.05;
+    } else if (this.fly && this.y <= -299) {
+      this.type=types.AIR;
+      this.setType();
+    }
 
     // Camera Tracking
     ctx.translate(cart.cam.x,cart.cam.y);

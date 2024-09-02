@@ -240,31 +240,35 @@ function calculateZ(x, y, amplitude, wavelength, frequency, time) {
 }
 
 function textToScreen(text) {
-  dialogue.active = true;
-  dialogue.text = text;
-  dialogue.currentText = "";
-  dialogue.charIndex = 0;
-  dialogue.active=true
-  dialogue.nextCharTime = performance.now() + dialogue.textSpeed;
+  let perf = performance.now();
+  let d=dialogue;
+  d.active = true;
+  d.text = text;
+  d.currentText = "";
+  d.charIndex = 0;
+  d.active=true
+  d.nextCharTime = perf + d.textSpeed;
+  d.wait=0;
+  d.done=false;
 
   // Set box dimensions based on the canvas size
-  dialogue.boxWidth = nativeWidth * 0.9;  // 90% of canvas width
-  dialogue.startX = (nativeWidth - dialogue.boxWidth) / 2; // Centered horizontally
-  dialogue.startY = nativeHeight*.05; // Near the bottom
+  d.boxWidth = nativeWidth * 0.9;  // 90% of canvas width
+  d.startX = (nativeWidth - d.boxWidth) / 2; // Centered horizontally
+  d.startY = nativeHeight*.05; // Near the bottom
 }
 
 function drawDialogueBox(dt) {
     if (!dialogue.active) return;
-
+    let perf = performance.now();
     const d = dialogue, ctxProps = (c, f, s) => {
         c.fillStyle = f;
         c.strokeStyle = s;
     };
 
     // Typewriter effect
-    if (performance.now() >= d.nextCharTime && d.charIndex < d.text.length) {
+    if (perf >= d.nextCharTime && d.charIndex < d.text.length) {
         d.currentText += d.text[d.charIndex++];
-        d.nextCharTime = performance.now() + d.textSpeed;
+        d.nextCharTime = leftMB ? perf + .1 : perf + d.textSpeed;
     }
 
     // Estimate the number of lines required
@@ -274,12 +278,12 @@ function drawDialogueBox(dt) {
     let boxPadding = 40, maxWidth = d.boxWidth - 2 * boxPadding;
 
     for (let i = 0; i < words.length; i++) {
-        let testLine = line + words[i] + ' ';
-        if (ctx.measureText(testLine).width > maxWidth) {
+        let test = line + words[i] + ' ';
+        if (ctx.measureText(test).width > maxWidth) {
             line = words[i] + ' ';
             lines++;
         } else {
-            line = testLine;
+            line = test;
         }
     }
 
@@ -298,6 +302,12 @@ function drawDialogueBox(dt) {
     ctxProps(ctx, "white");
     wrapText(ctx, d.currentText, d.startX + boxPadding, d.startY + boxPadding, maxWidth, lineHeight);
     ctx.restore();
+    if(d.currentText==d.text)d.wait+=dt;
+    if(d.done && leftMB) dialogue.active=false;
+    if(d.wait>.3 && !d.done){
+      d.currentText += "  - click to continue";
+      d.done=true;
+    }
 }
 
 function wrapText(ctx, txt, x, y, mw, lh) {
