@@ -109,8 +109,9 @@ function Hero(w, h, x, y, angle, type) {
 
     // Update the character's vertical position based on jumpHeight
     this.e.z = -this.jumpHeight;
-    this.lHand.z = -this.jumpHeight;
-    this.rHand.z = -this.jumpHeight;
+    let zzz = this.e.z-(this.jumpHeight-this.lvl*33)/2;;
+    this.lHand.z=zzz;
+    this.rHand.z=zzz;
     this.e.move(delta);
 
     // Facing left or right
@@ -153,9 +154,6 @@ function Hero(w, h, x, y, angle, type) {
 
     if(this.hasKey&&!shrinking){
       this.lvl=0;
-      this.e.z=this.curTile.z;
-      this.lHand.z=this.e.z-this.jumpHeight/2;
-      this.rHand.z=this.e.z-this.jumpHeight/2;
       this.shadow.z=this.e.z;
     }
     // Update and draw dust particles
