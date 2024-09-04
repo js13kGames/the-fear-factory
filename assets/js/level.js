@@ -6,6 +6,8 @@ function Level(no=0) {
   this.mobs=[];
   this.redraw=[];
   this.time=0;
+  this.text=""
+  this.help=""
 
   let id =0;
   let tt=[];
@@ -70,27 +72,37 @@ function Level(no=0) {
   // this.tileCol1= "#273746";
   // this.tileCol2= "#566573";
 
+  // Tutorial
   if(no==0){
-    this.tileCol1= "#0D7C66";
-    this.tileCol2= "#41B3A2";
-    this.addPlat(1,7);
-    this.addPlat(1,8);
-    this.addPlat(1,6);
-    this.addPlat(1,2);
-    this.addPlat(1,12);
-    this.addPlat(2,20);
-    this.addPlat(3,18);
-    this.addSpike(0, 10);
-    this.addKey(3, 18);
-    this.addFire(0,4);
+    //   // '#480048', '#601848'
+    this.tileCol1= "#480048";
+    this.tileCol2= "#601848";
+    this.text="Welcome to the Fear Factory! If you are going to survice you need to learn a few basics! Start by collecting the key."
+    this.help="The portal is open, walk into while you can, the level is unstable!"
+    // this.tileCol1= "#16325B";
+    // this.tileCol2= "#227B94";
+    this.t2="#FFDC7F";
+    this.addKey(0, 15);
+    // this.tileCol1= "#0D7C66";
+    // this.tileCol2= "#41B3A2";
+    // this.addPlat(1,7);
+    // this.addPlat(1,8);
+    // this.addPlat(1,6);
+    // this.addPlat(1,2);
+    // this.addPlat(1,12);
+    // this.addPlat(2,20);
+    // this.addPlat(3,18);
+    // this.addSpike(0, 10);
+
+    // this.addFire(0,4);
   } else if(no==1) {
     this.addKey(0, 4);
-    this.tileCol1= "#273746";
-    this.tileCol2= "#566573";
-  } else if(no==2) {
-    this.addKey(0, 4);
+    this.text="Press space to jump over or onto the platforms."
+    this.help="Move along we dont have all day!"
     this.tileCol1= "#C3C3E5";
     this.tileCol2= "#F1F0FF";
+  } else if(no==2) {
+
   } else if(no==3) {
     this.addKey(0, 4);
     this.tileCol1= "#028482";

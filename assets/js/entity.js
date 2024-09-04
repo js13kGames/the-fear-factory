@@ -46,8 +46,8 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     this.col=Math.round((this.y/64)+(this.x/128));
     this.row=Math.round((this.y/64)-(this.x/128))+1;
 
-    let rz = cart.levels[cart.cLevel].rows;
-    let cz = cart.levels[cart.cLevel].cols;
+    let rz = cart.getLvl().rows;
+    let cz = cart.getLvl().cols;
 
     // Check the hero platform level, 1-4a
     let pos = [this.x - 64, this.y + 32];

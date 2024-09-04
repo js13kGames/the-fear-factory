@@ -37,7 +37,7 @@ function Cart() {
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
-    let lvl = this.levels[this.cLevel];
+    let lvl = this.getLvl();
     if(runOnce){
       var gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
       gradient.addColorStop(1, '#17202a'); // Dark
@@ -63,6 +63,17 @@ function Cart() {
 
       this.time+=delta;
       lvl.update(delta);
+
+      if(lvl.text != ""){
+        console.log("Show level text: " + this.hero.hasKey);
+        textToScreen(lvl.text);
+        lvl.text="";
+      }
+      if(this.hero.hasKey && lvl.help!=""){
+        console.log("Show level help: " + this.hero.hasKey);
+        textToScreen(lvl.help);
+        lvl.help="";
+      }
 
       //drawblock(192, 350, 128, 64, "#7a09fa"); // Test water
       if(this.trans){
@@ -100,6 +111,7 @@ function Cart() {
       if(this.hero.hasKey && this.hero.curTile.id==1){
         draw();
         if(this.changeLvl){
+          this.hero.hasKey=false;
          console.log("Load the next Level");
          cart.changeLvl=false;
         }
@@ -116,6 +128,10 @@ function Cart() {
       this.gob.y=-this.cam.y;
       this.gob.update(delta);
     }
+  }
+
+  this.getLvl = function(){
+    return this.levels[this.cLevel];;
   }
 
   this.reset = function(){a

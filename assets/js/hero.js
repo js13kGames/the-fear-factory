@@ -171,7 +171,7 @@ function Hero(w, h, x, y, angle, type) {
     // TODO: Clean up messy code
 
     if(this.curTile!=null){
-      this.ot=cart.levels[cart.cLevel].tiles[cart.hero.lvl][this.curTile.id-1];
+      this.ot=cart.getLvl().tiles[cart.hero.lvl][this.curTile.id-1];
       if(this.ot != null && this.ot.obj != null){
 
         switch(this.ot.obj.e.type){

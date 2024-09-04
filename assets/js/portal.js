@@ -49,8 +49,12 @@ function drawPortal(x,y) {
   }
 
   // Draw the outer and inner portals with separate rotations
-  draw(x, y, portal.rotation, portal.radius, ['#601848', '#480048']);
-  draw(x, y, -portal.rotation, portal.radius / 2 - 2, ['#480048', '#601848']);
+  let c1 = cart.getLvl().tileCol1;
+  let c2 = cart.getLvl().tileCol2
+
+  draw(x, y, portal.rotation, portal.radius+2, ["#fff","#fff"]);
+  draw(x, y, portal.rotation, portal.radius, [c1,c2]);
+  draw(x, y, -portal.rotation, portal.radius / 2 - 2, [c2, c1]);
 
   // Update rotations
   portal.rotation += 0.03;

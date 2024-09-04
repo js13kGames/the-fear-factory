@@ -121,7 +121,7 @@ function ranColor() {
 }
 
 function getTile(xHero, yHero, level) {
-  let tiles = cart.levels[cart.cLevel].tiles[level];
+  let tiles = cart.getLvl().tiles[level];
   let c = Math.round((yHero / 64) + (xHero / 128));
   let r = Math.round((yHero / 64) - (xHero / 128));
 
@@ -130,7 +130,7 @@ function getTile(xHero, yHero, level) {
   //   tiles[c + (cart.levels[cart.cLevel].cols * r)].sx=49;
   // }
 
-  return tiles[c + (cart.levels[cart.cLevel].cols * r)]; // TODO move to function
+  return tiles[c + (cart.getLvl().cols * r)]; // TODO move to function
 }
 
 function drawIsoTile(col1, col2, y, x, time, wave, yOff=0) {
@@ -269,7 +269,7 @@ function drawDialogueBox(dt) {
     // Typewriter effect
     if (perf >= d.nextCharTime && d.charIndex < d.text.length) {
         d.currentText += d.text[d.charIndex++];
-        d.nextCharTime = leftMB ? perf + .1 : perf + d.textSpeed;
+        d.nextCharTime = leftMB||space() ? perf + .1 : perf + d.textSpeed;
     }
 
     // Estimate the number of lines required
@@ -304,12 +304,12 @@ function drawDialogueBox(dt) {
     wrapText(ctx, d.currentText, d.startX + boxPadding*2.4, d.startY + boxPadding, maxWidth, lineHeight);
     ctx.restore();
     if(d.currentText==d.text)d.wait+=dt;
-    if(d.done && leftMB){
+    if(d.done && (leftMB||space())){
       d.active=false;
       cart.dialogue.active=false;
     }
     if(d.wait>.3 && !d.done){
-      d.currentText += "  - click to continue";
+      d.currentText += "  - Press Space";
       d.done=true;
     }
 }
