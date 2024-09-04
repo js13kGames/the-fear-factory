@@ -81,14 +81,16 @@ function Cart() {
       this.hero.checkGun();
 
       let ht = this.hero.curTile;
+      let lv=this.getLvl();
       lvl.tiles.forEach((t) => {
         t.forEach((e) => {
           if(e.type == types.TILE2 && ht!=null){
             if ((e.row > ht.row) || (e.row <= ht.row && e.col > ht.col)){
               for(l = e.lvl; l > 0; l--){
-                drawblock(e.x, e.y+33+(l*33), 128, 64, "#006769", false);
+                drawblock(e.x, e.y+33+(l*33), 128, 64, lv.blkColr, false);
               }
-              if(e.type==types.TILE2&&!this.hero.hasKey)drawIsoTile("#990000","#990000", e.row, e.col, this.time, cart.trans,(e.lvl*33));
+
+              if(e.type==types.TILE2&&!this.hero.hasKey)drawIsoTile(lv.t2,lv.t2, e.row, e.col, this.time, cart.trans,(e.lvl*33));
               e.update(delta)
             }
           }

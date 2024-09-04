@@ -19,6 +19,12 @@ function Level(no=0) {
   } else if(no==1){
     this.rows = 4;
     this.cols = 5;
+  } else if(no==2){
+    this.rows = 5;
+    this.cols = 5;
+  } else if(no==3){
+    this.rows = 5;
+    this.cols = 5;
   }
 
   this.addPlat = function(lvl, id){
@@ -33,9 +39,9 @@ function Level(no=0) {
     }
   }
 
-  this.addSpike = function(l, id){
+  this.addSpike = function(l, id, off){
     t=this.tiles[l][id-1];
-    t.obj=new Spike(t.x+90, t.y+4, id);
+    t.obj=new Spike(t.x+90, t.y+4, id, off);
   }
 
   this.addKey = function(l, id){
@@ -74,42 +80,40 @@ function Level(no=0) {
   // this.tileCol2= "#566573";
 
   // Tutorial
-  if(no==0){
-    //   // '#480048', '#601848'
+  if(no==0){ // KEY
     this.tileCol1= "#480048";
     this.tileCol2= "#601848";
-    this.text="Welcome to the Fear Factory! If you are going to survice you need to learn a few basics! Start by collecting the key."
-    this.help="The portal is open, walk into while you can, the level is unstable!"
-    // this.tileCol1= "#16325B";
-    // this.tileCol2= "#227B94";
+    this.text="Welcome to the Fear Factory! Time to learn the basics, start by collecting the key. [Click on this text box or press spacebar to close]"
+    this.help="The level is unstable, enter the portal!"
     this.t2="#FFDC7F";
     this.addKey(0, 15);
-    // this.tileCol1= "#0D7C66";
-    // this.tileCol2= "#41B3A2";
-    // this.addPlat(1,7);
-    // this.addPlat(1,8);
-    // this.addPlat(1,6);
-    // this.addPlat(1,2);
-    // this.addPlat(1,12);
-    // this.addPlat(2,20);
-    // this.addPlat(3,18);
-    // this.addSpike(0, 10);
-
-    // this.addFire(0,4);
-  } else if(no==1) {
+  } else if(no==1) { // SIMPLE JUMP
     this.addKey(0, 10);
-    this.text="Press space to jump over or onto the platforms."
+    this.text="Press space to jump over blocks."
     this.help="Move along we dont have all day!"
     this.tileCol1= "#C3C3E5";
     this.tileCol2= "#F1F0FF";
+    this.t2="#295F98";
+    this.blkColr="#7C93C3";
     this.addPlat(1,3);
     this.addPlat(1,8);
     this.addPlat(1,13);
     this.addPlat(1,18);
-  } else if(no==2) {
-
+  } else if(no==2) { // PARKOUR
+    this.addKey(2, 15);
+    this.text="Use your parkour skills!"
+    this.help="Not bad for a beginner."
+    this.tileCol1= "#C3C3E5";
+    this.tileCol2= "#F1F0FF";
+    this.t2="#295F98";
+    this.blkColr="#7C93C3";
+    this.addPlat(1,13);
+    this.addPlat(2,15);
   } else if(no==3) {
-    this.addKey(0, 10);
+    [0, 0.5, 0, 0.5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i, z));
+    this.text="Traps cause instant and painful death."
+    this.help="I was hoping you would... I mean well done!"
+    this.addKey(0, 15);
     this.tileCol1= "#028482";
     this.tileCol2= "#7ABA7A";
   }
@@ -139,9 +143,9 @@ function Level(no=0) {
         if(e.type != types.STOP && e.type != types.AIR){
           if(e.type==types.TILE2){
             for(l = e.lvl; l > 0; l--){
-              drawblock(e.x, e.y+33+(l*33), 128, 64, "#006769", false);
+              drawblock(e.x, e.y+33+(l*33), 128, 64, this.blkColr, false);
             }
-            if(e.type==types.TILE2&&!cart.hero.hasKey)drawIsoTile("#990000","#990000", e.row, e.col, this.time, cart.trans,(e.lvl*33)-e.z); // DRAW TILE2
+            if(e.type==types.TILE2&&!cart.hero.hasKey)drawIsoTile(this.t2,this.t2, e.row, e.col, this.time, cart.trans,(e.lvl*33)-e.z); // DRAW TILE2
           }
           e.z=0;
           // calculateZ (x, y, amplitude, wavelength, frequency, time)

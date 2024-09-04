@@ -6,10 +6,10 @@ function Enemy(x, y, w, h, type, index, totalEnemies, dmg) {
   }
 }
 
-function Spike(x, y, tileID) {
+function Spike(x, y, tileID, offset) {
   this.id=tileID;
   this.active=true;
-  this.time=0;
+  this.time=offset;
   this.y=y;
   this.x=x;
   this.e = new Entity(10, 14, x, y, 0, types.SPIKE);

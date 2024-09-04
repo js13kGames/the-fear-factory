@@ -309,7 +309,6 @@ function drawDialogueBox(dt) {
       cart.dialogue.active=false;
     }
     if(d.wait>.3 && !d.done){
-      d.currentText += "  - Press Space";
       d.done=true;
     }
 }
