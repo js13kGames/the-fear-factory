@@ -33,8 +33,8 @@ function Hero(w, h, x, y, angle, type) {
       this.lHand.alpha-=.01;
       this.rHand.alpha-=.01;
       this.e.z-=10;
-      this.lHand.z-=10;
-      this.rHand.z-=10;
+      this.lHand.z-=9.6;
+      this.rHand.z-=9.6;
       hitDust(this.e.x, this.e.y+this.e.z, this.particles);
     } else if(this.die){
       this.die=false;
