@@ -20,6 +20,7 @@ function draw() {
     if (swipeWidth <= 0) {
       swipeWidth = 0;
       shrinking = false;
+      cart.hero.hasKey=false;
     }
   }
 }

@@ -65,12 +65,9 @@ function Cart() {
       lvl.update(delta);
 
       if(lvl.text != ""){
-        console.log("Show level text: " + this.hero.hasKey);
         textToScreen(lvl.text);
         lvl.text="";
-      }
-      if(this.hero.hasKey && lvl.help!=""){
-        console.log("Show level help: " + this.hero.hasKey);
+      } else if(this.hero.hasKey && lvl.help!="" && swipeWidth <= 0){
         textToScreen(lvl.help);
         lvl.help="";
       }
@@ -111,7 +108,6 @@ function Cart() {
       if(this.hero.hasKey && this.hero.curTile.id==1){
         draw();
         if(this.changeLvl){
-          this.hero.hasKey=false;
          console.log("Load the next Level");
          cart.changeLvl=false;
         }
