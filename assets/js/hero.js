@@ -30,8 +30,6 @@ function Hero(w, h, x, y, angle, type) {
     if(this.resetTime>0){
       this.resetTime-=delta
       this.e.alpha-=.01;
-      this.lHand.alpha-=.01;
-      this.rHand.alpha-=.01;
       this.e.z-=10;
       this.lHand.z-=9.6;
       this.rHand.z-=9.6;
