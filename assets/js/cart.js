@@ -140,12 +140,12 @@ function Cart() {
     this.time=0;
   }
 
-  this.reset = function(){
-    this.time=0;
-    this.hero = new Hero(16, 16, 0, 0, 0, types.HERO);
-    this.cart.hero.e.x=0;
-    this.cart.hero.e.y=0;
-    gameStarted=false;
-    this.cam=new Camera();
-  }
+  // this.reset = function(){
+  //   this.time=0;
+  //   this.hero = new Hero(16, 16, 0, 0, 0, types.HERO);
+  //   this.cart.hero.e.x=0;
+  //   this.cart.hero.e.y=0;
+  //   gameStarted=false;
+  //   this.cam=new Camera();
+  // }
 }
