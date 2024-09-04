@@ -212,6 +212,7 @@ function Hero(w, h, x, y, angle, type) {
     if(!this.isJumping && this.ot.obj.hit){
       this.startJumping();
       playSound(DIEFX,.8);
+      cart.resetLvl();
     }
   }
   this.clearLevel = function(){
