@@ -103,10 +103,10 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
     }
 
     // Edge of Map collisions
-    if(this.row==-1){right()?this.y+=spd:up()&&(this.x-=spd);}
-    if(this.col==-1){left()?this.y+=1:up()&&(this.x+=1);}
-    if(this.row==10){left()?this.y-=1:down()&&(this.x+=1);}
-    if(this.col==10){right()?this.y-=1:down()&&(this.x-=1);}
+    // if(this.row==-1){right()?this.y+=spd:up()&&(this.x-=spd);}
+    // if(this.col==-1){left()?this.y+=1:up()&&(this.x+=1);}
+    // if(this.row==10){left()?this.y-=1:down()&&(this.x+=1);}
+    // if(this.col==10){right()?this.y-=1:down()&&(this.x-=1);}
   }
 
   this.setV = function(x,y) {

@@ -6,18 +6,19 @@ function Level(no=0) {
   this.mobs=[];
   this.redraw=[];
   this.time=0;
-  this.text=""
-  this.help=""
+  this.text="";
+  this.help="";
+  this.done=false;
 
   let id =0;
   let tt=[];
 
   if(no==0){
-    this.rows = 5;
+    this.rows = 4;
     this.cols = 4;
   } else if(no==1){
-    this.rows = 6;
-    this.cols = 6;
+    this.rows = 4;
+    this.cols = 5;
   }
 
   this.addPlat = function(lvl, id){
@@ -96,15 +97,19 @@ function Level(no=0) {
 
     // this.addFire(0,4);
   } else if(no==1) {
-    this.addKey(0, 4);
+    this.addKey(0, 10);
     this.text="Press space to jump over or onto the platforms."
     this.help="Move along we dont have all day!"
     this.tileCol1= "#C3C3E5";
     this.tileCol2= "#F1F0FF";
+    this.addPlat(1,3);
+    this.addPlat(1,8);
+    this.addPlat(1,13);
+    this.addPlat(1,18);
   } else if(no==2) {
 
   } else if(no==3) {
-    this.addKey(0, 4);
+    this.addKey(0, 10);
     this.tileCol1= "#028482";
     this.tileCol2= "#7ABA7A";
   }
@@ -123,7 +128,7 @@ function Level(no=0) {
 
     this.tiles.forEach((t) => {
       t.forEach((e) => {
-        if(cart.hero.hasKey && e.lvl > 0){
+        if(cart.hero.hasKey && this.done && e.lvl > 0){
           if(e.type==types.TILE2){
             e.fly=true;
           } else {

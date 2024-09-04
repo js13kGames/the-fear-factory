@@ -179,6 +179,7 @@ function Hero(w, h, x, y, angle, type) {
             this.ot.obj=null;
             playSound(COINFX,1);
             this.hasKey=true;
+            cart.getLvl().done=true;
             this.clearLevel();
             break;
           case types.SPIKE:
