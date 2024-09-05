@@ -145,11 +145,10 @@ function Level(no=0) {
             for(l = e.lvl; l > 0; l--){
               drawblock(e.x, e.y+33+(l*33), 128, 64, this.blkColr, false);
             }
-            if(e.type==types.TILE2&&!cart.hero.hasKey)drawIsoTile(this.t2,this.t2, e.row, e.col, this.time, cart.trans,(e.lvl*33)-e.z); // DRAW TILE2
+            if(!e.fly) drawIsoTile(this.t2,this.t2, e.row, e.col, this.time, cart.trans,(e.lvl*33)); // DRAW TILE2
           }
-          e.z=0;
           // calculateZ (x, y, amplitude, wavelength, frequency, time)
-          if(cart.trans)e.z=calculateZ(e.x, e.y, 5, 20, .3, this.time);
+          if(cart.trans&&e.type!=types.TILE2)e.z=calculateZ(e.x, e.y, 5, 20, .3, this.time);
           if(e.lvl==0) drawIsoTile(this.tileCol1,this.tileCol2, e.row, e.col, this.time, cart.trans);
           e.update(delta)
         };

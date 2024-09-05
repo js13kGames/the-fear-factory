@@ -89,8 +89,7 @@ function Cart() {
               for(l = e.lvl; l > 0; l--){
                 drawblock(e.x, e.y+33+(l*33), 128, 64, lv.blkColr, false);
               }
-
-              if(e.type==types.TILE2&&!this.hero.hasKey)drawIsoTile(lv.t2,lv.t2, e.row, e.col, this.time, cart.trans,(e.lvl*33));
+              if(!e.fly)drawIsoTile(lv.t2,lv.t2, e.row, e.col, this.time, cart.trans,(e.lvl*33));
               e.update(delta)
             }
           }
