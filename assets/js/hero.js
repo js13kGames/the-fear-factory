@@ -225,9 +225,9 @@ function Hero(w, h, x, y, angle, type) {
       t.forEach((e) => {
         if(e.lvl==0){
           e.type=types.TILE;
-          e.obj=null;
-          e.setType();
         }
+        e.obj=null;
+        e.setType();
       });
     });
   }

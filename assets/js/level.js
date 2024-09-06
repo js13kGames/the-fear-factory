@@ -135,11 +135,20 @@ function Level(no=0) {
     this.addPlat(3, 5);
 
   } else if(no==5) { // LEVEL 2
-    this.text="Level 1"
-    this.help="Well done"
-    this.addKey(0, 15);
-    this.tileCol1= "#028482";
-    this.tileCol2= "#7ABA7A";
+    this.addKey(3, 5);
+    this.text="Press space to jump over blocks."
+    this.help="Move along we dont have all day!"
+    this.tileCol1= "#C3C3E5";
+    this.tileCol2= "#F1F0FF";
+    this.t2="#295F98";
+    this.blkColr="#7C93C3";
+    this.addPlat(1, 17);
+    this.addPlat(2, 19);
+    this.addPlat(3, 9);
+    this.addPlat(3, 5);
+
+    this.addSpike(1, 17, .5, 1);
+    this.addSpike(2, 19, 0, 1);
 
   } else if(no==6) { // LEVEL 3
     this.text="Level 1"
