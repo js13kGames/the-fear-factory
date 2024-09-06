@@ -76,13 +76,7 @@ function writeStroke(ctx,a,font,colour,txt,x,y, strokeW) {
    mg.context.fillText("FPS: " + fps.toFixed(2), nativeWidth-100, 20);
    mg.context.fillText("HERO: x:" + cart.hero.e.x + " y:" + cart.hero.e.y, nativeWidth-200, 40);
    mg.context.fillText("HERO: R:" + cart.hero.e.row + " C:" + cart.hero.e.col, nativeWidth-200, 60);
-   mg.context.fillText("JUMP: " + Math.ceil(cart.hero.jumpHeight), nativeWidth-200, 80);
-   mg.context.fillText("Z: " + Math.ceil(cart.hero.e.z) + " LVL: " + cart.hero.lvl, nativeWidth-200, 100);
-   mg.context.fillText("Jumping: " + cart.hero.isJumping, nativeWidth-200, 120);
-   mg.context.fillText("Jump H: " + cart.hero.jumpHeight, nativeWidth-200, 140);
-   mg.context.fillText("Jump Speed: " + cart.hero.jumpSpeed, nativeWidth-200, 160);
-   mg.context.fillText("Falling: " + cart.hero.isFalling, nativeWidth-200, 180);
-   if(cart.hero.curTile) mg.context.fillText("Tile ID: " + cart.hero.curTile.id, nativeWidth-200, 200);
+   if(cart.hero.curTile) mg.context.fillText("TILE ID: " + cart.hero.curTile.id, nativeWidth-200, 80);
  }
 
  function drawHeroBox(borderRadius) {
@@ -150,8 +144,9 @@ function drawIsoTile(col1, col2, y, x, time, wave, yOff=0) {
     );
 }
 
-function drawTile(x, y, width, height, color) {
+function drawTile(x, y, width, height, color, alpha=1) {
   ctx.save();
+  ctx.globalAlpha=alpha;
   ctx.translate(cart.cam.x,cart.cam.y);
   ctx.translate(width,height/2)
   ctx.beginPath();

@@ -91,22 +91,10 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
 
     let stuck = cart.hero.curTile == null ? false : cart.hero.curTile.type == types.STOP;
 
-    // TODO - check if the player is hitting a STOP with no chance of landing on top of platform
-    // let nxtTile=getTile(newX-64, newY+32, this.lvl)
-    // let stuck = nxtTile == null ? false : nxtTile.type == types.STOP;
-    // console.log(34.4*cart.hero.lvl + " " + cart.hero.e.z + " " + this.lvl);
-    // if(stuck) stuck = cart.hero.e.z > -34.4*cart.hero.lvl;
-
     if((!blocked && inbounds) || stuck){
       this.y=newY;
       this.x=newX;
     }
-
-    // Edge of Map collisions
-    // if(this.row==-1){right()?this.y+=spd:up()&&(this.x-=spd);}
-    // if(this.col==-1){left()?this.y+=1:up()&&(this.x+=1);}
-    // if(this.row==10){left()?this.y-=1:down()&&(this.x+=1);}
-    // if(this.col==10){right()?this.y-=1:down()&&(this.x-=1);}
   }
 
   this.setV = function(x,y) {
@@ -118,6 +106,13 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
   this.update = function(delta) {
     this.x = Math.floor(this.x);
     this.Y = Math.floor(this.Y);
+
+    // // WATER
+    // if(this.type==types.WATER){
+    //   drawTile(this.x, this.y, 128, 64, "blue",.2);
+    //   drawblock(this.x, this.y+64, 128, 64, "blue",.2);
+    // }
+
     ctx.save();
     ctx.translate(this.x, this.y+this.z);
     if(cart.shakeTime>0){ctx.translate(cart.shake,cart.shake);}
@@ -182,6 +177,9 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
         this.sx=16;
         break;
       case types.TILE2:
+        this.sx=16;
+        break;
+      case types.WATER:
         this.sx=16;
         break;
       case types.HAND:

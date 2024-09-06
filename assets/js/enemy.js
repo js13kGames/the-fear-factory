@@ -6,7 +6,7 @@ function Enemy(x, y, w, h, type, index, totalEnemies, dmg) {
   }
 }
 
-function Spike(x, y, tileID, offset) {
+function Spike(x, y, tileID, offset, lvl) {
   this.id=tileID;
   this.active=true;
   this.time=offset;
@@ -14,6 +14,7 @@ function Spike(x, y, tileID, offset) {
   this.x=x;
   this.e = new Entity(10, 14, x, y, 0, types.SPIKE);
   this.hit=false;
+  this.level=lvl;
 
   this.update = function(delta) {
     this.time+=delta;

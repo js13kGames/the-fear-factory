@@ -25,6 +25,9 @@ function Level(no=0) {
   } else if(no==3){
     this.rows = 5;
     this.cols = 5;
+  } else {
+    this.rows = 5;
+    this.cols = 5;
   }
 
   this.addPlat = function(lvl, id){
@@ -39,9 +42,9 @@ function Level(no=0) {
     }
   }
 
-  this.addSpike = function(l, id, off){
+  this.addSpike = function(l, id, off, lvl){
     t=this.tiles[l][id-1];
-    t.obj=new Spike(t.x+90, t.y+4, id, off);
+    t.obj=new Spike(t.x+90, t.y+4, id, off, lvl);
   }
 
   this.addKey = function(l, id){
@@ -110,10 +113,46 @@ function Level(no=0) {
     this.addPlat(1,13);
     this.addPlat(2,15);
   } else if(no==3) {
-    [0, 0.5, 0, 0.5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i, z));
+    [0, 0.5, 0, 0.5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i, z,0));
     this.text="Traps cause instant and painful death."
     this.help="I was hoping you would... I mean well done!"
     this.addKey(0, 15);
+    this.tileCol1= "#028482";
+    this.tileCol2= "#7ABA7A";
+
+  } else if(no==4) { // LEVEL 1
+    this.addKey(3, 5);
+    this.text="Press space to jump over blocks."
+    this.help="Move along we dont have all day!"
+    this.tileCol1= "#C3C3E5";
+    this.tileCol2= "#F1F0FF";
+    this.t2="#295F98";
+    this.blkColr="#7C93C3";
+    this.addPlat(1,17);
+    this.addPlat(1, 18);
+    this.addPlat(2, 20);
+    this.addPlat(3, 10);
+    this.addPlat(3, 5);
+
+  } else if(no==5) { // LEVEL 2
+    this.text="Level 1"
+    this.help="Well done"
+    this.addKey(0, 15);
+    this.tileCol1= "#028482";
+    this.tileCol2= "#7ABA7A";
+
+  } else if(no==6) { // LEVEL 3
+    this.text="Level 1"
+    this.help="Well done"
+    this.addKey(0, 15);
+    this.tileCol1= "#028482";
+    this.tileCol2= "#7ABA7A";
+
+  } else if(no==7) { // LEVEL 4 // cart.cLevel=4; cart.resetLvl()
+    this.text="Level 1"
+    this.help="Well done"
+    this.addKey(0, 6);
+
     this.tileCol1= "#028482";
     this.tileCol2= "#7ABA7A";
   }

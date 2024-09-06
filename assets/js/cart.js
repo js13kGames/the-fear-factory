@@ -72,7 +72,6 @@ function Cart() {
         lvl.help="";
       }
 
-      //drawblock(192, 350, 128, 64, "#7a09fa"); // Test water
       if(this.trans){
         // If you have the key
         drawPortal(129+this.cam.x, this.cam.y);
@@ -87,6 +86,7 @@ function Cart() {
           if(e.type == types.TILE2 && ht!=null){
             if ((e.row > ht.row) || (e.row <= ht.row && e.col > ht.col)){
               for(l = e.lvl; l > 0; l--){
+                //console.log("Tile Row: " + e.row + " Hero Row: " + ht.row + " Tile Col: " + e.col + " Hero Col: " + ht.col);
                 drawblock(e.x, e.y+33+(l*33), 128, 64, lv.blkColr, false);
               }
               if(!e.fly)drawIsoTile(lv.t2,lv.t2, e.row, e.col, this.time, cart.trans,(e.lvl*33));
@@ -96,7 +96,7 @@ function Cart() {
           // Draw traps
           if(e.obj!=null){
             e.obj.update(delta);
-            if (this.hero.e.y>e.obj.y-20 && this.hero.curTile != null && this.hero.curTile.id>=e.obj.id){
+            if (this.hero.lvl==e.obj.level&&this.hero.e.y>e.obj.y && this.hero.curTile != null && this.hero.curTile.id>=e.obj.id){
               this.hero.e.update(delta)
             };
           }
@@ -131,20 +131,12 @@ function Cart() {
     return this.levels[this.cLevel];;
   }
 
-  this.resetLvl = function(){
+  this.resetLvl = function(id=null){
+    if(id!=null)this.cLevel=id;
     cart.levels[this.cLevel] = new Level(this.cLevel);
     this.hero.e.x=0;
     this.hero.e.y=0;
     this.hero.hasKey=false;
     this.time=0;
   }
-
-  // this.reset = function(){
-  //   this.time=0;
-  //   this.hero = new Hero(16, 16, 0, 0, 0, types.HERO);
-  //   this.cart.hero.e.x=0;
-  //   this.cart.hero.e.y=0;
-  //   gameStarted=false;
-  //   this.cam=new Camera();
-  // }
 }

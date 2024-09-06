@@ -11,7 +11,8 @@ const types = {
   SPIKE:9,
   GHOST:10,
   KEY:11,
-  GOB:12
+  GOB:12,
+  WATER:13
 }
 
 const guntype = {
