@@ -21,10 +21,13 @@ function Level(no=0) {
     this.cols = 5;
   } else if(no==2){
     this.rows = 5;
-    this.cols = 5;
+    this.cols = 6;
   } else if(no==3){
     this.rows = 5;
     this.cols = 5;
+  } else if(no==6){
+    this.rows = 8;
+    this.cols = 8;
   } else {
     this.rows = 5;
     this.cols = 5;
@@ -86,10 +89,10 @@ function Level(no=0) {
   if(no==0){ // KEY
     this.tileCol1= "#480048";
     this.tileCol2= "#601848";
-    this.text="Welcome to the Fear Factory! Time to learn the basics, start by collecting the key. [Click on this text box or press spacebar to close]"
+    this.text="Welcome to the Fear Factory! Click or press Space..."
     this.help="The level is unstable, enter the portal!"
     this.t2="#FFDC7F";
-    this.addKey(0, 15);
+    this.addKey(0, 16);
   } else if(no==1) { // SIMPLE JUMP
     this.addKey(0, 10);
     this.text="Press space to jump over blocks."
@@ -103,19 +106,19 @@ function Level(no=0) {
     this.addPlat(1,13);
     this.addPlat(1,18);
   } else if(no==2) { // PARKOUR
-    this.addKey(2, 15);
+    this.addKey(2, 17);
     this.text="Use your parkour skills!"
     this.help="Not bad for a beginner."
     this.tileCol1= "#C3C3E5";
     this.tileCol2= "#F1F0FF";
     this.t2="#295F98";
     this.blkColr="#7C93C3";
-    this.addPlat(1,13);
-    this.addPlat(2,15);
+    this.addPlat(1,15);
+    this.addPlat(2,17);
   } else if(no==3) {
     [0, 0.5, 0, 0.5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i, z,0));
-    this.text="Traps cause instant and painful death."
-    this.help="I was hoping you would... I mean well done!"
+    this.text="Jump or avoid tiles with traps!!"
+    this.help="You got lucky this time!"
     this.addKey(0, 15);
     this.tileCol1= "#028482";
     this.tileCol2= "#7ABA7A";
@@ -146,18 +149,33 @@ function Level(no=0) {
     this.addPlat(2, 19);
     this.addPlat(3, 9);
     this.addPlat(3, 5);
-
     this.addSpike(1, 17, .5, 1);
     this.addSpike(2, 19, 0, 1);
-
   } else if(no==6) { // LEVEL 3
-    this.text="Level 1"
-    this.help="Well done"
-    this.addKey(0, 15);
-    this.tileCol1= "#028482";
-    this.tileCol2= "#7ABA7A";
+    this.addKey(3, 5);
+    this.text="Press space to jump over blocks."
+    this.help="Move along we dont have all day!"
+    this.tileCol1= "#C3C3E5";
+    this.tileCol2= "#F1F0FF";
+    this.t2="#295F98";
+    this.blkColr="#7C93C3";
+    this.addPlat(1, 26);
+    this.addPlat(1, 42);
+    this.addPlat(2, 44);
+    this.addPlat(3, 46);
 
-  } else if(no==7) { // LEVEL 4 // cart.cLevel=4; cart.resetLvl()
+    for (let row = 0; row <= 7; row++) {
+      for (let col = 4; col <= 5; col++) {
+        let id = row * this.cols + col;
+        this.tiles[0][id].type=types.AIR;
+        this.tiles[0][id].setType();
+      }
+    }
+
+    // this.tiles[0][12].type==types.AIR;
+    // this.tiles[0][12].setType();
+
+  } else if(no==7) { // LEVEL 4
     this.text="Level 1"
     this.help="Well done"
     this.addKey(0, 6);
@@ -193,12 +211,12 @@ function Level(no=0) {
             for(l = e.lvl; l > 0; l--){
               drawblock(e.x, e.y+33+(l*33), 128, 64, this.blkColr, false);
             }
-            if(!e.fly) drawIsoTile(this.t2,this.t2, e.row, e.col, this.time, cart.trans,(e.lvl*33)); // DRAW TILE2
+            if(!e.fly&&e.type!=types.AIR) drawIsoTile(this.t2,this.t2, e.row, e.col, this.time, cart.trans,(e.lvl*33)); // DRAW TILE2
           }
           // calculateZ (x, y, amplitude, wavelength, frequency, time)
           if(cart.trans&&e.type!=types.TILE2)e.z=calculateZ(e.x, e.y, 5, 20, .3, this.time);
-          if(e.lvl==0) drawIsoTile(this.tileCol1,this.tileCol2, e.row, e.col, this.time, cart.trans);
-          e.update(delta)
+          if(e.lvl==0&&e.type!=types.AIR) drawIsoTile(this.tileCol1,this.tileCol2, e.row, e.col, this.time, cart.trans);
+          e.update(delta);
         };
         // Draw traps
         if(e.obj!=null){
@@ -209,4 +227,5 @@ function Level(no=0) {
 
     this.mobs.forEach(e => e.update(delta));
   }
+
 }

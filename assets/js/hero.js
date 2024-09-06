@@ -25,17 +25,26 @@ function Hero(w, h, x, y, angle, type) {
   this.hasKey=false;
   this.resetTime=0;
   this.die=false;
+  this.fall=false;
 
   this.update = function(delta) {
     if(this.resetTime>0){
       this.resetTime-=delta
       this.e.alpha-=.01;
-      this.e.z-=10;
-      this.lHand.z-=9.6;
-      this.rHand.z-=9.6;
-      hitDust(this.e.x, this.e.y+this.e.z, this.particles);
+
+      if(this.fall){
+        this.e.z+=5;
+        this.lHand.z+=4.6;
+        this.rHand.z+=4.6;
+      } else {
+        this.e.z-=10;
+        this.lHand.z-=9.6;
+        this.rHand.z-=9.6;
+        hitDust(this.e.x, this.e.y+this.e.z, this.particles);
+      }
     } else if(this.die){
       this.die=false;
+      this.fall=false;
       this.resetTime=0;
       this.e.alpha=1;
       cart.resetLvl();
@@ -168,13 +177,18 @@ function Hero(w, h, x, y, angle, type) {
       p.update(delta);
     });
 
-    this.e.update(delta);
-    this.lHand.update(delta);
-    this.rHand.update(delta);
-    this.shadow.update(delta);
+    if(!this.fall){ // Only draw if not falling
+      this.draw(delta);
+    }
 
     // Hurt code
     if(this.curTile!=null){
+      // FALL
+      if(this.curTile.type==types.AIR&&this.curTile.lvl==0&&!this.isJumping&&!this.die){
+        this.resetTime=.6;
+        this.fall=true;
+        this.die=true;
+      }
       this.ot=cart.getLvl().tiles[cart.hero.lvl][this.curTile.id-1];
       if(this.ot != null && this.ot.obj != null){
 
@@ -230,5 +244,12 @@ function Hero(w, h, x, y, angle, type) {
         e.setType();
       });
     });
+  }
+
+  this.draw = function(delta){
+    this.e.update(delta);
+    this.lHand.update(delta);
+    this.rHand.update(delta);
+    this.shadow.update(delta);
   }
 }

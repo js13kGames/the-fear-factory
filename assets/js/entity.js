@@ -134,7 +134,6 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
       this.setType();
     }
 
-
     // Camera Tracking
     ctx.translate(cart.cam.x,cart.cam.y);
     if (this.flip){

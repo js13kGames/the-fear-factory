@@ -62,6 +62,9 @@ function Cart() {
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
       this.time+=delta;
+      if(this.hero.fall){ // Only draw if not falling
+        this.hero.draw(delta);
+      }
       lvl.update(delta);
 
       if(lvl.text != ""){
@@ -89,7 +92,7 @@ function Cart() {
                 //console.log("Tile Row: " + e.row + " Hero Row: " + ht.row + " Tile Col: " + e.col + " Hero Col: " + ht.col);
                 drawblock(e.x, e.y+33+(l*33), 128, 64, lv.blkColr, false);
               }
-              if(!e.fly)drawIsoTile(lv.t2,lv.t2, e.row, e.col, this.time, cart.trans,(e.lvl*33));
+              if(!e.fly&&e.type!=types.AIR)drawIsoTile(lv.t2,lv.t2, e.row, e.col, this.time, cart.trans,(e.lvl*33));
               e.update(delta)
             }
           }

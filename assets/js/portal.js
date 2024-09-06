@@ -50,7 +50,7 @@ function drawPortal(x,y) {
 
   // Draw the outer and inner portals with separate rotations
   let c1 = cart.getLvl().tileCol1;
-  let c2 = cart.getLvl().tileCol2
+  let c2 = cart.getLvl().tileCol2;
 
   draw(x, y, portal.rotation, portal.radius+2, ["#fff","#fff"]);
   draw(x, y, portal.rotation, portal.radius, [c1,c2]);
