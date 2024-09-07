@@ -76,7 +76,7 @@ function startGame() {
   resizeCanvas(this.ctx);
   setupControls();
   document.getElementById('gameControls').addEventListener('touchstart', (event) => {
-      //event.preventDefault();  // Prevent scrolling/zooming on the control buttons
+      event.preventDefault();  // Prevent scrolling/zooming on the control buttons
   }, { passive: false });
 
 }
