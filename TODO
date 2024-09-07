@@ -16,17 +16,12 @@ https://github.com/KilledByAPixel/ZzFX/blob/master/ZzFXMicro.min.js
 https://killedbyapixel.github.io/ZzFX/
 
 Hero
-  - HP
   Cast Spells
     - Hands move to cast
-    
+
 Map
   13 Rooms
-    - New fears
     - Enemies
     - Decor
     - Breakable Items
-    - Doors
-    - Room Switch
     - floating blocks
-      - Jump

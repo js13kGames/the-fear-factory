@@ -53,6 +53,7 @@ function Hero(w, h, x, y, angle, type) {
     if(!this.die){
       if (space() && !this.isJumping) {
         this.startJumping();
+        mobJump=false;
       }
 
       // Falling off platform

@@ -45,6 +45,11 @@ let debug=true;
 let block = new Entity(32, 16, 0, 0, 0, types.BLOCK);
 let swipeWidth = 0;
 let shrinking = false;
+var mobUp=false;
+var mobDown=false;
+var mobRight=false;
+var mobLeft=false;
+var mobJump=false;
 
 let dialogue = {
     active: false,
@@ -71,7 +76,7 @@ function startGame() {
   resizeCanvas(this.ctx);
   setupControls();
   document.getElementById('gameControls').addEventListener('touchstart', (event) => {
-      event.preventDefault();  // Prevent scrolling/zooming on the control buttons
+      //event.preventDefault();  // Prevent scrolling/zooming on the control buttons
   }, { passive: false });
 
 }
@@ -105,7 +110,7 @@ let mg = {
         if(audioCtx == null) audioCtx = new AudioContext();
       }
       if(startDelay<=0&&charSet==3)start=true;
-      e.preventDefault();
+      //e.preventDefault();
     })
 
     // Keyboard
@@ -180,28 +185,54 @@ function setupControls() {
     document.getElementById('left').addEventListener('touchend', () => stopmove('left'));
     document.getElementById('right').addEventListener('touchstart', () => move('right'));
     document.getElementById('right').addEventListener('touchend', () => stopmove('right'));
-    document.getElementById('aButton').addEventListener('touchstart', () => action('A'));
-    document.getElementById('fsButton').addEventListener('touchend', () => toggleFull());
-    document.getElementById('fsButton').addEventListener('mouseup', () => toggleFull());
+    document.getElementById('aButton').addEventListener('touchstart', () => action('A'), { passive: false });
+    document.getElementById('bButton').addEventListener('touchend', () => action('B'), { passive: false });
 }
 
-function toggleFull() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    }
-  }
-}
+// function toggleFull() {
+//   if (!document.fullscreenElement) {
+//     document.documentElement.requestFullscreen();
+//   } else {
+//     if (document.exitFullscreen) {
+//       document.exitFullscreen();
+//     }
+//   }
+// }
 
 function action(button) {
     // Handle action button logic here
     if(!gameStarted){
       gameStarted=true;
     }
-    processClick=true;
+    if(button=='A')processClick=true;
+    if(button=='B')mobJump=true;
 }
+
+function move(d) {
+    // Handle movement logic here
+    if(d=='up'){
+      mobUp=true;
+    } else if(d=='down'){
+      mobDown=true;
+    } else if(d=='left'){
+      mobLeft=true;
+    } else if(d=='right'){
+      mobRight=true;
+    }
+}
+
+function stopmove(d) {
+    if(d=='up'){
+      mobUp=false;
+    } else if(d=='down'){
+      mobDown=false;
+    } else if(d=='left'){
+      mobLeft=false;
+    } else if(d=='right'){
+      mobRight=false;
+    }
+}
+
 
 let lastTimestamp = null;
 function updateGameLoop(timestamp) {
@@ -250,11 +281,11 @@ function updateGameArea(delta) {
   processClick=false;
 }
 
-function left() {return (mg.keys && (mg.keys[LEFT] || mg.keys[A]));}
-function right() {return (mg.keys && (mg.keys[RIGHT] || mg.keys[D]));}
-function up() {return (mg.keys && (mg.keys[UP] || mg.keys[W]));}
-function down() {return (mg.keys && (mg.keys[DOWN] || mg.keys[S]));}
-function space() {return (mg.keys && mg.keys[SPACE]);}
+function left() {return (mg.keys && (mg.keys[LEFT] || mg.keys[A]) || (mobLeft||mobDown));}
+function right() {return (mg.keys && (mg.keys[RIGHT] || mg.keys[D])|| (mobRight||mobUp));}
+function up() {return (mg.keys && (mg.keys[UP] || mg.keys[W])|| (mobUp||mobLeft));}
+function down() {return (mg.keys && (mg.keys[DOWN] || mg.keys[S])|| (mobRight||mobDown));}
+function space() {return (mg.keys && mg.keys[SPACE])|| mobJump ;}
 function shift() {return (mg.keys && mg.keys[SHIFT]) || rightMB;}
 function t() {return mg.keys && (mg.keys[T]);}
 
