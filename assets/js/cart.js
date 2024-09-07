@@ -112,8 +112,8 @@ function Cart() {
       if(this.hero.hasKey && this.hero.curTile.id==1){
         draw();
         if(this.changeLvl){
-         console.log("Load the next Level");
-         cart.changeLvl=false;
+          playSound(LEVEL,.8);
+          cart.changeLvl=false;
         }
       }
     } else {
