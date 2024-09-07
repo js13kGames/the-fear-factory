@@ -6,7 +6,7 @@ function Enemy(x, y, w, h, type, index, totalEnemies, dmg) {
   }
 }
 
-function Spike(x, y, tileID, offset, lvl) {
+function Spike(x, y, tileID, offset, lvl, pause=0) {
   this.id=tileID;
   this.active=true;
   this.time=offset;
@@ -15,6 +15,7 @@ function Spike(x, y, tileID, offset, lvl) {
   this.e = new Entity(10, 14, x, y, 0, types.SPIKE);
   this.hit=false;
   this.level=lvl;
+  this.paused=false;
 
   this.update = function(delta) {
     this.time+=delta;
@@ -42,9 +43,12 @@ function Spike(x, y, tileID, offset, lvl) {
     if(this.time>5){
       this.hit=false;
       this.e.height=2;
-      this.e.y=this.y+16;
-      this.time=0
-      cart.shakeTime = .04;
+      if(!this.paused) cart.shakeTime = .04;
+      this.paused=true;
+      if(this.time>5+pause){
+        this.e.y=this.y+16;
+        this.time=0;
+      }
     } else if(this.time>4.9){
       this.e.height=4;
       this.e.y=this.y+12;

@@ -13,6 +13,9 @@ function Level(no=0) {
   let id =0;
   let tt=[];
 
+  this.rows = 5;
+  this.cols = 5;
+
   if(no==0){
     this.rows = 4;
     this.cols = 4;
@@ -25,8 +28,8 @@ function Level(no=0) {
   } else if(no==3){
     this.rows = 5;
     this.cols = 5;
-  } else if(no==6){
-    this.rows = 8;
+  } else if(no==7){
+    this.rows = 5;
     this.cols = 8;
   } else {
     this.rows = 5;
@@ -45,9 +48,9 @@ function Level(no=0) {
     }
   }
 
-  this.addSpike = function(l, id, off, lvl){
+  this.addSpike = function(l, id, off, lvl, pause=0){
     t=this.tiles[l][id-1];
-    t.obj=new Spike(t.x+90, t.y+4, id, off, lvl);
+    t.obj=new Spike(t.x+90, t.y+4, id, off, lvl, pause);
   }
 
   this.addKey = function(l, id){
@@ -86,17 +89,18 @@ function Level(no=0) {
   // this.tileCol2= "#566573";
 
   // Tutorial
-  if(no==0){ // KEY
+  if(no==0){ // LEARN: KEY
     this.tileCol1= "#480048";
     this.tileCol2= "#601848";
     this.text="Welcome to the Fear Factory! Click or press Space..."
-    this.help="The level is unstable, enter the portal!"
+    this.help="The level is unstable, enter the portal quickly!"
     this.t2="#FFDC7F";
     this.addKey(0, 16);
-  } else if(no==1) { // SIMPLE JUMP
+
+  } else if(no==1) { // LEARN JUMP
     this.addKey(0, 10);
     this.text="Press space to jump over blocks."
-    this.help="Move along we dont have all day!"
+    this.help="Move along dont be scared.."
     this.tileCol1= "#C3C3E5";
     this.tileCol2= "#F1F0FF";
     this.t2="#295F98";
@@ -105,42 +109,57 @@ function Level(no=0) {
     this.addPlat(1,8);
     this.addPlat(1,13);
     this.addPlat(1,18);
-  } else if(no==2) { // PARKOUR
+
+  } else if(no==2) { // LEARN PARKOUR
     this.addKey(2, 17);
-    this.text="Use your parkour skills!"
-    this.help="Not bad for a beginner."
+    this.text="Do you have any parkour skils?"
+    this.help="I thought you were afraid of heights!"
     this.tileCol1= "#C3C3E5";
     this.tileCol2= "#F1F0FF";
     this.t2="#295F98";
     this.blkColr="#7C93C3";
     this.addPlat(1,15);
     this.addPlat(2,17);
-  } else if(no==3) {
+
+  } else if(no==3) { // LEARN SPIKES
     [0, 0.5, 0, 0.5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i, z,0));
-    this.text="Jump or avoid tiles with traps!!"
-    this.help="You got lucky this time!"
+    this.text="This may trigger your Aichmophobia! Jump over or wait for the spikes to drop."
+    this.help="It will get more difficult, move along."
     this.addKey(0, 15);
     this.tileCol1= "#028482";
     this.tileCol2= "#7ABA7A";
 
-  } else if(no==4) { // LEVEL 1
+  } else if(no==4) { // LEARN SPIKES
+    [.5,0, .5, 0, .5].forEach((z, i) => this.addSpike(0, 2 + 5 * i, z,0,1));
+    [0, .5, 0, .5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i, z,0,1));
+    [.5,0, .5, 0, .5].forEach((z, i) => this.addSpike(0, 4 + 5 * i, z,0,1));
+
+    this.text="Spikes can move at different rates, dont be afaid, run for it!"
+    this.help="Not bad..."
+    this.addKey(0, 15);
+    this.tileCol1= "#028482";
+    this.tileCol2= "#7ABA7A";
+
+  } else if(no==5) { // LEVEL 1
     this.addKey(3, 5);
-    this.text="Press space to jump over blocks."
-    this.help="Move along we dont have all day!"
+    this.text=" Things are heating up and I hear you have Pyrophobia?"
+    this.help="Have I met my match..."
     this.tileCol1= "#C3C3E5";
     this.tileCol2= "#F1F0FF";
     this.t2="#295F98";
     this.blkColr="#7C93C3";
+    this.addFire(0,7);
+    this.addFire(0,8);
     this.addPlat(1,17);
     this.addPlat(1, 18);
     this.addPlat(2, 20);
     this.addPlat(3, 10);
     this.addPlat(3, 5);
 
-  } else if(no==5) { // LEVEL 2
+  } else if(no==6) { // LEVEL 2
     this.addKey(3, 5);
-    this.text="Press space to jump over blocks."
-    this.help="Move along we dont have all day!"
+    this.text=""
+    this.help=""
     this.tileCol1= "#C3C3E5";
     this.tileCol2= "#F1F0FF";
     this.t2="#295F98";
@@ -149,31 +168,28 @@ function Level(no=0) {
     this.addPlat(2, 19);
     this.addPlat(3, 9);
     this.addPlat(3, 5);
-    this.addSpike(1, 17, .5, 1);
-    this.addSpike(2, 19, 0, 1);
-  } else if(no==6) { // LEVEL 3
-    this.addKey(3, 5);
-    this.text="Press space to jump over blocks."
-    this.help="Move along we dont have all day!"
+    this.addSpike(1, 17, .5, 1, .5);
+    this.addSpike(2, 19, 0, 1, .5);
+
+  } else if(no==7) { // LEVEL 3
+    this.addKey(0, 7);
+    this.text="Do not fall into the void..."
+    this.help=""
     this.tileCol1= "#C3C3E5";
     this.tileCol2= "#F1F0FF";
     this.t2="#295F98";
     this.blkColr="#7C93C3";
     this.addPlat(1, 26);
-    this.addPlat(1, 42);
-    this.addPlat(2, 44);
-    this.addPlat(3, 46);
+    this.addPlat(2, 28);
+    this.addPlat(3, 30);
 
-    for (let row = 0; row <= 7; row++) {
+    for (let row = 0; row <= 4; row++) {
       for (let col = 4; col <= 5; col++) {
         let id = row * this.cols + col;
         this.tiles[0][id].type=types.AIR;
         this.tiles[0][id].setType();
       }
     }
-
-    // this.tiles[0][12].type==types.AIR;
-    // this.tiles[0][12].setType();
 
   } else if(no==7) { // LEVEL 4
     this.text="Level 1"
