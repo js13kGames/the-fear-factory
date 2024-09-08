@@ -157,7 +157,7 @@ function Level(no=0) {
     this.addPlat(3, 5);
 
   } else if(no==6) { // LEVEL 2
-    this.addKey(3, 5);
+    this.addKey(3, 4);
     this.text=""
     this.help=""
     this.tileCol1= "#C3C3E5";
@@ -166,8 +166,8 @@ function Level(no=0) {
     this.blkColr="#7C93C3";
     this.addPlat(1, 17);
     this.addPlat(2, 19);
+    this.addPlat(3, 4);
     this.addPlat(3, 9);
-    this.addPlat(3, 5);
     this.addSpike(1, 17, .5, 1, .5);
     this.addSpike(2, 19, 0, 1, .5);
 
