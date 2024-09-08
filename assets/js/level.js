@@ -31,6 +31,9 @@ function Level(no=0) {
   } else if(no==7){
     this.rows = 5;
     this.cols = 8;
+  } else if(no==8){
+    this.rows = 3;
+    this.cols = 10;
   } else {
     this.rows = 5;
     this.cols = 5;
@@ -48,9 +51,9 @@ function Level(no=0) {
     }
   }
 
-  this.addSpike = function(l, id, off, lvl, pause=0){
+  this.addSpike = function(l, id, off, pause=0){
     t=this.tiles[l][id-1];
-    t.obj=new Spike(t.x+90, t.y+4, id, off, lvl, pause);
+    t.obj=new Spike(t.x+90, t.y+4, id, off, l, pause);
   }
 
   this.addKey = function(l, id){
@@ -122,7 +125,7 @@ function Level(no=0) {
     this.addPlat(2,17);
 
   } else if(no==3) { // LEARN SPIKES
-    [0, 0.5, 0, 0.5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i, z,0));
+    [0, 0.5, 0, 0.5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i,0));
     this.text="This may trigger your Aichmophobia! Jump over or wait for the spikes to drop."
     this.help="It will get more difficult, move along."
     this.addKey(0, 15);
@@ -130,9 +133,9 @@ function Level(no=0) {
     this.tileCol2= "#7ABA7A";
 
   } else if(no==4) { // LEARN SPIKES
-    [.5,0, .5, 0, .5].forEach((z, i) => this.addSpike(0, 2 + 5 * i, z,0,1));
-    [0, .5, 0, .5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i, z,0,1));
-    [.5,0, .5, 0, .5].forEach((z, i) => this.addSpike(0, 4 + 5 * i, z,0,1));
+    [.5,0, .5, 0, .5].forEach((z, i) => this.addSpike(0, 2 + 5 * i,z,1));
+    [0, .5, 0, .5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i,z,1));
+    [.5,0, .5, 0, .5].forEach((z, i) => this.addSpike(0, 4 + 5 * i,z,1));
 
     this.text="Spikes can move at different rates, dont be afaid, run for it!"
     this.help="Not bad..."
@@ -168,8 +171,8 @@ function Level(no=0) {
     this.addPlat(2, 19);
     this.addPlat(3, 4);
     this.addPlat(3, 9);
-    this.addSpike(1, 17, .5, 1, .5);
-    this.addSpike(2, 19, 0, 1, .5);
+    this.addSpike(1, 17, .5, .5);
+    this.addSpike(2, 19, 0, .5);
 
   } else if(no==7) { // LEVEL 3
     this.addKey(0, 7);
@@ -183,13 +186,27 @@ function Level(no=0) {
     this.addPlat(2, 28);
     this.addPlat(3, 30);
 
-    for (let row = 0; row <= 4; row++) {
-      for (let col = 4; col <= 5; col++) {
-        let id = row * this.cols + col;
-        this.tiles[0][id].type=types.AIR;
-        this.tiles[0][id].setType();
-      }
-    }
+    tilesToAir(0, 4, 4, 5, this.tiles[0], this.cols);
+
+  } else if(no==8) { // Narrow with jumps
+    this.addKey(0, 20);
+    this.text="Do not fall into the void..."
+    this.help=""
+    this.tileCol1= "#C3C3E5";
+    this.tileCol2= "#F1F0FF";
+    this.t2="#295F98";
+    this.blkColr="#7C93C3";
+    tilesToAir(0, 2, 2, 2, this.tiles[0], this.cols);
+    this.addSpike(0, 4, 1);
+    this.addSpike(0, 14, 1);
+    this.addSpike(0, 24, 1);
+    tilesToAir(0, 2, 5, 5, this.tiles[0], this.cols);
+    tileToAir(17, this.tiles[0]);
+    this.addFire(0, 7, 1);
+    this.addSpike(0, 17, 1);
+    this.addFire(0, 27, 1);
+    this.addFire(0, 28, 1);
+    this.addFire(0, 8, 1);
 
   } else if(no==7) { // LEVEL 4
     this.text="Level 1"
@@ -243,5 +260,4 @@ function Level(no=0) {
 
     this.mobs.forEach(e => e.update(delta));
   }
-
 }

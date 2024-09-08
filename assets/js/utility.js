@@ -321,3 +321,18 @@ function wrapText(ctx, txt, x, y, mw, lh) {
     }
     ctx.fillText(l, x, ly);
 }
+
+function tilesToAir(startRow, endRow, startCol, endCol, tiles, cols) {
+  for (let row = startRow; row <= endRow; row++) {
+    for (let col = startCol; col <= endCol; col++) {
+      let id = row * cols + col;
+      tiles[id].type = types.AIR;
+      tiles[id].setType();
+    }
+  }
+}
+
+function tileToAir(id, tiles) {
+  tiles[id].type = types.AIR;
+  tiles[id].setType();
+}
