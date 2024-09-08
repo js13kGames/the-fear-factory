@@ -78,7 +78,7 @@ function startGame() {
   document.getElementById('gameControls').addEventListener('touchstart', (event) => {
       //event.preventDefault();  // Prevent scrolling/zooming on the control buttons
   }, { passive: false });
-
+  if (!check) document.getElementById("gameControls").style.display = "none";
 }
 
 let mg = {
