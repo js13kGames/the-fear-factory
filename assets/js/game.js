@@ -50,6 +50,9 @@ var mobDown=false;
 var mobRight=false;
 var mobLeft=false;
 var mobJump=false;
+// Track touch identifiers
+let joystickTouchId = null;
+let buttonTouchId = null;
 
 let dialogue = {
     active: false,
@@ -187,51 +190,98 @@ function setupControls() {
   // Start dragging the joystick
   joystick.addEventListener('touchstart', function (e) {
       e.preventDefault();
-      dragging = true;
-      origin = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      if (joystickTouchId === null) {
+        joystickTouchId = e.changedTouches[0].identifier;  // Assign the touch identifier to the joystick
+        draggingJoystick = true;
+        origin = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
   });
 
   // Move the joystick
-  document.addEventListener('touchmove', function (e) {
-      if (!dragging) return;
+  document.addEventListener('touchmove', function(e) {
+      if (draggingJoystick) {
+          // Find the touch with the joystick identifier
+          for (let touch of e.touches) {
+              if (touch.identifier === joystickTouchId) {
+                  let deltaX = touch.clientX - origin.x;
+                  let deltaY = touch.clientY - origin.y;
+                  let distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-      let touch = e.touches[0];
-      let deltaX = touch.clientX - origin.x;
-      let deltaY = touch.clientY - origin.y;
-      let distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                  // Limit joystick movement within the radius
+                  if (distance > maxRadius) {
+                      let angle = Math.atan2(deltaY, deltaX);
+                      deltaX = Math.cos(angle) * maxRadius;
+                      deltaY = Math.sin(angle) * maxRadius;
+                  }
 
-      // Limit joystick movement within the radius
-      if (distance > maxRadius) {
-          let angle = Math.atan2(deltaY, deltaX);
-          deltaX = Math.cos(angle) * maxRadius;
-          deltaY = Math.sin(angle) * maxRadius;
+                  knobPosition = { x: deltaX, y: deltaY };
+                  joystick.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+                  // Detect directions based on the joystick position
+                  mobUp = deltaY < -20; // Threshold to prevent jitter
+                  mobDown = deltaY > 20;
+                  mobLeft = deltaX < -20;
+                  mobRight = deltaX > 20;
+
+                  break;  // Stop looking for other touches once the joystick touch is processed
+              }
+          }
       }
-
-      knobPosition = { x: deltaX, y: deltaY };
-      joystick.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-      // Detect directions based on the joystick position
-      mobUp = deltaY < -20; // Threshold to prevent jitter
-      mobDown = deltaY > 20;
-      mobLeft = deltaX < -20;
-      mobRight = deltaX > 20;
   });
 
   // Stop dragging the joystick
-  document.addEventListener('touchend', function () {
-      dragging = false;
-      joystick.style.transform = 'translate(-50%, -50%)'; // Reset to center
-      knobPosition = { x: 0, y: 0 };
+  document.addEventListener('touchend', function(e) {
+      for (let touch of e.changedTouches) {
+          if (touch.identifier === joystickTouchId) {
+              draggingJoystick = false;
+              joystickTouchId = null;
+              joystick.style.transform = 'translate(-50%, -50%)';  // Reset to center
+              knobPosition = { x: 0, y: 0 };
 
-      // Reset directional flags
-      mobUp = false;
-      mobDown = false;
-      mobLeft = false;
-      mobRight = false;
+              // Reset directional flags
+              mobUp = false;
+              mobDown = false;
+              mobLeft = false;
+              mobRight = false;
+          }
+      }
   });
 
-  document.getElementById('aButton').addEventListener('touchstart', () => action('A'), { passive: false });
-  document.getElementById('bButton').addEventListener('touchend', () => action('B'), { passive: false });
+  // Track touch identifiers for buttons A and B
+  let aButtonTouchId = null;
+  let bButtonTouchId = null;
+
+  // Handle A button touch
+  document.getElementById('aButton').addEventListener('touchstart', function(e) {
+      if (aButtonTouchId === null) {
+          aButtonTouchId = e.changedTouches[0].identifier; // Assign touch identifier to A button
+          action('A');
+      }
+  }, { passive: false });
+
+  document.getElementById('aButton').addEventListener('touchend', function(e) {
+      for (let touch of e.changedTouches) {
+          if (touch.identifier === aButtonTouchId) {
+              aButtonTouchId = null; // Reset A button touch identifier when touch ends
+          }
+      }
+  }, { passive: false });
+
+  // Handle B button touch
+  document.getElementById('bButton').addEventListener('touchstart', function(e) {
+      if (bButtonTouchId === null) {
+          bButtonTouchId = e.changedTouches[0].identifier; // Assign touch identifier to B button
+          action('B');
+      }
+  }, { passive: false });
+
+  document.getElementById('bButton').addEventListener('touchend', function(e) {
+      for (let touch of e.changedTouches) {
+          if (touch.identifier === bButtonTouchId) {
+              bButtonTouchId = null; // Reset B button touch identifier when touch ends
+          }
+      }
+  }, { passive: false });
 }
 
 function action(button) {
