@@ -108,7 +108,6 @@ function Cart() {
         });
       });
       cart.hero.e.gun.drawBullets(delta);
-      drawUI();
 
       // Check if level completed
       if(this.hero.hasKey && this.hero.curTile.id==1){

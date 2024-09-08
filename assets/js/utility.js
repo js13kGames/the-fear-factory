@@ -24,12 +24,6 @@ function lerp (start, end, amt){
   return (1-amt)*start+amt*end
 }
 
-function getResponsiveFontSize(percent) {
-  const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-  // You might want to adjust the scaling factor (0.1) to get the best size for your design.
-  return Math.round(vw * percent); // This sets the font size to 10% of the viewport width.
-}
-
 function drawBox(ctx,a,colour,x,y,w,h) {
   ctx.save();
   ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -126,32 +120,6 @@ function drawTile(x, y, width, height, color, alpha=1) {
   ctx.lineTo(x - width / 2, y + height / 2);
   ctx.closePath();
   ctx.fillStyle = color;
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawUI(){
-  ctx.save();
-  ctx.beginPath();
-  ctx.fillStyle = "#17202a";
-  ctx.roundRect(10, 10, 50, 300, 30);
-  ctx.fill();
-
-  ctx.beginPath();
-  ctx.fillStyle = "#5b2c6f";
-  ctx.roundRect(15, 200, 40, 100, 30);
-  ctx.fill();
-
-  ctx.beginPath();
-  ctx.globalAlpha = .3;
-  ctx.fillStyle = "white";
-  ctx.roundRect(12, 35, 8, 250, 30);
-  ctx.fill();
-
-  ctx.beginPath();
-  ctx.globalAlpha = .1;
-  ctx.fillStyle = "white";
-  ctx.roundRect(24, 35, 4, 250, 30);
   ctx.fill();
   ctx.restore();
 }
