@@ -169,45 +169,41 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
       case types.HERO:
         break;
       case types.BLOCK:
-        this.sx=16;
-        this.sy=17;
+        this.sx=45;
+        this.sy=32;
         break;
       case types.TILE:
-        this.sx=16;
+        this.sx=17;
         break;
       case types.TILE2:
-        this.sx=16;
-        break;
-      case types.WATER:
-        this.sx=16;
+        this.sx=17;
         break;
       case types.HAND:
-        this.sy=17;
+        this.sy=18;
         break;
       case types.SHADOW:
-        this.sx=5;
-        this.sy=17;
+        this.sx=6;
+        this.sy=18;
         break;
       case types.AIR: // Select blank
-        this.sx=89;
-        this.sy=50;
+        this.sx=40;
+        this.sy=18;
         break;
       case types.SPIKE:
-        this.sy=23;
+        this.sx=68;
         break;
       case types.FIRE:
-        this.sx=49;
-        this.sy=35;
+        this.sy=33;
         break;
       case types.GHOST:
-        this.sx=83;
+        this.sx=53;
         break;
       case types.KEY:
-        this.sx=31;
-        this.sy=35;
+        this.sy=23;
         break;
       case types.GOB:
-        this.sx=49;
+        this.sx=18;
+        this.sy=18;
         break;
     }
 

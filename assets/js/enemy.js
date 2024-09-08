@@ -110,7 +110,7 @@ function Fire(x, y) {
   this.time=0;
   this.y=y;
   this.x=x;
-  this.e = new Entity(11, 13, x, y, 0, types.FIRE);
+  this.e = new Entity(11, 15, x, y, 0, types.FIRE);
 
   this.update = function(delta) {
     this.time+=delta;
@@ -118,11 +118,11 @@ function Fire(x, y) {
 
     if(this.time>.6){
       this.time=0;
-      this.e.sx=49;
+      this.e.sx=0;
     } else if(this.time>.4){
-      this.e.sx=72;
+      this.e.sx=23;
     } else if(this.time>.2){
-      this.e.sx=61;
+      this.e.sx=12;
     }
   }
 }

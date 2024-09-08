@@ -46,10 +46,11 @@ function Intro(){
         cart.hero.e.y=-20;
       }
       if(textPhase==1){
+        let txt="Welcome to the Fear Factory! All demons must face their fears before they can turn 13! Are you ready?";
         if(!check){
-          textToScreen("Press Space");
+          textToScreen(txt +" :: Press Space!");
         } else {
-          textToScreen("Press A");
+          textToScreen(txt + " :: Press A");
         }
         textPhase++;
       }

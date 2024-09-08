@@ -63,7 +63,7 @@ function Level(no=0) {
 
   this.addFire = function(l, id){
     t=this.tiles[l][id-1];
-    t.obj=new Fire(t.x+80, t.y-10, l, id);
+    t.obj=new Fire(t.x+80, t.y-20, l, id);
   }
 
   // Populate 4 levels of tiles in a block
