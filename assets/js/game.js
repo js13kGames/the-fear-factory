@@ -357,6 +357,9 @@ function updateGameArea(delta) {
     startDelay=3;
   }
 
+  // if(m()==true){
+  //   audio.stop;
+  // }
   if(start) gameStarted=true;
   if(startDelay>0)startDelay-=delta;
   cart.update(delta, gameStarted);
@@ -371,7 +374,6 @@ function right() {return (mg.keys && (mg.keys[RIGHT] || mg.keys[D])|| mobRight);
 function up() {return (mg.keys && (mg.keys[UP] || mg.keys[W])|| mobUp);}
 function down() {return (mg.keys && (mg.keys[DOWN] || mg.keys[S])|| mobDown);}
 function space() {return (mg.keys && mg.keys[SPACE])|| mobJump ;}
-function shift() {return (mg.keys && mg.keys[SHIFT]) || rightMB;}
 function t() {return mg.keys && (mg.keys[T]);}
 
 function setclicks(){

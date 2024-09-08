@@ -37,6 +37,9 @@ function Cart() {
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
+    if(audio){
+      audio.muted=pause;
+    }
     let lvl = this.getLvl();
     if(runOnce){
       var gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);

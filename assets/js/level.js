@@ -25,15 +25,15 @@ function Level(no=0) {
   } else if(no==2){
     this.rows = 5;
     this.cols = 6;
-  } else if(no==3){
-    this.rows = 5;
-    this.cols = 5;
   } else if(no==7){
     this.rows = 5;
     this.cols = 8;
   } else if(no==8){
     this.rows = 3;
     this.cols = 10;
+  } else if(no==9){
+    this.rows = 12;
+    this.cols = 12;
   } else {
     this.rows = 5;
     this.cols = 5;
@@ -91,7 +91,7 @@ function Level(no=0) {
   // this.tileCol1= "#273746";
   // this.tileCol2= "#566573";
 
-  // Tutorial
+  // Tutorial LEVEL 01
   if(no==0){ // LEARN: KEY
     this.tileCol1= "#480048";
     this.tileCol2= "#601848";
@@ -100,6 +100,7 @@ function Level(no=0) {
     this.t2="#FFDC7F";
     this.addKey(0, 16);
 
+  // LEVEL 02
   } else if(no==1) { // LEARN JUMP
     this.addKey(0, 10);
     this.text="Press space to jump over blocks."
@@ -113,6 +114,7 @@ function Level(no=0) {
     this.addPlat(1,13);
     this.addPlat(1,18);
 
+  // LEVEL 03
   } else if(no==2) { // LEARN PARKOUR
     this.addKey(2, 17);
     this.text="Do you have any parkour skils?"
@@ -124,6 +126,7 @@ function Level(no=0) {
     this.addPlat(1,15);
     this.addPlat(2,17);
 
+  // LEVEL 04
   } else if(no==3) { // LEARN SPIKES
     [0, 0.5, 0, 0.5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i,0));
     this.text="This may trigger your Aichmophobia! Jump over or wait for the spikes to drop."
@@ -132,6 +135,7 @@ function Level(no=0) {
     this.tileCol1= "#028482";
     this.tileCol2= "#7ABA7A";
 
+  // LEVEL 05
   } else if(no==4) { // LEARN SPIKES
     [.5,0, .5, 0, .5].forEach((z, i) => this.addSpike(0, 2 + 5 * i,z,1));
     [0, .5, 0, .5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i,z,1));
@@ -143,6 +147,7 @@ function Level(no=0) {
     this.tileCol1= "#028482";
     this.tileCol2= "#7ABA7A";
 
+  // LEVEL 06
   } else if(no==5) { // LEVEL 1
     this.addKey(3, 5);
     this.text=" Things are heating up and I hear you have Pyrophobia?"
@@ -159,6 +164,7 @@ function Level(no=0) {
     this.addPlat(3, 10);
     this.addPlat(3, 5);
 
+// LEVEL 07
   } else if(no==6) { // LEVEL 2
     this.addKey(3, 4);
     this.text=""
@@ -174,7 +180,8 @@ function Level(no=0) {
     this.addSpike(1, 17, .5, .5);
     this.addSpike(2, 19, 0, .5);
 
-  } else if(no==7) { // LEVEL 3
+  // LEVEL 08
+  } else if(no==7) {
     this.addKey(0, 7);
     this.text="Do not fall into the void..."
     this.help=""
@@ -188,6 +195,7 @@ function Level(no=0) {
 
     tilesToAir(0, 4, 4, 5, this.tiles[0], this.cols);
 
+  // LEVEL 09
   } else if(no==8) { // Narrow with jumps
     this.addKey(0, 20);
     this.text="Do not fall into the void..."
@@ -208,7 +216,8 @@ function Level(no=0) {
     this.addFire(0, 28, 1);
     this.addFire(0, 8, 1);
 
-  } else if(no==7) { // LEVEL 4
+  // LEVEL 10
+  } else if(no==7) {
     this.text="Level 1"
     this.help="Well done"
     this.addKey(0, 6);

@@ -29,14 +29,14 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
-  this.speed=5;
+  this.speed=300;
   this.row=0;
   this.col=0;
 
   // ONLY FOR THE HERO]
   // Move out of entity
-  this.move = function(){
-    let spd = this.speed;
+  this.move = function(delta){
+    let spd = this.speed * delta;
     this.prevX=this.x;
     this.prevY=this.y;
     let newX=this.x;
