@@ -177,27 +177,62 @@ let mg = {
 
 // Mobile Controls
 function setupControls() {
-    document.getElementById('up').addEventListener('touchstart', () => move('up'));
-    document.getElementById('up').addEventListener('touchend', () => stopmove('up'));
-    document.getElementById('down').addEventListener('touchstart', () => move('down'));
-    document.getElementById('down').addEventListener('touchend', () => stopmove('down'));
-    document.getElementById('left').addEventListener('touchstart', () => move('left'));
-    document.getElementById('left').addEventListener('touchend', () => stopmove('left'));
-    document.getElementById('right').addEventListener('touchstart', () => move('right'));
-    document.getElementById('right').addEventListener('touchend', () => stopmove('right'));
-    document.getElementById('aButton').addEventListener('touchstart', () => action('A'), { passive: false });
-    document.getElementById('bButton').addEventListener('touchend', () => action('B'), { passive: false });
-}
+  let joystick = document.getElementById('joystick');
+  let joystickContainer = document.getElementById('joystickContainer');
+  let maxRadius = 154 / 2; // Radius of the joystick container
+  let dragging = false;
+  let origin = { x: 0, y: 0 };
+  let knobPosition = { x: 0, y: 0 };
 
-// function toggleFull() {
-//   if (!document.fullscreenElement) {
-//     document.documentElement.requestFullscreen();
-//   } else {
-//     if (document.exitFullscreen) {
-//       document.exitFullscreen();
-//     }
-//   }
-// }
+  // Start dragging the joystick
+  joystick.addEventListener('touchstart', function (e) {
+      e.preventDefault();
+      dragging = true;
+      origin = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  });
+
+  // Move the joystick
+  document.addEventListener('touchmove', function (e) {
+      if (!dragging) return;
+
+      let touch = e.touches[0];
+      let deltaX = touch.clientX - origin.x;
+      let deltaY = touch.clientY - origin.y;
+      let distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      // Limit joystick movement within the radius
+      if (distance > maxRadius) {
+          let angle = Math.atan2(deltaY, deltaX);
+          deltaX = Math.cos(angle) * maxRadius;
+          deltaY = Math.sin(angle) * maxRadius;
+      }
+
+      knobPosition = { x: deltaX, y: deltaY };
+      joystick.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+      // Detect directions based on the joystick position
+      mobUp = deltaY < -20; // Threshold to prevent jitter
+      mobDown = deltaY > 20;
+      mobLeft = deltaX < -20;
+      mobRight = deltaX > 20;
+  });
+
+  // Stop dragging the joystick
+  document.addEventListener('touchend', function () {
+      dragging = false;
+      joystick.style.transform = 'translate(-50%, -50%)'; // Reset to center
+      knobPosition = { x: 0, y: 0 };
+
+      // Reset directional flags
+      mobUp = false;
+      mobDown = false;
+      mobLeft = false;
+      mobRight = false;
+  });
+
+  document.getElementById('aButton').addEventListener('touchstart', () => action('A'), { passive: false });
+  document.getElementById('bButton').addEventListener('touchend', () => action('B'), { passive: false });
+}
 
 function action(button) {
     // Handle action button logic here
@@ -281,10 +316,10 @@ function updateGameArea(delta) {
   processClick=false;
 }
 
-function left() {return (mg.keys && (mg.keys[LEFT] || mg.keys[A]) || (mobLeft||mobDown));}
-function right() {return (mg.keys && (mg.keys[RIGHT] || mg.keys[D])|| (mobRight||mobUp));}
-function up() {return (mg.keys && (mg.keys[UP] || mg.keys[W])|| (mobUp||mobLeft));}
-function down() {return (mg.keys && (mg.keys[DOWN] || mg.keys[S])|| (mobRight||mobDown));}
+function left() {return (mg.keys && (mg.keys[LEFT] || mg.keys[A]) || mobLeft);}
+function right() {return (mg.keys && (mg.keys[RIGHT] || mg.keys[D])|| mobRight);}
+function up() {return (mg.keys && (mg.keys[UP] || mg.keys[W])|| mobUp);}
+function down() {return (mg.keys && (mg.keys[DOWN] || mg.keys[S])|| mobDown);}
 function space() {return (mg.keys && mg.keys[SPACE])|| mobJump ;}
 function shift() {return (mg.keys && mg.keys[SHIFT]) || rightMB;}
 function t() {return mg.keys && (mg.keys[T]);}
