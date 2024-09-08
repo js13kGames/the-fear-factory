@@ -2,9 +2,9 @@ function Intro(){
   let delay=0;
   let selectDelay=0;
   let offset=0;
+  let textPhase=0;
 
   this.update = function(delta) {
-    let fontSize=getResponsiveFontSize(.05);
     mg.clear();
     ctx.save();
     drawBox(ctx,0.8,"black",0,0,canvasW,canvasH)
@@ -30,31 +30,35 @@ function Intro(){
 
     offset -= .3; // Change the speed of the stripe movement by adjusting this value
     if (offset <= -stripeWidth*2) offset = 0;
-    let font=`${fontSize}px Arial`;
-    writeStroke(ctx, 1, font,"Black","13 Floors", 30, canvasH*.1,12);
-    writeTxt(ctx, 1, font,"WHITE","13 Floors", 30, canvasH*.1);
-    font=`${fontSize-15}px Arial`;
-    charSet = (charSet + 3) % 3;
     drawHeroBox(15);
     delay-=delta;
-    // cart.hero.e.x=60;
-    // cart.hero.e.y=200;
+    cart.hero.e.x=70;
+    cart.hero.e.y=20;
     ctx.save();
     ctx.scale(3,3);
     cart.hero.update(delta);
     ctx.restore();
 
-    // Start Text
-    let bottomOffset = 30;
-    let viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-    let textY = viewportHeight - bottomOffset; // Position text 30px above the bottom edge of the viewport
-
     if(loading <=0){
-      if(space())gameStarted=true;
-      writeCentre(ctx, "Space to Start", font, canvasW / 2, viewportHeight - bottomOffset)
+      if(space()){
+        gameStarted=true;
+        cart.hero.e.x=70;
+        cart.hero.e.y=-20;
+      }
+      if(textPhase==1){
+        if(!check){
+          textToScreen("Press Space");
+        } else {
+          textToScreen("Press A");
+        }
+        textPhase++;
+      }
     } else {
       loading-=delta;
-      writeCentre(ctx, "Loading Pixels", font, canvasW / 2, viewportHeight - bottomOffset)
+      if(textPhase==0){
+        textToScreen("Loading Fears . . .");
+        textPhase++;
+      }
     }
   }
 }

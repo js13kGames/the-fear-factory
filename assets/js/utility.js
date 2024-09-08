@@ -39,37 +39,6 @@ function drawBox(ctx,a,colour,x,y,w,h) {
   ctx.restore();
 }
 
-function writeTxt(ctx,a,font,colour,txt,x,y) {
-  ctx.save();
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.globalAlpha = a;
-  ctx.font = font;
-  ctx.fillStyle = colour;
-
-  ctx.fillText(txt, x, y);
-  ctx.restore();
-}
-
-function writeCentre(ctx, text, font, x, y) {
-  ctx.font = font;
-  let textWidth = ctx.measureText(text).width;
-  let centeredX = x - (textWidth / 2);
-  writeStroke(ctx, 1, font, "BLACK", text, centeredX, y, 12);
-  writeTxt(ctx, 1, font, "WHITE", text, centeredX, y);
-}
-
-function writeStroke(ctx,a,font,colour,txt,x,y, strokeW) {
-  ctx.save();
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.globalAlpha = a;
-  ctx.font = font;
-  ctx.fillStyle = colour;
-  ctx.strokeStyle = colour; // Color of the stroke
-  ctx.lineWidth = strokeW; // Width of the stroke
-  ctx.strokeText(txt, x, y);
-  ctx.restore();
-}
-
  function displayFPS(fps) {
    mg.context.fillStyle = "yellow";
    mg.context.font = "16px Arial";
