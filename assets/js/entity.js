@@ -37,6 +37,9 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
   // Move out of entity
   this.move = function(delta){
     let spd = this.speed * delta;
+    if(cart.hero.isJumping){
+      spd*=.8;
+    }
     this.prevX=this.x;
     this.prevY=this.y;
     let newX=this.x;
