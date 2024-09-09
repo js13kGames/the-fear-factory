@@ -219,25 +219,13 @@ function Level(no=0) {
     this.help="Well done"
     this.addKey(0, 24);
     tilesToAir(0, 11, 2, 3, this.tiles[0], this.cols);
-    this.addSpike(0, 25, .5);
-    this.addSpike(0, 26, .5);
-    this.addSpike(0, 49, 0);
-    this.addSpike(0, 50, 0);
-    this.addSpike(0, 73, .4);
-    this.addSpike(0, 74, .4);
-    this.addSpike(0, 85, .3);
-    this.addSpike(0, 86, .3);
-    this.addSpike(0, 97, .2);
-    this.addSpike(0, 98, .2);
-    this.addSpike(0, 109, 0);
-    this.addSpike(0, 110, 0);
-    this.addPlat(2, 89);
-    this.addPlat(3, 65);
-    this.addPlat(4, 41);
+    [[25,.5],[26,.5],[49,0],[50,0],[73,.4],[74,.4],[85,.3],[86,.3],[97,.2],[98,.2],[109,0],[110,0]].map(a=>this.addSpike(0,a[0],a[1]));
+    [[2,89],[3,65],[4,41]].map(a=>this.addPlat(a[0],a[1]));
     tilesToAir(0, 11, 5, 6, this.tiles[0], this.cols);
     [123,124,113,7,140,141].map(n=>this.addPlat(1,n));
     [32,56,80,84,104,108,95,119].map(n=>this.addFire(0,n));
     tilesToAir(0, 11, 8, 9, this.tiles[0], this.cols);
+    [[120,2.2,1.5],[107,1.7,1.5],[96,1.3,1.5],[83,1,1.5]].map(a=>this.addSpike(0,a[0],a[1],a[2]));
     this.addSpike(0, 120, 2.2, 1.5);
     this.addSpike(0, 107, 1.7,1.5);
     this.addSpike(0, 96, 1.3,1.5);
