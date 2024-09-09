@@ -34,6 +34,9 @@ function Level(no=0) {
   } else if(no==9){
     this.rows = 12;
     this.cols = 12;
+  } else if(no==10){
+    this.rows = 5;
+    this.cols = 20;
   }
 
   this.addPlat = function(lvl, id){
@@ -215,7 +218,7 @@ function Level(no=0) {
 
   // LEVEL 10
   } else if(no==9) {
-    this.text="Level 9"
+    this.text="Level 10"
     this.help="Well done"
     this.addKey(0, 24);
     tilesToAir(0, 11, 2, 3, this.tiles[0], this.cols);
@@ -226,14 +229,16 @@ function Level(no=0) {
     [32,56,80,84,104,108,95,119].map(n=>this.addFire(0,n));
     tilesToAir(0, 11, 8, 9, this.tiles[0], this.cols);
     [[120,2.2,1.5],[107,1.7,1.5],[96,1.3,1.5],[83,1,1.5]].map(a=>this.addSpike(0,a[0],a[1],a[2]));
-    this.addSpike(0, 120, 2.2, 1.5);
-    this.addSpike(0, 107, 1.7,1.5);
-    this.addSpike(0, 96, 1.3,1.5);
-    this.addSpike(0, 83, 1,1.5);
     [47,36,23].map(n=>tileToAir(n,this.tiles[0],this.cols));
     this.t2="#295F98";
     this.tileCol1= "#028482";
     this.tileCol2= "#7ABA7A";
+
+  // Level 11
+  } else if(no==10) {
+    this.text="Level 11"
+    this.help="Well done"
+    this.addKey(0, 24);
   }
 
   // Add Fire, Spike and Ghost
