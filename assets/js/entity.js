@@ -92,8 +92,14 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
       }
     }
 
-    let stuck = cart.hero.curTile == null ? false : cart.hero.curTile.type == types.STOP;
+    // TODO: check the full stack of tiles, if hero is against a wall dont move through block
+    // let newTile=getTile(newX-64, newY+32, this.lvl)
+    // if(cart.hero.curTile != null) console.log(newTile.lvl + " Hero: " + cart.hero.curTile.lvl)
+    // if(cart.hero.curTile != null && cart.hero.curTile.lvl<newTile.lvl){
+    //     textToScreen("Yes!");
+    // }
 
+    let stuck = cart.hero.curTile == null ? false : cart.hero.curTile.type == types.STOP;
     if((!blocked && inbounds) || stuck){
       this.y=newY;
       this.x=newX;

@@ -34,9 +34,6 @@ function Level(no=0) {
   } else if(no==9){
     this.rows = 12;
     this.cols = 12;
-  } else {
-    this.rows = 5;
-    this.cols = 5;
   }
 
   this.addPlat = function(lvl, id){
@@ -217,11 +214,36 @@ function Level(no=0) {
     this.addFire(0, 8, 1);
 
   // LEVEL 10
-  } else if(no==7) {
-    this.text="Level 1"
+  } else if(no==9) {
+    this.text="Level 9"
     this.help="Well done"
-    this.addKey(0, 6);
-
+    this.addKey(0, 24);
+    tilesToAir(0, 11, 2, 3, this.tiles[0], this.cols);
+    this.addSpike(0, 25, .5);
+    this.addSpike(0, 26, .5);
+    this.addSpike(0, 49, 0);
+    this.addSpike(0, 50, 0);
+    this.addSpike(0, 73, .4);
+    this.addSpike(0, 74, .4);
+    this.addSpike(0, 85, .3);
+    this.addSpike(0, 86, .3);
+    this.addSpike(0, 97, .2);
+    this.addSpike(0, 98, .2);
+    this.addSpike(0, 109, 0);
+    this.addSpike(0, 110, 0);
+    this.addPlat(2, 89);
+    this.addPlat(3, 65);
+    this.addPlat(4, 41);
+    tilesToAir(0, 11, 5, 6, this.tiles[0], this.cols);
+    [123,124,113,7,140,141].map(n=>this.addPlat(1,n));
+    [32,56,80,84,104,108,95,119].map(n=>this.addFire(0,n));
+    tilesToAir(0, 11, 8, 9, this.tiles[0], this.cols);
+    this.addSpike(0, 120, 2.2, 1.5);
+    this.addSpike(0, 107, 1.7,1.5);
+    this.addSpike(0, 96, 1.3,1.5);
+    this.addSpike(0, 83, 1,1.5);
+    [47,36,23].map(n=>tileToAir(n,this.tiles[0],this.cols));
+    this.t2="#295F98";
     this.tileCol1= "#028482";
     this.tileCol2= "#7ABA7A";
   }

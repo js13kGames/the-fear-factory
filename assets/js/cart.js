@@ -39,6 +39,10 @@ function Cart() {
   this.update = function(delta, gameStarted=false) {
     // Mute - UnMute music
     if(audio) audio.muted=pause;
+    if(RELOAD){
+      RELOAD=false;
+      this.resetLvl(); 
+    }
     let lvl = this.getLvl();
     if(runOnce){
       var gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);

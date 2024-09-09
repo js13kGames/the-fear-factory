@@ -270,6 +270,6 @@ function tilesToAir(startRow, endRow, startCol, endCol, tiles, cols) {
 }
 
 function tileToAir(id, tiles) {
-  tiles[id].type = types.AIR;
-  tiles[id].setType();
+  tiles[id-1].type = types.AIR;
+  tiles[id-1].setType();
 }

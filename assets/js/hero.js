@@ -185,7 +185,7 @@ function Hero(w, h, x, y, angle, type) {
     // Hurt code
     if(this.curTile!=null){
       // FALL
-      if(this.curTile.type==types.AIR&&this.curTile.lvl==0&&!this.isJumping&&!this.die){
+      if((this.curTile.type==types.AIR&&this.curTile.lvl==0&&!this.isJumping&&!this.die)){
         this.resetTime=.6;
         this.fall=true;
         this.die=true;
