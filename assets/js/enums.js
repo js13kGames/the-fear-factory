@@ -12,7 +12,7 @@ const types = {
   GHOST:10,
   KEY:11,
   GOB:12,
-  WATER:13
+  FIRE:13
 }
 
 const guntype = {

@@ -104,8 +104,10 @@ function Key(x, y, level, tileID) {
   }
 }
 
-function Fire(x, y) {
+function Fire(x, y, l, id) {
   this.active=true;
+  this.level=l;
+  this.id=id;
   this.hit=true;
   this.time=0;
   this.y=y;
