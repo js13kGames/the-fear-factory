@@ -102,7 +102,7 @@ function Cart() {
           if(e.obj!=null){
             e.obj.update(delta);
             if (this.hero.lvl>=e.obj.level&&this.hero.e.y>e.obj.y && this.hero.curTile != null && this.hero.curTile.id>=e.obj.id){
-              this.hero.e.update(delta)
+              this.hero.e.update(delta);
             };
           }
         });
