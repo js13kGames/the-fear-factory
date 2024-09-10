@@ -66,7 +66,7 @@ function Level(no=0) {
     t.obj=new Fire(t.x+80, t.y-20, l, id);
   }
 
-  this.addGhost = function(l, x1,y1, x2, y2){
+  this.addGhost = function(l, id, x1,y1, x2, y2){
     t=this.tiles[l][id-1];
     t.obj=new Ghost(x1,y1, x2, y2);
   }
@@ -104,7 +104,7 @@ function Level(no=0) {
     this.help="The level is unstable, enter the portal quickly!"
     this.t2="#FFDC7F";
     this.addKey(0, 16);
-    this.addGhost(0,70,-30,256,62);
+    this.addGhost(0, 10, 70,-30,256,62);
 
   // LEVEL 02
   } else if(no==1) { // LEARN JUMP
