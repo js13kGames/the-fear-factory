@@ -78,10 +78,10 @@ function ranColor() {
   return c;
 }
 
-function getTile(xHero, yHero, level) {
+function getTile(x, y, level) {
   let tiles = cart.getLvl().tiles[level];
-  let c = Math.round((yHero / 64) + (xHero / 128));
-  let r = Math.round((yHero / 64) - (xHero / 128));
+  let c = Math.round((y / 64) + (x / 128));
+  let r = Math.round((y / 64) - (x / 128));
 
   // Draw the path of the hero (Testing!)
   // if(tiles[c + (cart.levels[cart.cLevel].cols * r)]!=null){

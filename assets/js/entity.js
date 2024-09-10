@@ -205,7 +205,7 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
         this.sy=33;
         break;
       case types.GHOST:
-        this.sx=53;
+        this.sx=52;
         break;
       case types.KEY:
         this.sy=23;

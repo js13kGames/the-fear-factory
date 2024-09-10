@@ -62,24 +62,57 @@ function Spike(x, y, tileID, offset, lvl, pause=0) {
   }
 }
 
-function Ghost(x, y) {
-  this.active=true;
-  this.time=0;
-  this.y=y;
-  this.x=x;
-  this.e = new Entity(15, 17, x, y, 0, types.GHOST);
+function Ghost(startX, startY, destX, destY) {
+  this.active = true;
+  this.time = 0;
+  this.e = new Entity(13, 15, startX, startY, 0, types.GHOST);
   this.shadow = new Entity(9, 4, 0, 0, 0, types.SHADOW);
-  this.shadow.alpha=.4;
+  this.shadow.alpha = .4;
 
+  // Movement variables
+  this.speed = 30; // Speed of the ghost in pixels per second
+  this.startX = startX;
+  this.startY = startY;
+  this.destX = destX;
+  this.destY = destY;
+  this.movingToDest = true; // Flag to determine direction of movement
+
+  // Calculate total distance between start and destination
+  this.totalDistance = Math.sqrt(Math.pow(destX - startX, 2) + Math.pow(destY - startY, 2));
+
+  // Track progress along the path (0 = at start, 1 = at destination)
+  this.progress = 0;
+
+  // Update function to move the ghost
   this.update = function(delta) {
-    this.time+=delta;
+    this.time += delta;
     let bounce =.3 * Math.sin(this.time * 2 * Math.PI * 0.4);
     this.e.z += bounce;
-    this.shadow.setV(this.e.x+(this.e.flip?34:22), this.e.y+110);
+    // Move towards dest
+    let direction = this.movingToDest ? 1 : -1;
+    this.progress += direction * (this.speed * delta / this.totalDistance);
+
+    // Clamp progress to the range [0, 1]
+    if (this.progress >= 1) {
+      this.progress = 1;
+      this.movingToDest = false; // Reverse direction
+    } else if (this.progress <= 0) {
+      this.progress = 0;
+      this.movingToDest = true; // Move towards destination
+    }
+
+    this.e.x = this.startX + (this.destX - this.startX) * this.progress;
+    this.e.y = this.startY + (this.destY - this.startY) * this.progress;
+
+    this.shadow.setV(this.e.x + 16, this.e.y + 110);
     this.e.update(delta);
     this.shadow.update(delta);
-  }
+  };
 }
+
+
+
+
 
 function Key(x, y, level, tileID) {
   this.id=tileID;
