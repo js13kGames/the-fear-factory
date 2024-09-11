@@ -135,7 +135,8 @@ function Hero(w, h, x, y, angle, type) {
 
       // Update the character's vertical position based on jumpHeight
       this.e.z = -this.jumpHeight;
-      let zzz = this.e.z-(this.jumpHeight-this.lvl*33)/2;;
+      let zzz = this.e.z-(this.jumpHeight-(this.lvl*33))/2;
+      zzz = zzz < -150?-150:zzz;
       this.lHand.z=zzz;
       this.rHand.z=zzz;
       this.e.move(delta);
