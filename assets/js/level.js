@@ -256,6 +256,7 @@ function Level(no=0) {
     this.addGhost(0, 81, 1);
     this.addGhost(0, 1, 4);
     this.addGhost(0, 4, 84);
+    this.addGhost(0, 82, 81);
 
   }
 
