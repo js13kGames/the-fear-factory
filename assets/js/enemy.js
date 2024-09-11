@@ -119,7 +119,8 @@ function Ghost(x, y, startX, startY, destX, destY, level) {
     this.e.update(delta);
     this.shadow.update(delta);
 
-    this.tile=getTile(this.e.x-64, this.e.y+32, this.level);
+    this.tile=getTile(this.e.x-64, this.e.y+64, this.level);
+    //if(this.tile!=null)this.tile.type=types.AIR;
     if(this.tile!=null&&cart.hero.curTile!=null&&this.tile.id==cart.hero.curTile.id&&!cart.hero.die){
       cart.hero.ghosted();
     }
