@@ -66,9 +66,18 @@ function Level(no=0) {
     t.obj=new Fire(t.x+80, t.y-20, l, id);
   }
 
-  this.addGhost = function(l, id, x1,y1, x2, y2){
-    t=this.tiles[l][id-1];
-    t.obj=new Ghost(x1,y1, x2, y2);
+  this.addGhost = function(l, id, id2){
+    let t=this.tiles[l][id-1];
+    let t2=this.tiles[l][id2-1];
+    // DOWN-UP = 1
+    // UP-DOWN = 2
+    // LEFT-RIGHT =
+    //if(dir==1){ // UPDOWN
+    t.obj=new Ghost(t.x+64, t.y-64, t2.x+64, t2.y-64, l);
+    //} else {
+    //t.obj=new Ghost(t.x+64, t.y-64, t2.x+64, t2.y-64, l);
+    //}
+
   }
 
   // Populate 4 levels of tiles in a block
@@ -104,7 +113,6 @@ function Level(no=0) {
     this.help="The level is unstable, enter the portal quickly!"
     this.t2="#FFDC7F";
     this.addKey(0, 16);
-    this.addGhost(0, 10, 70,-30,256,62);
 
   // LEVEL 02
   } else if(no==1) { // LEARN JUMP
@@ -245,6 +253,10 @@ function Level(no=0) {
     this.text="Level 11"
     this.help="Well done"
     this.addKey(0, 24);
+    this.addGhost(0, 81, 1);
+    this.addGhost(0, 1, 4);
+    this.addGhost(0, 4, 84);
+
   }
 
   // Add Fire, Spike and Ghost
