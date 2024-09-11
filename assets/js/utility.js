@@ -82,12 +82,6 @@ function getTile(x, y, level) {
   let tiles = cart.getLvl().tiles[level];
   let c = Math.round((y / 64) + (x / 128));
   let r = Math.round((y / 64) - (x / 128));
-
-  // Draw the path of the hero (Testing!)
-  // if(tiles[c + (cart.levels[cart.cLevel].cols * r)]!=null){
-  //   tiles[c + (cart.levels[cart.cLevel].cols * r)].sx=49;
-  // }
-
   return tiles[c + (cart.getLvl().cols * r)]; // TODO move to function
 }
 

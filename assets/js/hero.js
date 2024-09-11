@@ -205,7 +205,6 @@ function Hero(w, h, x, y, angle, type) {
             this.checkHit();
             break;
           case types.FIRE:
-            console.log("fire");
             this.checkHit();
             break;
         }
@@ -234,6 +233,12 @@ function Hero(w, h, x, y, angle, type) {
       this.resetTime=.6;
       this.die=true;
     }
+  }
+  this.ghosted = function(){
+    this.startJumping();
+    playSound(DIEFX,.8);
+    this.resetTime=.6;
+    this.die=true;
   }
   this.clearLevel = function(){
     cart.levels[cart.cLevel].tiles.forEach((t) => {

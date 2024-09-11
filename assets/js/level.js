@@ -66,18 +66,11 @@ function Level(no=0) {
     t.obj=new Fire(t.x+80, t.y-20, l, id);
   }
 
-  this.addGhost = function(l, id, id2){
+  this.addGhost = function(l, sid, id, id2){
+    let st=this.tiles[l][sid-1];
     let t=this.tiles[l][id-1];
     let t2=this.tiles[l][id2-1];
-    // DOWN-UP = 1
-    // UP-DOWN = 2
-    // LEFT-RIGHT =
-    //if(dir==1){ // UPDOWN
-    t.obj=new Ghost(t.x+64, t.y-64, t2.x+64, t2.y-64, l);
-    //} else {
-    //t.obj=new Ghost(t.x+64, t.y-64, t2.x+64, t2.y-64, l);
-    //}
-
+    t.obj=new Ghost(st.x+64,st.y-64,t.x+64, t.y-64, t2.x+64, t2.y-64, l);
   }
 
   // Populate 4 levels of tiles in a block
@@ -249,21 +242,21 @@ function Level(no=0) {
     this.tileCol2= "#7ABA7A";
 
   // Level 11
-  } else if(no==10) {
+} else if(no==10) { // GHOSTS
     this.text="Level 11"
     this.help="Well done"
-    this.addKey(0, 24);
-    this.addGhost(0, 81, 1);
-    this.addGhost(0, 1, 4);
-    this.addGhost(0, 4, 84);
-    this.addGhost(0, 82, 81);
+    this.t2="#295F98";
+    this.tileCol1= "#680097";
+    this.tileCol2= "#7ABA7A";
+    this.addKey(0, 59);
+    // GHOST Level, Begin Tile, Start Tile, End Tile
+    [[83,83,3],[64,84,4],[45,85,5],[26,86,6],[7,87,7],[10,90,10],[31,91,11],[52,92,12],[73,93,13],[94,94,14]].map(a=>this.addGhost(0,...a));
+    [8,28,48,68,88].map(n=>this.addPlat(1,n));
+    tilesToAir(0,4,15,15,this.tiles[0],this.cols);
+    [95,75,55,35,15].map(n=>this.addSpike(0,n,0));
+    [97,77,57,37,17].map(n=>this.addSpike(0,n,.6));
 
   }
-
-  // Add Fire, Spike and Ghost
-  //this.mobs.push(new Spike(-128, 192));
-  //this.mobs.push(new Fire(84, 110));
-  //this.mobs.push(new Ghost(84, 200));
 
   this.update = function(delta){
     //this.tiles.forEach(e => e.sx=16);

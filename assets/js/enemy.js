@@ -62,13 +62,14 @@ function Spike(x, y, tileID, offset, lvl, pause=0) {
   }
 }
 
-function Ghost(startX, startY, destX, destY, level) {
+function Ghost(x, y, startX, startY, destX, destY, level) {
   this.active = true;
   this.time = 0;
-  this.e = new Entity(13, 15, startX, startY, 0, types.GHOST);
+  this.e = new Entity(13, 15, x, y, 0, types.GHOST);
   this.shadow = new Entity(9, 4, 0, 0, 0, types.SHADOW);
   this.shadow.alpha = .4;
-  this.level=level;
+  this.level = level;
+  this.tile=null;
 
   // Movement variables
   this.speed = 30; // Speed of the ghost in pixels per second
@@ -77,19 +78,27 @@ function Ghost(startX, startY, destX, destY, level) {
   this.destX = destX;
   this.destY = destY;
   this.movingToDest = true; // Flag to determine direction of movement
+  this.bouncePhaseShift = Math.random() * 2 * Math.PI; // Random value between 0 and 2π
+
 
   // Calculate total distance between start and destination
   this.totalDistance = Math.sqrt(Math.pow(destX - startX, 2) + Math.pow(destY - startY, 2));
 
-  // Track progress along the path (0 = at start, 1 = at destination)
-  this.progress = 0;
+  // Calculate initial progress based on the starting position (x, y)
+  let startToCurrentX = x - startX;
+  let startToCurrentY = y - startY;
+  let startToCurrentDistance = Math.sqrt(Math.pow(startToCurrentX, 2) + Math.pow(startToCurrentY, 2));
+
+  // Set initial progress based on the current position
+  this.progress = startToCurrentDistance / this.totalDistance;
 
   // Update function to move the ghost
   this.update = function(delta) {
     this.time += delta;
-    let bounce =.3 * Math.sin(this.time * 2 * Math.PI * 0.4);
+    let bounce = .3 * Math.sin(this.time * 2 * Math.PI * 0.4 + this.bouncePhaseShift);
     //this.e.z += bounce;
-    // Move towards dest
+
+    // Move towards destination
     let direction = this.movingToDest ? 1 : -1;
     this.progress += direction * (this.speed * delta / this.totalDistance);
 
@@ -102,17 +111,20 @@ function Ghost(startX, startY, destX, destY, level) {
       this.movingToDest = true; // Move towards destination
     }
 
-    this.e.x = (this.startX-7) + (this.destX - this.startX) * this.progress;
-    this.e.y = (this.startY+7) + (this.destY - this.startY) * this.progress;
+    // Interpolate position based on progress
+    this.e.x = this.startX + (this.destX - this.startX) * this.progress;
+    this.e.y = this.startY + (this.destY - this.startY) * this.progress;
 
     this.shadow.setV(this.e.x + 16, this.e.y + 110);
     this.e.update(delta);
     this.shadow.update(delta);
+
+    this.tile=getTile(this.e.x-64, this.e.y+32, this.level);
+    if(this.tile!=null&&cart.hero.curTile!=null&&this.tile.id==cart.hero.curTile.id&&!cart.hero.die){
+      cart.hero.ghosted();
+    }
   };
 }
-
-
-
 
 
 function Key(x, y, level, tileID) {
