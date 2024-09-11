@@ -95,9 +95,6 @@ function Level(no=0) {
     tt=[];
   }
 
-  // this.tileCol1= "#273746";
-  // this.tileCol2= "#566573";
-
   // Tutorial LEVEL 01
   if(no==0){ // LEARN: KEY
     this.tileCol1= "#480048";
@@ -126,8 +123,8 @@ function Level(no=0) {
     this.addKey(2, 17);
     this.text="Do you have any parkour skils?"
     this.help="I thought you were afraid of heights!"
-    this.tileCol1= "#C3C3E5";
-    this.tileCol2= "#F1F0FF";
+    this.tileCol1= "#273746";
+    this.tileCol2= "#566573";
     this.t2="#295F98";
     this.blkColr="#7C93C3";
     this.addPlat(1,15);
@@ -151,18 +148,18 @@ function Level(no=0) {
     this.text="Spikes can move at different rates, dont be afaid, run for it!"
     this.help="Not bad..."
     this.addKey(0, 15);
-    this.tileCol1= "#028482";
-    this.tileCol2= "#7ABA7A";
+    this.tileCol1= "#944E63";
+    this.tileCol2= "#CAA6A6";
 
   // LEVEL 06
   } else if(no==5) { // LEVEL 1
     this.addKey(3, 5);
     this.text=" Things are heating up and I hear you have Pyrophobia?"
     this.help="Have I met my match..."
-    this.tileCol1= "#C3C3E5";
-    this.tileCol2= "#F1F0FF";
-    this.t2="#295F98";
-    this.blkColr="#7C93C3";
+    this.tileCol1= "#5EB7B7";
+    this.tileCol2= "#96D1C7";
+    this.t2="#FC7978";
+    this.blkColr="#FFAFB0";
     this.addFire(0,7);
     this.addFire(0,8);
     this.addPlat(1,17);
@@ -176,10 +173,10 @@ function Level(no=0) {
     this.addKey(3, 4);
     this.text=""
     this.help=""
-    this.tileCol1= "#C3C3E5";
-    this.tileCol2= "#F1F0FF";
-    this.t2="#295F98";
-    this.blkColr="#7C93C3";
+    this.tileCol1= "#1989AC";
+    this.tileCol2= "#283E56";
+    this.t2="#970747";
+    this.blkColr="#FEF4E8";
     this.addPlat(1, 17);
     this.addPlat(2, 19);
     this.addPlat(3, 4);
@@ -192,10 +189,10 @@ function Level(no=0) {
     this.addKey(0, 7);
     this.text="Do not fall into the void..."
     this.help=""
-    this.tileCol1= "#C3C3E5";
-    this.tileCol2= "#F1F0FF";
-    this.t2="#295F98";
-    this.blkColr="#7C93C3";
+    this.tileCol1= "#E8DED2";
+    this.tileCol2= "#A3D2CA";
+    this.t2="#056676";
+    this.blkColr="#5EAAA8";
     this.addPlat(1, 26);
     this.addPlat(2, 28);
     this.addPlat(3, 30);
@@ -207,10 +204,8 @@ function Level(no=0) {
     this.addKey(0, 20);
     this.text="Do not fall into the void..."
     this.help=""
-    this.tileCol1= "#C3C3E5";
-    this.tileCol2= "#F1F0FF";
-    this.t2="#295F98";
-    this.blkColr="#7C93C3";
+    this.tileCol1= "#FADFA1";
+    this.tileCol2= "#FFF4EA";
     tilesToAir(0, 2, 2, 2, this.tiles[0], this.cols);
     this.addSpike(0, 4, 1);
     this.addSpike(0, 14, 1);
@@ -237,15 +232,17 @@ function Level(no=0) {
     tilesToAir(0, 11, 8, 9, this.tiles[0], this.cols);
     [[120,2.2,1.5],[107,1.7,1.5],[96,1.3,1.5],[83,1,1.5]].map(a=>this.addSpike(0,a[0],a[1],a[2]));
     [47,36,23].map(n=>tileToAir(n,this.tiles[0],this.cols));
-    this.t2="#295F98";
-    this.tileCol1= "#028482";
+    this.t2="#C96868";
+    this.blkColr="#7EACB5";
+    this.tileCol1= "#FFF4EA";
     this.tileCol2= "#7ABA7A";
 
   // Level 11
   } else if(no==10) { // GHOSTS
     this.text="Afraid of ghosts? Either way stay off their tile!"
     this.help="You might just make your 13th birthday..."
-    this.t2="#295F98";
+    this.t2="#8967B3";
+    this.blkColr="#CB80AB";
     this.tileCol1= "#680097";
     this.tileCol2= "#7ABA7A";
     this.addKey(0, 59);
