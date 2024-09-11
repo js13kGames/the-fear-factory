@@ -2,6 +2,8 @@
 TODO List
 ------------------------------------------------------------------------------------
 
+uglifyjs assets/js/*.js --compress --mangle --mangle-props reserved=['startgame'] -o dst/min.js
+
 Loop stuff
 this.objs.forEach((e) => {
 });
