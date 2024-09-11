@@ -5,7 +5,6 @@ function Cart() {
   this.gob = new Entity(22, 15, 100, 100, 0, types.GOB);
   this.heroShadow = new Entity(11, 4, 0, 0, 0, types.SHADOW,1);
   this.shadow = new Entity(7, 3, 0, 0, 0, types.SHADOW,1);
-  this.decor = new Decor();
   this.intro = new Intro();
   let prevNumber = 0;
   let runOnce=true;
@@ -41,7 +40,7 @@ function Cart() {
     if(audio) audio.muted=pause;
     if(RELOAD){
       RELOAD=false;
-      this.resetLvl(); 
+      this.resetLvl();
     }
     let lvl = this.getLvl();
     if(runOnce){
@@ -86,7 +85,6 @@ function Cart() {
         drawPortal(129+this.cam.x, this.cam.y);
       }
       this.hero.update(delta);
-      this.hero.checkGun();
 
       let ht = this.hero.curTile;
       let lv=this.getLvl();
@@ -111,7 +109,6 @@ function Cart() {
           }
         });
       });
-      cart.hero.e.gun.drawBullets(delta);
 
       // Check if level completed
       if(this.hero.hasKey && this.hero.curTile.id==1){

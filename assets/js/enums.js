@@ -14,10 +14,3 @@ const types = {
   GOB:12,
   FIRE:13
 }
-
-const guntype = {
-  ONESHOT:0,
-  TWOSHOT:1,
-  THREESHOT:2,
-  MULTISHOT:3
-}

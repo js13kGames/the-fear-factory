@@ -8,7 +8,6 @@ function Hero(w, h, x, y, angle, type) {
   this.hp=100;
   this.maxHP=100;
   this.die=0;
-  this.e.gun = new Gun();
   this.curTile=null;
   this.ot=null;
   this.isJumping = false;
@@ -209,20 +208,6 @@ function Hero(w, h, x, y, angle, type) {
             break;
         }
       }
-    }
-  }
-
-  holdClickT = 0;
-  this.checkGun = function(){
-    if(leftMB) holdClickT += delta;
-    if(processClick || leftMB > .25){
-      this.e.idle=0;
-      ox=ctx.canvas.width/2;
-      oy=ctx.canvas.height/2;
-      dx = mousePos.x;
-      dy = mousePos.y;
-      this.e.gun.addBullets(ox,oy,dx,dy, this.e);
-      cart.shakeTime=.05;
     }
   }
 

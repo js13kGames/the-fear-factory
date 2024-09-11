@@ -242,9 +242,9 @@ function Level(no=0) {
     this.tileCol2= "#7ABA7A";
 
   // Level 11
-} else if(no==10) { // GHOSTS
-    this.text="Level 11"
-    this.help="Well done"
+  } else if(no==10) { // GHOSTS
+    this.text="Afraid of ghosts? Either way stay off their tile!"
+    this.help="You might just make your 13th birthday..."
     this.t2="#295F98";
     this.tileCol1= "#680097";
     this.tileCol2= "#7ABA7A";
