@@ -12,10 +12,6 @@ let prevDelta = Date.now();
 let currentDelta = Date.now();
 let TIME = 0;
 let mousePos = new vec2(0,0);
-let clickedAt = new vec2(0,0);
-let clickedRec = new rectanlge(0,0,0,0);
-let processClick = false;
-let GAMEOVER=false;
 let RELOAD=false;
 let WIN = false;
 let STAGE=0;
@@ -26,7 +22,6 @@ let start=false;
 let music=false;
 let pause=false;
 let leftMB=false;
-let rightMB=false;
 let startDelay=0.1;
 let zoom=4;
 let fps = 60; // default value
@@ -137,20 +132,14 @@ let mg = {
     })
     window.addEventListener('mouseup', function(e) {
       e.preventDefault();
-      setclicks();
-
       if (e.button === 0) {
         leftMB=false;
-      } else if (e.button === 2) {
-        rightMB=false;
       }
     })
     window.addEventListener('mousedown', function(e) {
       e.preventDefault();
       if (e.button === 0) {
         leftMB=true;
-      } else if (e.button === 2) {
-        rightMB=true;
       }
     })
     // Add an event listener for window resize.
@@ -289,7 +278,6 @@ function action(button) {
     if(!gameStarted){
       gameStarted=true;
     }
-    if(button=='A')processClick=true;
     if(button=='B')mobJump=true;
 }
 
@@ -347,19 +335,6 @@ function updateGameLoop(timestamp) {
 }
 
 function updateGameArea(delta) {
-  if(GAMEOVER){
-    TIME=0;
-    GAMEOVER=false;
-    WIN=false;
-    STAGE=0;
-    start=false;
-    gameStarted=false;
-    startDelay=3;
-  }
-
-  // if(m()==true){
-  //   audio.stop;
-  // }
   if(start) gameStarted=true;
   if(startDelay>0)startDelay-=delta;
   cart.update(delta, gameStarted);
@@ -375,14 +350,6 @@ function up() {return (mg.keys && (mg.keys[UP] || mg.keys[W])|| mobUp);}
 function down() {return (mg.keys && (mg.keys[DOWN] || mg.keys[S])|| mobDown);}
 function space() {return (mg.keys && mg.keys[SPACE])|| mobJump ;}
 function t() {return mg.keys && (mg.keys[T]);}
-
-function setclicks(){
-  clickedAt.set(mousePos.x, mousePos.y);
-  clickedRec.x=mousePos.x-1;
-  clickedRec.y=mousePos.y+1;
-  clickedRec.h=2;
-  clickedRec.w=2;
-}
 
 function resizeCanvas() {
   canvasW = window.innerWidth;

@@ -37,9 +37,8 @@ function drawBox(ctx,a,colour,x,y,w,h) {
    mg.context.fillStyle = "yellow";
    mg.context.font = "16px Arial";
    mg.context.fillText("FPS: " + fps.toFixed(2), nativeWidth-120, 20);
-   mg.context.fillText("HERO: x:" + cart.hero.e.x + " y:" + cart.hero.e.y, nativeWidth-120, 40);
-   mg.context.fillText("HERO: R:" + cart.hero.e.row + " C:" + cart.hero.e.col, nativeWidth-120, 60);
-  mg.context.fillText("Level: " + cart.cLevel, nativeWidth-120, 100);
+   mg.context.fillText("HERO: R:" + cart.hero.e.row + " C:" + cart.hero.e.col, nativeWidth-140, 40);
+   mg.context.fillText("Level: " + cart.cLevel, nativeWidth-120, 60);
    if(cart.hero.curTile) mg.context.fillText("TILE ID: " + cart.hero.curTile.id, nativeWidth-120, 80);
  }
 
