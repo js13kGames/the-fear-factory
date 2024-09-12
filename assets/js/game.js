@@ -278,6 +278,7 @@ function action(button) {
       gameStarted=true;
     }
     if(button=='B')mobJump=true;
+    if(button=='A')RELOAD=true;
 }
 
 function move(d) {
