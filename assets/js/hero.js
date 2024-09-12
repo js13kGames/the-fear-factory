@@ -142,10 +142,10 @@ function Hero(w, h, x, y, angle, type) {
       this.e.move(delta);
 
       // Facing left or right
-      if(mg.keys && (mg.keys[LEFT] || mg.keys[A])){
+      if(mg.keys && (mg.keys[LEFT] || mg.keys[A]) || mobLeft){
         this.e.flip=true;
         this.e.dir=1;
-      } else if (mg.keys && (mg.keys[RIGHT] || mg.keys[D])){
+      } else if (mg.keys && (mg.keys[RIGHT] || mg.keys[D]) || mobRight){
         this.e.flip=false;
         this.e.dir=0;
       }
