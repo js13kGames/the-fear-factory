@@ -2,7 +2,7 @@ function Cart() {
   this.cam=new Camera();
   this.time=0;
   this.hero = new Hero(16, 16, 0, 0, 0, types.HERO);
-  this.gob = new Entity(22, 15, 100, 100, 0, types.GOB);
+  this.gob = new Entity(20, 13, 110, 110, 0, types.GOB);
   this.heroShadow = new Entity(11, 4, 0, 0, 0, types.SHADOW,1);
   this.shadow = new Entity(7, 3, 0, 0, 0, types.SHADOW,1);
   this.intro = new Intro();

@@ -33,7 +33,7 @@ function Intro(){
     drawHeroBox(15);
     delay-=delta;
     cart.hero.e.x=70;
-    cart.hero.e.y=20;
+    cart.hero.e.y=check?20:40;
     ctx.save();
     ctx.scale(3,3);
     cart.hero.update(delta);
@@ -48,7 +48,7 @@ function Intro(){
       if(textPhase==1){
         let txt="Welcome to the Fear Factory! All demons must face their fears before they can turn 13! Are you ready?";
         if(!check){
-          textToScreen(txt +" :: Press Space!");
+          textToScreen(txt +" :: Press Space or Button");
         } else {
           textToScreen(txt + " :: Press A");
         }

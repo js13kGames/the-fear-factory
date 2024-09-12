@@ -59,11 +59,13 @@ function drawBox(ctx,a,colour,x,y,w,h) {
   ctx.strokeStyle = '#17202a';
   ctx.lineWidth = 4;
   ctx.stroke();
-
   ctx.beginPath();
-  var y=check?20:40;
-  ctx.roundRect(50, y, 150, 90, 40);
+  var y=check?50:70;
+
+  //roundRect(x, y, width, height, radii)
+  ctx.roundRect(50, y, 150, 70, 50);
   ctx.stroke();
+  ctx.globalAlpha=.3;
   ctx.fill();
   ctx.restore();
 }

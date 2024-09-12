@@ -92,13 +92,6 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
       }
     }
 
-    // TODO: check the full stack of tiles, if hero is against a wall dont move through block
-    // let newTile=getTile(newX-64, newY+32, this.lvl)
-    // if(cart.hero.curTile != null) console.log(newTile.lvl + " Hero: " + cart.hero.curTile.lvl)
-    // if(cart.hero.curTile != null && cart.hero.curTile.lvl<newTile.lvl){
-    //     textToScreen("Yes!");
-    // }
-
     let stuck = cart.hero.curTile == null ? false : cart.hero.curTile.type == types.STOP;
     if((!blocked && inbounds) || stuck){
       this.y=newY;
@@ -115,12 +108,6 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
   this.update = function(delta) {
     this.x = Math.floor(this.x);
     this.Y = Math.floor(this.Y);
-
-    // // WATER
-    // if(this.type==types.WATER){
-    //   drawTile(this.x, this.y, 128, 64, "blue",.2);
-    //   drawblock(this.x, this.y+64, 128, 64, "blue",.2);
-    // }
 
     ctx.save();
     ctx.translate(this.x, this.y+this.z);
@@ -194,7 +181,7 @@ function Entity(w, h, x, y, angle, type, id=0, p=null) {
         this.sx=6;
         this.sy=18;
         break;
-      case types.AIR: // Select blank
+      case types.AIR:
         this.sx=40;
         this.sy=18;
         break;
