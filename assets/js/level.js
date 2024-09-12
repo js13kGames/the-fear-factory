@@ -37,6 +37,15 @@ function Level(no=0) {
   } else if(no==10){
     this.rows = 5;
     this.cols = 20;
+  } else if(no==11){
+    this.rows = 10;
+    this.cols = 10;
+  } else if(no==12){
+    this.rows = 10;
+    this.cols = 10;
+  } else if(no==13){
+    this.rows = 8;
+    this.cols = 8;
   }
 
   this.addPlat = function(lvl, id){
@@ -160,68 +169,51 @@ function Level(no=0) {
     this.tileCol2= "#96D1C7";
     this.t2="#FC7978";
     this.blkColr="#FFAFB0";
-    this.addFire(0,7);
-    this.addFire(0,8);
-    this.addPlat(1,17);
-    this.addPlat(1, 18);
-    this.addPlat(2, 20);
-    this.addPlat(3, 10);
-    this.addPlat(3, 5);
+    [7,8].map(n=>this.addFire(0,n));
+    [[1,17],[1,18],[2,20],[3,10],[3,5]].map(a=>this.addPlat(...a));
+
 
 // LEVEL 07
   } else if(no==6) {
     this.addKey(3, 4);
-    this.text=""
-    this.help=""
+    this.text="";
+    this.help="";
     this.tileCol1= "#1989AC";
     this.tileCol2= "#283E56";
     this.t2="#970747";
     this.blkColr="#FEF4E8";
-    this.addPlat(1, 17);
-    this.addPlat(2, 19);
-    this.addPlat(3, 4);
-    this.addPlat(3, 9);
-    this.addSpike(1, 17, .5, .5);
-    this.addSpike(2, 19, 0, .5);
+    [[1,17],[2,19],[3,4],[3,9]].map(a=>this.addPlat(...a));
+    [[1,17,.5,.5],[2,19,0,.5]].map(a=>this.addSpike(...a));
 
   // LEVEL 08
   } else if(no==7) {
     this.addKey(0, 7);
-    this.text="Do not fall into the void..."
-    this.help=""
+    this.text="Do not fall into the void...";
+    this.help="";
     this.tileCol1= "#E8DED2";
     this.tileCol2= "#A3D2CA";
     this.t2="#056676";
     this.blkColr="#5EAAA8";
-    this.addPlat(1, 26);
-    this.addPlat(2, 28);
-    this.addPlat(3, 30);
-
+    [[1,26],[2,28],[3,30]].map(a=>this.addPlat(...a));
     tilesToAir(0, 4, 4, 5, this.tiles[0], this.cols);
 
   // LEVEL 09
   } else if(no==8) { // Narrow with jumps
     this.addKey(0, 20);
-    this.text="Do not fall into the void..."
-    this.help=""
+    this.text="Do not fall into the void...";
+    this.help="";
     this.tileCol1= "#FADFA1";
     this.tileCol2= "#FFF4EA";
-    tilesToAir(0, 2, 2, 2, this.tiles[0], this.cols);
-    this.addSpike(0, 4, 1);
-    this.addSpike(0, 14, 1);
-    this.addSpike(0, 24, 1);
-    tilesToAir(0, 2, 5, 5, this.tiles[0], this.cols);
-    tileToAir(18, this.tiles[0]);
-    this.addFire(0, 7, 1);
-    this.addSpike(0, 17, 1);
-    this.addFire(0, 27, 1);
-    this.addFire(0, 28, 1);
-    this.addFire(0, 8, 1);
+    tilesToAir(0,2,2,2,this.tiles[0],this.cols);
+    [4,14,24,17].map(n=>this.addSpike(0,n,1));
+    tilesToAir(0,2,5,5,this.tiles[0],this.cols);
+    tileToAir(18,this.tiles[0]);
+    [7,27,28,8].map(n=>this.addFire(0,n,1));
 
   // LEVEL 10
   } else if(no==9) {
-    this.text="Level 10"
-    this.help="Well done"
+    this.text="Level 10";
+    this.help="Well done";
     this.addKey(0, 24);
     tilesToAir(0, 11, 2, 3, this.tiles[0], this.cols);
     [[25,.5],[26,.5],[49,0],[50,0],[73,.4],[74,.4],[85,.3],[86,.3],[97,.2],[98,.2],[109,0],[110,0]].map(a=>this.addSpike(0,a[0],a[1]));
@@ -239,8 +231,8 @@ function Level(no=0) {
 
   // Level 11
   } else if(no==10) { // GHOSTS
-    this.text="Afraid of ghosts? Either way stay off their tile!"
-    this.help="You might just make your 13th birthday..."
+    this.text="Afraid of ghosts? Either way stay off their tile!";
+    this.help="You might just make your 13th birthday...";
     this.t2="#8967B3";
     this.blkColr="#CB80AB";
     this.tileCol1= "#680097";
@@ -253,6 +245,22 @@ function Level(no=0) {
     [95,75,55,35,15].map(n=>this.addSpike(0,n,0));
     [97,77,57,37,17].map(n=>this.addSpike(0,n,.6));
 
+  } else if(no==11) { // LEVLEL 12
+    this.text="12";
+    this.help="....";
+    this.t2="#8967B3";
+    this.blkColr="#CB80AB";
+    this.tileCol1= "#944E63";
+    this.tileCol2= "#CAA6A6";
+    this.addKey(0, 59);
+
+  } else if(no==13) { // END
+    this.text="13";
+    this.help="....";
+    this.t2="#8967B3";
+    this.blkColr="#CB80AB";
+    this.tileCol1= "#9FEED1";
+    this.tileCol2= "#F60C86";
   }
 
   this.update = function(delta){
