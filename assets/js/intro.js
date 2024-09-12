@@ -40,19 +40,21 @@ function Intro(){
     ctx.restore();
 
     if(loading <=0){
-      if(space()){
-        gameStarted=true;
-        cart.hero.e.x=70;
-        cart.hero.e.y=-20;
-      }
+      loading=0;
       if(textPhase==1){
-        let txt="Welcome to the Fear Factory! All demons must face their fears before they can turn 13! Are you ready?";
+        let txt="Welcome to the Fear Factory, all demons must face this challenge before their 13th birthday.";
         if(!check){
           textToScreen(txt +" :: Press Space or Button");
         } else {
           textToScreen(txt + " :: Press A");
         }
         textPhase++;
+      } else if(textPhase>1){
+        if(space() && dialogue.done){
+          gameStarted=true;
+          cart.hero.e.x=70;
+          cart.hero.e.y=-20;
+        }
       }
     } else {
       loading-=delta;

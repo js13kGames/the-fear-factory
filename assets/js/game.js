@@ -346,6 +346,7 @@ function updateGameLoop(timestamp) {
 
     // Handle action buttons (assuming button 0 is jump)
     mobJump = gp.buttons[0].pressed;
+    RELOAD = gp.buttons[1].pressed;
   }
 
   // Update the game state and render

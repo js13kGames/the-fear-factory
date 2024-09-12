@@ -79,7 +79,7 @@ function Level(no=0) {
   if(no==0){ // LEARN: KEY
     this.tileCol1= "#480048";
     this.tileCol2= "#601848";
-    this.text="Welcome to the Fear Factory! Click or press Space..."
+    this.text="Welcome to the Fear Factory! Space or (A) button to hide text and Jump! Button (B) Or Key (R) to reload level!"
     this.help="The level is unstable, enter the portal quickly!"
     this.t2="#FFDC7F";
     this.addKey(0, 16);
@@ -87,8 +87,8 @@ function Level(no=0) {
   // LEVEL 02
   } else if(no==1) { // LEARN JUMP
     this.addKey(0, 10);
-    this.text="Press space to jump over blocks."
-    this.help="Move along dont be scared.."
+    this.text="Press space / button (A) to jump over blocks."
+    this.help="Move along dont be scared ..."
     this.tileCol1= "#C3C3E5";
     this.tileCol2= "#F1F0FF";
     this.t2="#295F98";
@@ -125,7 +125,7 @@ function Level(no=0) {
     [0, .5, 0, .5, 0].forEach((z, i) => this.addSpike(0, 3 + 5 * i,z,1));
     [.5,0, .5, 0, .5].forEach((z, i) => this.addSpike(0, 4 + 5 * i,z,1));
 
-    this.text="Spikes can move at different rates, dont be afaid, run for it!"
+    this.text="Spikes can move at different rates, dont be afraid, run for it!"
     this.help="Not bad..."
     this.addKey(0, 15);
     this.tileCol1= "#944E63";

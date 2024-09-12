@@ -232,7 +232,7 @@ function drawDialogueBox(dt) {
     wrapText(ctx, d.currentText, d.startX + boxPadding*2.4, d.startY + boxPadding, maxWidth, lineHeight);
     ctx.restore();
     if(d.currentText==d.text)d.wait+=dt;
-    if(d.done && (leftMB||space())){
+    if(d.done && ((leftMB&&gameStarted)||space())){
       d.active=false;
       cart.dialogue.active=false;
     }
