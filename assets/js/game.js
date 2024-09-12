@@ -108,7 +108,6 @@ let mg = {
         if(audioCtx == null) audioCtx = new AudioContext();
       }
       if(startDelay<=0&&charSet==3)start=true;
-      //e.preventDefault();
     })
 
     // Keyboard
@@ -322,6 +321,31 @@ function updateGameLoop(timestamp) {
     fps = frameCount / elapsedTime;
     frameCount = 0;
     elapsedTime = 0;
+  }
+
+  let gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
+
+  if (gamepads[0]) {
+    let gp = gamepads[0];
+
+    // Initialize audio on the first button press
+    if (!music) {
+      if (gp.buttons[0].pressed || gp.buttons[1].pressed || gp.buttons[2].pressed || gp.buttons[3].pressed) {
+        music = true;
+        audio.loop = true;
+        audio.play();
+        if (audioCtx == null) audioCtx = new AudioContext();
+      }
+    }
+
+    // Handle movement (assuming the left stick is used for movement)
+    mobLeft = gp.axes[0] < -0.5;
+    mobRight = gp.axes[0] > 0.5;
+    mobUp = gp.axes[1] < -0.5;
+    mobDown = gp.axes[1] > 0.5;
+
+    // Handle action buttons (assuming button 0 is jump)
+    mobJump = gp.buttons[0].pressed;
   }
 
   // Update the game state and render
