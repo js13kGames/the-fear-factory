@@ -16,37 +16,8 @@ function Level(no=0) {
   this.rows = 5;
   this.cols = 5;
 
-  if(no==0){
-    this.rows = 4;
-    this.cols = 4;
-  } else if(no==1){
-    this.rows = 4;
-    this.cols = 5;
-  } else if(no==2){
-    this.rows = 5;
-    this.cols = 6;
-  } else if(no==7){
-    this.rows = 5;
-    this.cols = 8;
-  } else if(no==8){
-    this.rows = 3;
-    this.cols = 10;
-  } else if(no==9){
-    this.rows = 12;
-    this.cols = 12;
-  } else if(no==10){
-    this.rows = 5;
-    this.cols = 20;
-  } else if(no==11){
-    this.rows = 10;
-    this.cols = 10;
-  } else if(no==12){
-    this.rows = 10;
-    this.cols = 10;
-  } else if(no==13){
-    this.rows = 8;
-    this.cols = 8;
-  }
+  let dims = {0:[4,4],1:[4,5],2:[5,6],7:[5,8],8:[3,10],9:[12,12],10:[5,20],11:[10,10],12:[10,10],13:[8,8]};
+  if(dims[no]) [this.rows,this.cols] = dims[no];
 
   this.addPlat = function(lvl, id){
     for(l = lvl; l >= 0; l--){
@@ -173,7 +144,7 @@ function Level(no=0) {
     [[1,17],[1,18],[2,20],[3,10],[3,5]].map(a=>this.addPlat(...a));
 
 
-// LEVEL 07
+  // LEVEL 07
   } else if(no==6) {
     this.addKey(3, 4);
     this.text="";
