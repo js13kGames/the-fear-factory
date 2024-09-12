@@ -16,7 +16,7 @@ function Level(no=0) {
   this.rows = 5;
   this.cols = 5;
 
-  let dims = {0:[4,4],1:[4,5],2:[5,6],7:[5,8],8:[3,10],9:[12,12],10:[5,20],11:[10,10],12:[10,10],13:[8,8]};
+  let dims = {0:[4,4],1:[4,5],2:[5,6],7:[5,8],8:[3,10],9:[12,12],10:[5,20],11:[10,10],12:[8,8],13:[6,6]};
   if(dims[no]) [this.rows,this.cols] = dims[no];
 
   this.addPlat = function(lvl, id){
@@ -195,6 +195,7 @@ function Level(no=0) {
     tilesToAir(0, 11, 8, 9, this.tiles[0], this.cols);
     [[120,2.2,1.5],[107,1.7,1.5],[96,1.3,1.5],[83,1,1.5]].map(a=>this.addSpike(0,a[0],a[1],a[2]));
     [47,36,23].map(n=>tileToAir(n,this.tiles[0],this.cols));
+    [53,77].map(n=>tileToAir(n,this.tiles[0],this.cols));
     this.t2="#C96868";
     this.blkColr="#7EACB5";
     this.tileCol1= "#FFF4EA";
@@ -231,39 +232,38 @@ function Level(no=0) {
     tilesToAir(5,9,2,5,this.tiles[0],this.cols);
     [46,43].map(n=>this.addFire(0,n));
     [[0,37,37,40],[0,58,58,60]].map(a=>this.addGhost(...a));
-
-    // this.addSpike(0,12,0);
-    // this.addSpike(0,2,0);
-    // this.addSpike(0,14,.2);
-    // this.addSpike(0,4,.2);
-    // this.addPlat(1,7);
-    // this.addPlat(1,9);
-    // this.addPlat(1,79);
-    // this.addPlat(2,99);
-    // this.addPlat(1,96);
-    // this.addPlat(1,86);
-    // this.addPlat(2,94);
-    // this.addPlat(2,84);
-    // this.addPlat(2,82);
-    // this.addPlat(2,92);
-    // this.addSpike(0,87,.2);
-    // this.addSpike(0,97,.2);
-    // tilesToAir(5,9,2,5,this.tiles[0],this.cols);
-    // this.addSpike(2,92,.5);
-    // this.addSpike(0,42,.3);
-    // this.addSpike(0,44,.7,.4);
-    // this.addSpike(2,82,.5);
-    // this.addFire(0,46);
-    // this.addFire(0,43);
-    // this.addGhost(0, 37, 37, 40);
-    // this.addGhost(0, 58, 58, 60);
   } else if(no==13) { // END
-    this.text="13";
+    this.text="Thank you for playing! Huge Thank you to Andrzej Mazur, Michal Chojnacki and everyone at JS13k Slack <3";
     this.help="....";
     this.t2="#8967B3";
     this.blkColr="#CB80AB";
     this.tileCol1= "#9FEED1";
     this.tileCol2= "#F60C86";
+    [[8,.6],[14,.4],[9,.4],[20,.2],[15,.2],[10,.2],[26,0],[21,0],[11,0],[16,0],[27,.2],[22,.2],[27,.2],[17,.2],[28,.4],[23,.4],[29,.6]].map(a=>this.addSpike(0,...a));
+    [1,6,36,31].map(n=>this.addPlat(1,n));
+
+    // this.addSpike(0,8,.6);
+    // this.addSpike(0,14,.4);
+    // this.addSpike(0,9,.4);
+    // this.addSpike(0,20,.2);
+    // this.addSpike(0,15,.2);
+    // this.addSpike(0,10,.2);
+    // this.addSpike(0,26,0);
+    // this.addSpike(0,21,0);
+    // this.addSpike(0,11,0);
+    // this.addSpike(0,16,0);
+    // this.addSpike(0,27,.2);
+    // this.addSpike(0,22,.2);
+    // this.addSpike(0,27,.2);
+    // this.addSpike(0,17,.2);
+    // this.addSpike(0,28,.4);
+    // this.addSpike(0,23,.4);
+    // this.addSpike(0,29,.6);
+    // this.addPlat(1,1);
+    // this.addPlat(1,6);
+    // this.addPlat(1,36);
+    // this.addPlat(1,31);
+
   }
 
   this.update = function(delta){
