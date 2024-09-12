@@ -16,7 +16,7 @@ function Level(no=0) {
   this.rows = 5;
   this.cols = 5;
 
-  let dims = {0:[4,4],1:[4,5],2:[5,6],7:[5,8],8:[3,10],9:[12,12],10:[5,20],11:[10,10],12:[8,8],13:[6,6]};
+  let dims = {0:[4,4],1:[4,5],2:[5,6],7:[5,8],8:[3,10],9:[12,12],10:[5,20],11:[10,10],12:[6,6],13:[6,6]};
   if(dims[no]) [this.rows,this.cols] = dims[no];
 
   this.addPlat = function(lvl, id){
@@ -232,6 +232,13 @@ function Level(no=0) {
     tilesToAir(5,9,2,5,this.tiles[0],this.cols);
     [46,43].map(n=>this.addFire(0,n));
     [[0,37,37,40],[0,58,58,60]].map(a=>this.addGhost(...a));
+  } else if(no==12) { // END
+    this.text="You have over come your fears and made it to the final room!";
+    this.help="I knew you could do it!";
+    this.t2="#B4D6CD";
+    this.blkColr="#FFDA76";
+    this.tileCol1= "#FF8C9E";
+    this.tileCol2= "#FF4E88";
   } else if(no==13) { // END
     this.text="Thank you for playing! Huge Thank you to Andrzej Mazur, Michal Chojnacki and everyone at JS13k Slack <3";
     this.help="....";
@@ -241,29 +248,6 @@ function Level(no=0) {
     this.tileCol2= "#F60C86";
     [[8,.6],[14,.4],[9,.4],[20,.2],[15,.2],[10,.2],[26,0],[21,0],[11,0],[16,0],[27,.2],[22,.2],[27,.2],[17,.2],[28,.4],[23,.4],[29,.6]].map(a=>this.addSpike(0,...a));
     [1,6,36,31].map(n=>this.addPlat(1,n));
-
-    // this.addSpike(0,8,.6);
-    // this.addSpike(0,14,.4);
-    // this.addSpike(0,9,.4);
-    // this.addSpike(0,20,.2);
-    // this.addSpike(0,15,.2);
-    // this.addSpike(0,10,.2);
-    // this.addSpike(0,26,0);
-    // this.addSpike(0,21,0);
-    // this.addSpike(0,11,0);
-    // this.addSpike(0,16,0);
-    // this.addSpike(0,27,.2);
-    // this.addSpike(0,22,.2);
-    // this.addSpike(0,27,.2);
-    // this.addSpike(0,17,.2);
-    // this.addSpike(0,28,.4);
-    // this.addSpike(0,23,.4);
-    // this.addSpike(0,29,.6);
-    // this.addPlat(1,1);
-    // this.addPlat(1,6);
-    // this.addPlat(1,36);
-    // this.addPlat(1,31);
-
   }
 
   this.update = function(delta){
