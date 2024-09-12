@@ -235,10 +235,41 @@ function Level(no=0) {
   } else if(no==12) { // END
     this.text="You have over come your fears and made it to the final room!";
     this.help="I knew you could do it!";
-    this.t2="#B4D6CD";
-    this.blkColr="#FFDA76";
+    this.t2="#8E7AB5";
+    this.blkColr="#FFEBD4";
     this.tileCol1= "#FF8C9E";
     this.tileCol2= "#FF4E88";
+    this.addSpike(0,13,0);
+    this.addSpike(0,14,0);
+    this.addSpike(0,8,0);
+    this.addSpike(0,2,0);
+    this.addSpike(0,1,0);
+    this.addSpike(0,15,.3);
+    this.addSpike(0,9,.3);
+    this.addSpike(0,3,.3);
+    this.addSpike(0,16,.6);
+    this.addSpike(0,10,.6);
+    this.addSpike(0,4,.6);
+    this.addFire(0,5);
+    this.addFire(0,11);
+    this.addFire(0,17);
+    this.addSpike(0,12,.4);
+    this.addSpike(0,18,.6);
+    this.addSpike(0,24,.8);
+    tilesToAir(3, 3, 0, 4, this.tiles[0], this.cols);
+    this.addPlat(1,35);
+    this.addPlat(2,33);
+    this.addFire(0,34);
+    tileToAir(32,this.tiles[0]);
+    tileToAir(26,this.tiles[0]);
+    tileToAir(29 ,this.tiles[0]);
+    tileToAir(27 ,this.tiles[0]);
+    tileToAir(25 ,this.tiles[0]);
+    tileToAir(28 ,this.tiles[0]);
+    this.addPlat(4,19);
+    this.addPlat(3,31);
+    this.addKey(4, 19);
+
   } else if(no==13) { // END
     this.text="Thank you for playing! Huge Thank you to Andrzej Mazur, Michal Chojnacki and everyone at JS13k Slack <3";
     this.help="....";
