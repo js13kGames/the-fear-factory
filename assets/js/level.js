@@ -1,5 +1,7 @@
 function Level(no=0) {
   // setup tiles
+  let a = navigator.userAgent;
+  this.check = a.match(/Android/i)!=null||a.match(/iPhone/i)!=null||a.match(/iPad/i)!=null;
   this.rows = 10;
   this.cols = 10
   this.tiles=[];
@@ -79,7 +81,11 @@ function Level(no=0) {
   if(no==0){ // LEARN: KEY
     this.tileCol1= "#480048";
     this.tileCol2= "#601848";
-    this.text="Welcome to the Fear Factory! Space or (A) button to hide text and Jump! Button (B) Or Key (R) to reload level!"
+    if(this.check){
+      this.text="Welcome to the Fear Factory! (A) to reload level! (B) to Jump!"
+    } else {
+      this.text="Welcome to the Fear Factory! Space or (A) button to hide text and Jump! Button (B) Or Key (R) to reload level!"
+    }
     this.help="The level is unstable, enter the portal quickly!"
     this.t2="#FFDC7F";
     this.addKey(0, 16);
@@ -101,7 +107,7 @@ function Level(no=0) {
   // LEVEL 03
   } else if(no==2) { // LEARN PARKOUR
     this.addKey(2, 17);
-    this.text="Do you have any parkour skils?"
+    this.text="Do you have any parkour skills?"
     this.help="I thought you were afraid of heights!"
     this.tileCol1= "#273746";
     this.tileCol2= "#566573";
@@ -126,7 +132,7 @@ function Level(no=0) {
     [.5,0, .5, 0, .5].forEach((z, i) => this.addSpike(0, 4 + 5 * i,z,1));
 
     this.text="Spikes can move at different rates, dont be afraid, run for it!"
-    this.help="Not bad..."
+    this.help="Not bad young demon!"
     this.addKey(0, 15);
     this.tileCol1= "#944E63";
     this.tileCol2= "#CAA6A6";
@@ -160,7 +166,7 @@ function Level(no=0) {
   } else if(no==7) {
     this.addKey(0, 7);
     this.text="Do not fall into the void...";
-    this.help="";
+    this.help="You a-voided death!";
     this.tileCol1= "#E8DED2";
     this.tileCol2= "#A3D2CA";
     this.t2="#056676";
@@ -171,8 +177,8 @@ function Level(no=0) {
   // LEVEL 09
   } else if(no==8) { // Narrow with jumps
     this.addKey(0, 20);
-    this.text="Do not fall into the void...";
-    this.help="";
+    this.text="Timing is everything!";
+    this.help="You are starting to impress me.";
     this.tileCol1= "#FADFA1";
     this.tileCol2= "#FFF4EA";
     tilesToAir(0,2,2,2,this.tiles[0],this.cols);
@@ -183,8 +189,8 @@ function Level(no=0) {
 
   // LEVEL 10
   } else if(no==9) {
-    this.text="Level 10";
-    this.help="Well done";
+    this.text="Ok little demon, here is a bigger test!";
+    this.help="Get into the portal before I make you do this one again!";
     this.addKey(0, 24);
     tilesToAir(0, 11, 2, 3, this.tiles[0], this.cols);
     [[25,.5],[26,.5],[49,0],[50,0],[73,.4],[74,.4],[85,.3],[86,.3],[97,.2],[98,.2],[109,0],[110,0]].map(a=>this.addSpike(0,a[0],a[1]));
@@ -203,7 +209,7 @@ function Level(no=0) {
 
   // Level 11
   } else if(no==10) { // GHOSTS
-    this.text="Afraid of ghosts? Either way stay off their tile!";
+    this.text="Afraid of ghosts? Either way, stay off their current tile!";
     this.help="You might just make your 13th birthday...";
     this.t2="#8967B3";
     this.blkColr="#CB80AB";
@@ -218,8 +224,8 @@ function Level(no=0) {
     [97,77,57,37,17].map(n=>this.addSpike(0,n,.6));
 
   } else if(no==11) { // LEVLEL 12
-    this.text="12";
-    this.help="....";
+    this.text="Ok another challenge little demon!";
+    this.help="Well done!!!";
     this.t2="#8967B3";
     this.blkColr="#CB80AB";
     this.tileCol1= "#944E63";

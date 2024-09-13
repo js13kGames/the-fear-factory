@@ -44,9 +44,9 @@ function Intro(){
       if(textPhase==1){
         let txt="Welcome to the Fear Factory, all demons must face this challenge before their 13th birthday.";
         if(!check){
-          textToScreen(txt +" :: Press Space or Button");
+          textToScreen(txt +" - Press Space or Controller Button");
         } else {
-          textToScreen(txt + " :: Press A");
+          textToScreen(txt + " - Press A");
         }
         textPhase++;
       } else if(textPhase>1){
