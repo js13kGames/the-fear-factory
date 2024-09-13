@@ -221,7 +221,7 @@ function Level(no=0) {
     [8,28,48,68,88].map(n=>this.addPlat(1,n));
     tilesToAir(0,4,15,15,this.tiles[0],this.cols);
     [95,75,55,35,15].map(n=>this.addSpike(0,n,0));
-    [97,77,57,37,17].map(n=>this.addSpike(0,n,.6));
+    [97,77,57,37,17].map(n=>this.addSpike(0,n,.6,.3));
 
   } else if(no==11) { // LEVLEL 12
     this.text="Ok another challenge little demon!";
