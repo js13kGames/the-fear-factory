@@ -9,5 +9,7 @@ A top down isometric parkour game, originally had shooting also but due to space
 ### Credits
 
 AdamtheWilliams - Music
+
 Hero and Goblin Sprites - https://danieldiggle.itch.io/sunnyside (paid)
+
 ChatGPT - Used to refactor code and help with math
