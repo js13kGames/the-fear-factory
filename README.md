@@ -1,11 +1,13 @@
-# JavaScript Game Template
+# JS13k Games Jam 2024
 
-## A simple framework for making a JavaScript game
+## The Fear Factory
 
-### game.js
+### About
 
-Sets up the fundamentals required for a browser game, screen size, context, key inputs, simple game state and creates a new Cart(). Tracks the mouse position and where the last click occurred, after each game loop processed click is reset, to be checked within each single loop or discarded.
+A top down isometric parkour game, originally had shooting also but due to space issue had to be removed. Carefully jump through 13 levels of parkour to complete the challenge. 
 
-### cart.js
+### Credits
 
-Acts as the main game; handles the game loop, the game has two key states: intro and started. The cart should declare the sound, levels, hero and other entity managers and have them tick (using delta to track time since last tick).
+AdamtheWilliams - Music
+Hero and Goblin Sprites - https://danieldiggle.itch.io/sunnyside (paid)
+ChatGPT - Used to refactor code and help with math
